@@ -37,6 +37,20 @@ HC.MOLS.forEach(function (m) {
   HC.MOL_BY[m.id] = m;
 });
 
+/* Temele cu pagină proprie, pe grupuri (ordinea = ordinea din meniu) */
+HC.TOPIC_GROUPS = [
+  { key: "fundatie", label: "Fundația", list: HC.FOUNDATION },
+  { key: "clinica", label: "Clinica", list: HC.ROOMS, numbered: true },
+  { key: "transversal", label: "Transversal", list: HC.CORRIDORS },
+  { key: "unelte", label: "Unelte", list: HC.TOOLS }
+];
+HC.GROUP_BY = {};
+HC.TOPIC_BY = {};
+HC.TOPIC_GROUPS.forEach(function (g) {
+  HC.GROUP_BY[g.key] = g;
+  g.list.forEach(function (t, i) { t.grp = g.key; t.num = g.numbered ? i + 1 : 0; HC.TOPIC_BY[g.key + "/" + t.id] = t; });
+});
+
 HC.kc = function (m) { return "var(" + HC.KINDS[m.k].color + ")"; };
 
 /* ---------- adrese ---------- */
@@ -49,9 +63,35 @@ HC.href = {
   chap: function (id) { var c = HC.CH_BY[id]; return "#/" + HC.ROUTE[c.grp] + "/" + id; },
   tag: function (t) { return "#/boli/" + t; },
   med: function (id) { return "#/medicamente/" + id; },
+  topic: function (t) { return "#/" + t.grp + "/" + t.id; },
   search: function (q) { return "#/cauta/" + encodeURIComponent(q); }
 };
 HC.molDomId = function (m) { return "gena-" + m.id; };
+
+/* ---------- iconițe (24×24, contur) ---------- */
+var ICONS = {
+  home: '<path d="M4 10.5 12 4l8 6.5V19a1 1 0 0 1-1 1h-4.5v-5.5h-5V20H5a1 1 0 0 1-1-1z"/>',
+  miocit: '<rect x="2.5" y="6.5" width="19" height="11" rx="3.5"/><ellipse cx="8.5" cy="12" rx="2.6" ry="1.8"/><path d="M14 9.5v5M17 9.5v5"/>',
+  vas: '<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><path d="M12 3.5v4M12 16.5v4"/>',
+  fz: '<path d="M2.5 13h4l2-6 3.5 11 2.5-8 1.5 3h5.5"/>',
+  fp: '<path d="M13.5 3 5.5 13.5h6L10.5 21l8-10.5h-6z"/>',
+  boli: '<path d="M7 3c0 5 10 6 10 9s-10 4-10 9M17 3c0 5-10 6-10 9s10 4 10 9"/><path d="M8.5 6.5h7M8.5 17.5h7"/>',
+  toate: '<rect x="3.5" y="4" width="17" height="16" rx="2"/><path d="M3.5 9h17M3.5 14.5h17M9.5 4v16"/>',
+  med: '<rect x="2.6" y="8.6" width="18.8" height="6.8" rx="3.4" transform="rotate(-45 12 12)"/><path d="m8.6 8.6 6.8 6.8"/>',
+  anatomie: '<path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7a4.3 4.3 0 0 1 7.5 2.8C19.5 15.4 12 20 12 20z"/>',
+  search: '<circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/>',
+  menu: '<path d="M4 7h16M4 12h16M4 17h16"/>',
+  close: '<path d="M6 6l12 12M18 6 6 18"/>',
+  arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
+  clock: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
+  dot: '<circle cx="12" cy="12" r="3"/>',
+  sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/>',
+  moon: '<path d="M19.5 14.5A8 8 0 0 1 9.5 4.5a8 8 0 1 0 10 10z"/>',
+  auto: '<circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor" stroke="none"/>'
+};
+HC.icon = function (name, cls) {
+  return '<svg class="ico' + (cls ? " " + cls : "") + '" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">' + (ICONS[name] || ICONS.dot) + '</svg>';
+};
 
 /* ---------- text: simboluri de gene → legături ---------- */
 var TOKMAP = null, TOKRE = null;

@@ -90,9 +90,20 @@ const linkCheck = (where, l) => {
   else if (type === "med") { if (!HC.DRUG_BY[id]) err(where, `clasă de medicamente necunoscută „${id}”`); }
   else err(where, `tip de legătură necunoscut „${type}”`);
 };
+const topicIds = new Set();
 for (const [name, list] of Object.entries({ FOUNDATION: HC.FOUNDATION, ROOMS: HC.ROOMS, CORRIDORS: HC.CORRIDORS, TOOLS: HC.TOOLS })) {
-  list.forEach((r) => (r.links || []).forEach((l) => linkCheck(`${name} „${r.name}”`, l)));
+  list.forEach((r) => {
+    const w = `${name} „${r.name}”`;
+    if (!r.id) err(w, "lipsește id-ul (partea din adresă)");
+    else if (!/^[a-z0-9-]+$/.test(r.id)) err(w, `id-ul „${r.id}” poate conține doar litere mici fără diacritice, cifre și -`);
+    else if (topicIds.has(name + r.id)) err(w, `id duplicat „${r.id}”`);
+    topicIds.add(name + r.id);
+    for (const f of ["name", "ess"]) if (!r[f]) err(w, `lipsește „${f}”`);
+    if (!Array.isArray(r.topics)) err(w, "topics trebuie să fie o listă");
+    (r.links || []).forEach((l) => linkCheck(w, l));
+  });
 }
+(HC.SECTIONS || []).forEach((s) => { if (!(s.tab in HC.ROUTE)) err(`SECTIONS „${s.name}”`, `tab necunoscut „${s.tab}”`); });
 
 // ---------- medicamente ----------
 const drugIds = new Set();

@@ -17,6 +17,8 @@ html = html.replace(/<script src="(assets\/[^"]+)"><\/script>/g, (_, p) =>
   `<script>/* ${p} */\n${read(p).replace(/<\/script/gi, "<\\/script")}</script>`);
 html = html.replace(/<link rel="icon" href="(assets\/[^"]+\.svg)"[^>]*>/, (_, p) =>
   `<link rel="icon" href="data:image/svg+xml,${encodeURIComponent(read(p).trim())}">`);
+html = html.replace(/<img src="(assets\/[^"]+\.svg)"/g, (_, p) =>
+  `<img src="data:image/svg+xml,${encodeURIComponent(read(p).trim())}"`);
 
 fs.mkdirSync(path.dirname(OUT), { recursive: true });
 fs.writeFileSync(OUT, html);
