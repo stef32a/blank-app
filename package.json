@@ -1,0 +1,10 @@
+{
+  "name": "harta-cardiologiei",
+  "private": true,
+  "description": "Harta cardiologiei: site static, conținutul în site/assets/js/data/",
+  "scripts": {
+    "verifica": "node tools/verifica.mjs",
+    "construieste": "node tools/verifica.mjs && node tools/construieste.mjs",
+    "porneste": "python3 -m http.server -d site 8000"
+  }
+}
