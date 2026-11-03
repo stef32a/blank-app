@@ -12,8 +12,9 @@ harta/
     ├── css/
     │   ├── tokens.css          culori, fonturi, tema întunecată  ← aici schimbi aspectul
     │   ├── base.css            layout, fișe de moleculă, tabele
-    │   ├── capitole.css · cuprins.css · medicamente.css
-    │   └── site.css            legături, buton de temă, tipărire
+    │   ├── layout.css          meniul lateral, bara de sus, antetul paginilor, tipărire
+    │   ├── home.css            pagina principală și paginile camerelor
+    │   └── capitole.css · cuprins.css · medicamente.css
     └── js/
         ├── data/               ← CONȚINUTUL. Aici lucrezi de cele mai multe ori.
         │   ├── taxonomie.js            tipuri, compartimente, etichete de boală
@@ -22,7 +23,7 @@ harta/
         │   ├── capitole-fiziologie.js
         │   ├── capitole-fiziopatologie.js
         │   ├── potential-actiune.js    fazele și curenții din schema PA
-        │   ├── cuprins.js              fundația, camerele, coridoarele, uneltele, documente externe
+        │   ├── cuprins.js              secțiunile, camerele clinice, coridoarele, uneltele, documente externe
         │   └── medicamente.js
         ├── core.js             indexuri, adrese, gene → legături
         ├── diagrame/           schemele SVG (miocit, vas, PA, mecanisme)
@@ -36,7 +37,8 @@ Regula: **conținutul stă în `data/`, codul în rest**. Ca să adaugi cardiolo
 
 | Adresă | Ce deschide |
 |---|---|
-| `#/` | Cuprinsul |
+| `#/` | Pagina principală |
+| `#/clinica/ritm` · `#/unelte/eco` | pagina unei camere clinice / unelte |
 | `#/gena/scn5a` | fișa genei SCN5A, în compartimentul ei |
 | `#/miocit/rs` · `#/vas/endoteliu` | un compartiment |
 | `#/fiziologie/pa` · `#/fiziopatologie/aritmii` | un capitol |
@@ -45,7 +47,7 @@ Regula: **conținutul stă în `data/`, codul în rest**. Ca să adaugi cardiolo
 | `#/molecule` | tabelul tuturor moleculelor |
 | `#/cauta/fabry` | o căutare |
 
-Butonul „Înapoi” al browserului funcționează, linkurile se pot copia, salva ca semne de carte sau deschide în tab nou.
+Tastele `/` sau Ctrl/⌘+K deschid căutarea. Butonul „Înapoi” al browserului funcționează, linkurile se pot copia, salva ca semne de carte sau deschide în tab nou.
 Adresele vechi (`#miocit`, `#fz`, `#med`…) încă merg.
 
 ## Cum adaugi conținut
@@ -64,6 +66,8 @@ Adresele vechi (`#miocit`, `#fz`, `#med`…) încă merg.
 Adresa ei apare automat (`#/gena/kcnj11`), iar simbolul devine clicabil oriunde apare în text.
 
 **Un capitol** — copiază un capitol din `capitole-*.js`, schimbă `id`, `sec` (trebuie să existe în `SEC_ORDER` din `taxonomie.js`) și textul.
+**O cameră clinică, un coridor sau o unealtă** — în `cuprins.js`, cu un `id` unic (litere mici, fără diacritice:
+devine adresa `#/clinica/<id>`). Apare singură în meniul lateral și pe pagina principală.
 **O boală / etichetă** — adaugă în `TAGS` (`taxonomie.js`), apoi pune cheia în `tg` la genele respective.
 **Un medicament** — în `medicamente.js`, la clasa lui; țintele sunt simboluri de gene separate prin virgulă.
 **Un document extern** — în `DOC` din `cuprins.js`, apoi `["doc", "cheie"]` în `links` la camera potrivită.

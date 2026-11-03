@@ -1,9 +1,20 @@
 /* chapters */
+/* Pe ecrane late, capitolele sunt listate în meniul lateral; aici apar ca cipuri doar pe ecrane mici. */
 .chap-wrap { display: grid; grid-template-columns: minmax(0, 1fr); gap: 22px; align-items: start; }
-@media (min-width: 980px) {
-  .chap-wrap { grid-template-columns: 250px minmax(0, 1fr); }
-  .chap-nav { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 12px); }
+@media (min-width: 1100px) { .chap-menu { display: none !important; } }
+.chap-menu { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow-sm); }
+.chap-menu summary {
+  list-style: none; cursor: pointer; display: flex; flex-direction: column; gap: 1px; padding: 10px 40px 10px 14px; position: relative;
 }
+.chap-menu summary::-webkit-details-marker { display: none; }
+.chap-menu summary::after {
+  content: ""; position: absolute; right: 16px; top: 50%; width: 8px; height: 8px; margin-top: -6px;
+  border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted); transform: rotate(45deg); transition: transform .15s;
+}
+.chap-menu[open] summary::after { transform: rotate(-135deg); margin-top: -2px; }
+.chap-menu summary span { font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+.chap-menu summary b { color: var(--accent); }
+.chap-menu .chap-nav { padding: 4px 14px 14px; border-top: 1px solid var(--line); padding-top: 12px; }
 .chap-nav { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
 .chap-nav .grp h3 { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 6px; }
 .chap-nav .grp > div { display: flex; flex-direction: column; gap: 2px; }
@@ -13,7 +24,7 @@
 }
 .chap-link:hover { color: var(--accent); }
 .chap-link[aria-current="true"] { background: var(--surface); border-color: var(--line); color: var(--accent); font-weight: 600; }
-@media (max-width: 979px) {
+@media (max-width: 1099px) {
   .chap-nav { gap: 10px; }
   .chap-nav .grp > div { flex-direction: row; flex-wrap: wrap; gap: 6px; }
   .chap-link { border-color: var(--line); background: var(--surface); border-radius: 999px; font-size: 13.5px; padding: 4px 11px; }

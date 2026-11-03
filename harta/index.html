@@ -19,41 +19,40 @@
 <link rel="stylesheet" href="assets/css/capitole.css">
 <link rel="stylesheet" href="assets/css/cuprins.css">
 <link rel="stylesheet" href="assets/css/medicamente.css">
-<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/layout.css">
+<link rel="stylesheet" href="assets/css/home.css">
 </head>
 <body>
 <a class="skip" href="#main">Sari la conținut</a>
-<div class="wrap">
-  <header class="top">
-    <div class="eyebrow-row"><div class="eyebrow">De la moleculă la pacient</div><button id="theme" class="theme-btn" type="button" aria-label="Temă">◐</button></div>
-    <h1><a href="#/" class="home">Harta cardiologiei</a></h1>
-    <p class="lede"><b>Cuprinsul</b> e harta: fundația (moleculă, fiziologie, fiziopatologie), cele zece camere clinice, coridoarele și uneltele, cu legături spre tot ce e deja construit. <b>Miocitul</b> și <b>Vasul</b> arată genele fiecărui compartiment, <b>Fiziologie</b> și <b>Fiziopatologie</b> explică mecanismele pas cu pas, iar <b>Medicamentele</b> sunt scheletul farmacologiei, de completat în timp. Simbolurile de gene sunt în <span class="g-inline">italic</span> și sunt clicabile.</p>
+
+<aside class="sidebar" id="sidebar" aria-label="Meniu">
+  <div class="sb-brand">
+    <a href="#/" class="brand"><img src="assets/icon.svg" alt="" width="30" height="30"><span><b>Harta cardiologiei</b><small>de la moleculă la pacient</small></span></a>
+  </div>
+  <div id="sidebar-nav"></div>
+</aside>
+<div class="scrim" id="scrim"></div>
+
+<div class="shell">
+  <header class="topbar">
+    <button class="icon-btn menu-btn" id="menu-btn" type="button" aria-label="Meniu" aria-controls="sidebar" aria-expanded="false"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <a href="#/" class="topbar-brand"><img src="assets/icon.svg" alt="" width="24" height="24">Harta cardiologiei</a>
+    <nav class="crumbs" id="crumbs" aria-label="Unde ești"></nav>
+    <label class="top-search">
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg>
+      <input id="q" class="js-q" type="search" placeholder="Caută gene, boli, medicamente…" aria-label="Caută în hartă" autocomplete="off" spellcheck="false">
+      <kbd>/</kbd>
+    </label>
+    <button id="theme" class="icon-btn theme-btn" type="button" aria-label="Temă"></button>
   </header>
 
-  <div class="controls">
-    <nav class="tabs" aria-label="Secțiuni">
-      <a class="tab" href="#/" data-tab="cuprins">Cuprins</a>
-      <a class="tab" href="#/miocit" data-tab="miocit">Miocitul</a>
-      <a class="tab" href="#/vas" data-tab="vas">Vasul</a>
-      <a class="tab" href="#/fiziologie" data-tab="fz">Fiziologie</a>
-      <a class="tab" href="#/fiziopatologie" data-tab="fp">Fiziopatologie</a>
-      <a class="tab" href="#/boli" data-tab="boli">Boli → gene</a>
-      <a class="tab" href="#/molecule" data-tab="toate">Toate moleculele</a>
-      <a class="tab" href="#/medicamente" data-tab="med">Medicamente</a>
-    </nav>
-    <div class="search" role="search">
-      <input id="q" type="search" placeholder="Caută o genă, proteină, boală sau medicament (ex. SCN5A, Fabry, tafamidis)" aria-label="Caută" autocomplete="off" spellcheck="false">
-      <button id="qclear" type="button" hidden>Șterge</button>
-    </div>
-  </div>
+  <main id="main" class="content" tabindex="-1"><noscript><p>Harta are nevoie de JavaScript activat.</p></noscript></main>
 
-  <div class="legend" id="legend"></div>
-
-  <main id="main" tabindex="-1"><noscript><p>Harta are nevoie de JavaScript activat.</p></noscript></main>
-
-  <footer>
-    <p>Schemă simplificată pentru învățare. Procentele de frecvență genetică sunt aproximative și variază între cohorte; pentru decizii clinice verifică ghidurile ESC (cardiomiopatii 2023, aritmii ventriculare și moarte subită 2022, aortă 2024, HTAP 2022, dislipidemii 2019 și actualizarea 2025) și rezultatele testului genetic interpretate de un genetician.</p>
+  <footer class="site-footer">
+    <div class="content">
+      <p>Schemă simplificată pentru învățare. Procentele de frecvență genetică sunt aproximative și variază între cohorte; pentru decizii clinice verifică ghidurile ESC (cardiomiopatii 2023, aritmii ventriculare și moarte subită 2022, aortă 2024, HTAP 2022, dislipidemii 2019 și actualizarea 2025) și rezultatele testului genetic interpretate de un genetician.</p>
     <p>Medicamentele marcate „în studii” nu au încă indicație aprobată în Europa la data realizării hărții.</p>
+    </div>
   </footer>
 </div>
 

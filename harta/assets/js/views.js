@@ -48,6 +48,7 @@ V.stage = function (tab, comp) {
   h += '<div class="plate-cap"><h2>' + plateTitle + '</h2><p>' + plateNote + '</p></div>';
   h += tab === "miocit" ? HC.myocyteSVG() : HC.vesselSVG();
   h += compButtons(tab, comp);
+  h += '<div class="legend">' + V.legend() + '</div>';
   h += '</section>';
   h += '<section class="panel" aria-live="polite">';
   h += '<div class="panel-head"><div class="kicker">' + (tab === "miocit" ? "Miocit" : "Vas") + ' · compartiment</div><h2>' + esc(c.name) + '</h2><p>' + esc(c.desc) + '</p><div class="chapchips">Citește mecanismul: ' + (COMP_CH[comp] || []).map(HC.chapChip).join("") + '</div><div class="count">' + list.length + ' molecule</div></div>';
@@ -67,7 +68,8 @@ V.markActive = function (tab, comp) {
 
 /* ---------- Boli → gene ---------- */
 V.index = function () {
-  var h = '<div class="index">';
+  var h = pageHead("Fundația · genetică", "Boli → gene", "Fiecare boală, cu mecanismul pe scurt și genele implicate. Atinge o genă pentru fișa ei completă.", '<div class="legend">' + V.legend() + '</div>');
+  h += '<div class="index">';
   TAGS.forEach(function (t) {
     var ms = MOLS.filter(function (m) { return m.tg && m.tg.indexOf(t[0]) > -1; });
     if (!ms.length) return;
@@ -82,9 +84,10 @@ V.index = function () {
 
 /* ---------- Toate moleculele ---------- */
 V.all = function () {
+  var head = pageHead("Fundația · genetică", "Toate moleculele", MOLS.length + " molecule, ordonate pe compartimente. Tabelul se derulează orizontal pe ecrane mici.", '<div class="legend">' + V.legend() + '</div>');
   var order = Object.keys(COMPS);
   var rows = MOLS.slice().sort(function (a, b) { return order.indexOf(a.c) - order.indexOf(b.c); });
-  var h = '<div class="tablewrap"><table><thead><tr><th>Genă</th><th>Proteină</th><th>Compartiment</th><th>Boli</th><th>Țintă terapeutică</th></tr></thead><tbody>';
+  var h = head + '<div class="tablewrap"><table><thead><tr><th>Genă</th><th>Proteină</th><th>Compartiment</th><th>Boli</th><th>Țintă terapeutică</th></tr></thead><tbody>';
   rows.forEach(function (m) {
     h += '<tr style="--kc:' + kc(m) + '"><td><a class="linkbtn gene" href="' + href.mol(m) + '">' + esc(m.g) + '</a></td><td>' + esc(m.p) + '</td><td>' + esc(COMPS[m.c].name) + '</td><td>' + esc(m.d) + '</td><td>' + esc(m.t || "") + '</td></tr>';
   });
@@ -116,7 +119,8 @@ V.search = function (q) {
   var res = MOLS.filter(function (m, i) { return ok(HAY.mols[i]); });
   var chs = CHAPTERS.filter(function (c, i) { return ok(HAY.chaps[i]); });
   var mcs = DRUGS.filter(function (d, i) { return ok(HAY.drugs[i]); });
-  var h = '<section class="panel"><div class="results-head"><h2>Rezultate pentru „' + esc(q.trim()) + '”</h2><span class="count">' + res.length + ' molecule · ' + chs.length + ' capitole</span></div>';
+  var h = pageHead("Căutare", "„" + q.trim() + "”", res.length + " molecule · " + chs.length + " capitole · " + mcs.length + " clase de medicamente");
+  h += '<section class="panel">';
   if (chs.length) h += '<div class="chapchips">Capitole de fiziologie: ' + chs.map(function (c) { return HC.chapChip(c.id); }).join("") + '</div>';
   if (mcs.length) h += '<div class="chapchips">Medicamente: ' + mcs.map(function (dc) { return '<a class="chapchip" href="' + href.med(dc.id) + '">' + esc(dc.name) + '</a>'; }).join("") + '</div>';
   if (!res.length) h += '<p class="empty">Nimic găsit. Încearcă simbolul genei (de ex. LMNA), numele bolii (Danon) sau un medicament (ivabradină).</p>';
@@ -159,7 +163,7 @@ function blockHTML(b) {
 V.chapters = function (grp, curId) {
   var same = CHAPTERS.filter(function (c) { return c.grp === grp; });
   var cur = (CH_BY[curId] && CH_BY[curId].grp === grp) ? CH_BY[curId] : same[0];
-  var nav = '<nav class="chap-nav" aria-label="Capitole">';
+  var nav = '<details class="chap-menu"><summary><span>Capitolele · ' + (grp === "fz" ? "Fiziologie" : "Fiziopatologie") + '</span><b>' + esc(cur.short) + '</b></summary><nav class="chap-nav" aria-label="Capitole">';
   SEC_ORDER[grp].forEach(function (sec) {
     var cs = same.filter(function (c) { return c.sec === sec; });
     if (!cs.length) return;
@@ -167,8 +171,8 @@ V.chapters = function (grp, curId) {
       return '<a class="chap-link" href="' + href.chap(c.id) + '" aria-current="' + (c.id === cur.id) + '">' + esc(c.short) + '</a>';
     }).join("") + '</div></div>';
   });
-  nav += '</nav>';
-  var a = '<article class="chap" id="cap-' + cur.id + '"><div class="panel-head"><div class="kicker">' + (grp === "fz" ? "Fiziologie" : "Fiziopatologie") + ' · ' + esc(cur.sec) + '</div><h2>' + esc(cur.title) + '</h2></div>';
+  nav += '</nav></details>';
+  var a = '<article class="chap" id="cap-' + cur.id + '">' + pageHead((grp === "fz" ? "Fiziologie" : "Fiziopatologie") + ' · ' + esc(cur.sec), cur.title);
   a += '<p class="idea">' + rich(cur.idea) + '</p>';
   cur.blocks.forEach(function (b) { a += blockHTML(b); });
   if (cur.mols && cur.mols.length) a += '<section class="blk"><h3>Moleculele capitolului</h3><div class="genes">' + cur.mols.map(HC.gchipSym).join("") + '</div></section>';
@@ -188,7 +192,14 @@ V.mountDiagrams = function (chapter) {
   });
 };
 
-/* ---------- Cuprins ---------- */
+/* ---------- antet comun de pagină ---------- */
+function pageHead(kicker, title, desc, extra) {
+  return '<header class="page-head">' + (kicker ? '<div class="kicker">' + kicker + '</div>' : '') +
+    '<h1 class="page-title">' + esc(title) + '</h1>' + (desc ? '<p class="page-desc">' + desc + '</p>' : '') + (extra || '') + '</header>';
+}
+V.pageHead = pageHead;
+
+/* ---------- legături din teme ---------- */
 function roomLink(l) {
   if (l[0] === "chap") return HC.chapChip(l[1]);
   if (l[0] === "tab") return '<a class="rlink" href="' + href.tab(l[1]) + '">' + esc(l[2]) + '</a>';
@@ -199,39 +210,136 @@ function roomLink(l) {
   return "";
 }
 V.roomLink = roomLink;
-function roomCard(r, num, cls) {
-  var h = '<article class="room' + (cls ? " " + cls : "") + '"><div class="room-top">' + (num ? '<span class="num">' + num + '</span>' : '') + '<div><h3>' + esc(r.name) + '</h3></div></div>';
-  h += '<p class="ess">' + esc(r.ess) + '</p>';
-  h += '<ul class="topics">' + r.topics.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join("") + '</ul>';
-  if (r.links.length) h += '<div class="built">Deja construit: ' + r.links.map(roomLink).join("") + '</div>';
-  else h += '<div class="built none">De construit</div>';
-  return h + '</article>';
+
+/* ---------- statistici ---------- */
+function tabCount(tab) {
+  if (tab === "miocit" || tab === "vas") return MOLS.filter(function (m) { return COMPS[m.c].tab === tab; }).length;
+  if (tab === "fz" || tab === "fp") return CHAPTERS.filter(function (c) { return c.grp === tab; }).length;
+  if (tab === "boli") return TAGS.filter(function (t) { return MOLS.some(function (m) { return (m.tg || []).indexOf(t[0]) > -1; }); }).length;
+  if (tab === "med") return DRUGS.length;
+  if (tab === "toate") return MOLS.length;
+  return 0;
 }
-function medIndex() {
-  return '<div class="medidx">' + DRUGS.map(function (d) { return HC.medChip(d.id); }).join("") + '</div>';
+var UNIT = { miocit: ["moleculă", "molecule"], vas: ["moleculă", "molecule"], fz: ["capitol", "capitole"], fp: ["capitol", "capitole"], boli: ["boală", "boli"], med: ["clasă", "clase"], toate: ["moleculă", "molecule"] };
+function plural(n, u) { return n + " " + (n === 1 ? u[0] : u[1]); }
+V.tabCount = tabCount;
+
+/* ---------- pagina principală ---------- */
+function topicStatus(t) {
+  var n = t.links.length;
+  return n ? '<span class="status ok">' + plural(n, ["resursă", "resurse"]) + '</span>' : '<span class="status todo">De construit</span>';
 }
-V.cuprins = function () {
-  var h = '<div class="toc">';
-  h += '<section class="toc-sec"><header><div class="toc-kicker">Etajul 0</div><h2>Fundația</h2><p>Ce susține toate camerele. Dacă fundația e solidă, bolile nu mai sunt liste de memorat, ci consecințe logice.</p></header>';
-  h += '<div class="rooms">' + HC.FOUNDATION.map(function (r, i) { return roomCard(r, "", i < 3 ? "found" : ""); }).join("") + '</div></section>';
-  h += '<section class="toc-sec"><header><div class="toc-kicker">Etajul 1</div><h2>Cele zece camere</h2><p>Patologia clinică, organizată pe sisteme. Fiecare cameră arată temele ei și ce e deja construit.</p></header>';
-  h += '<div class="rooms">' + HC.ROOMS.map(function (r, i) { return roomCard(r, String(i + 1)); }).join("") + '</div></section>';
-  h += '<section class="toc-sec"><header><div class="toc-kicker">Transversal</div><h2>Coridoarele</h2><p>Teme care traversează toate camerele.</p></header>';
-  h += '<div class="rooms">' + HC.CORRIDORS.map(function (r) { return roomCard(r, ""); }).join("") + '</div></section>';
-  h += '<section class="toc-sec"><header><div class="toc-kicker">Instrumente</div><h2>Uneltele</h2><p>Cu ce intri în fiecare cameră.</p></header>';
-  h += '<div class="rooms three">' + HC.TOOLS.map(function (r) { return roomCard(r, ""); }).join("") + '</div></section>';
-  h += '<section class="toc-sec"><header><div class="toc-kicker">Farmacologie</div><h2>Medicamentele</h2><p>Scheletul pe clase, legat de ținta moleculară a fiecărui medicament.</p></header>';
-  h += medIndex() + '</section>';
-  return h + '</div>';
+function sectionCard(s) {
+  var n = tabCount(s.tab);
+  return '<a class="card sec-card" href="' + href.tab(s.tab) + '">' +
+    '<span class="card-ico">' + HC.icon(s.icon) + '</span>' +
+    '<span class="card-body"><span class="card-title">' + esc(s.name) + '</span><span class="card-text">' + esc(s.ess) + '</span></span>' +
+    '<span class="card-foot"><span class="meta">' + plural(n, UNIT[s.tab]) + '</span>' + HC.icon("arrow", "go") + '</span></a>';
+}
+function topicCard(t, icon) {
+  return '<a class="card topic-card" href="' + href.topic(t) + '">' +
+    (t.num ? '<span class="num">' + t.num + '</span>' : '<span class="card-ico">' + HC.icon(icon || "dot") + '</span>') +
+    '<span class="card-body"><span class="card-title">' + esc(t.name) + '</span><span class="card-text">' + esc(t.ess) + '</span></span>' +
+    '<span class="card-foot"><span class="meta">' + plural(t.topics.length, ["temă", "teme"]) + '</span>' + topicStatus(t) + '</span></a>';
+}
+function listRow(t) {
+  return '<a class="row-link" href="' + href.topic(t) + '"><span class="row-main"><span class="row-title">' + esc(t.name) + '</span><span class="row-text">' + esc(t.ess) + '</span></span>' + topicStatus(t) + '</a>';
+}
+V.home = function (recent) {
+  var tries = [["SCN5A", href.search("SCN5A")], ["QT lung", href.tag("lqt")], ["Fabry", href.search("Fabry")], ["tafamidis", href.search("tafamidis")], ["Potențialul de acțiune", href.chap("pa")], ["Brugada", href.tag("brugada")]];
+  var h = '<section class="hero">';
+  h += '<div class="kicker">De la moleculă la pacient</div>';
+  h += '<h1 class="hero-title">Harta cardiologiei</h1>';
+  h += '<p class="hero-lede">Genele, mecanismele, bolile și tratamentele, legate între ele. Pornești de la orice punct și ajungi, din câteva clicuri, la tot ce ține de el.</p>';
+  h += '<label class="hero-search">' + HC.icon("search") + '<input class="js-q" type="search" placeholder="Caută o genă, o boală, un medicament…" aria-label="Caută în hartă" autocomplete="off" spellcheck="false"><kbd>/</kbd></label>';
+  h += '<div class="hero-try"><span>Încearcă:</span>' + tries.map(function (t) { return '<a class="try" href="' + t[1] + '">' + esc(t[0]) + '</a>'; }).join("") + '</div>';
+  h += '<dl class="stats">' + [[MOLS.length, "molecule"], [CHAPTERS.length, "capitole de mecanism"], [tabCount("boli"), "boli genetice"], [DRUGS.length, "clase de medicamente"], [HC.ROOMS.length, "camere clinice"]].map(function (s) {
+    return '<div><dt>' + s[1] + '</dt><dd>' + s[0] + '</dd></div>';
+  }).join("") + '</dl>';
+  h += '</section>';
+
+  if (recent && recent.length) {
+    h += '<section class="home-sec"><header class="sec-head"><h2>' + HC.icon("clock") + 'Continuă de unde ai rămas</h2></header><div class="recent">' +
+      recent.map(function (r) { return '<a class="recent-item" href="' + esc(r.h) + '"><span class="recent-k">' + esc(r.k || "") + '</span><span class="recent-t">' + esc(r.t) + '</span></a>'; }).join("") + '</div></section>';
+  }
+
+  h += '<section class="home-sec"><header class="sec-head"><div><h2>Fundația</h2><p>Ce susține toate camerele. Cu fundația solidă, bolile devin consecințe logice, nu liste de memorat.</p></div></header>';
+  h += '<div class="grid-3">' + HC.SECTIONS.map(sectionCard).join("") + '</div>';
+  if (HC.FOUNDATION.length) h += '<div class="rows">' + HC.FOUNDATION.map(listRow).join("") + '</div>';
+  h += '</section>';
+
+  h += '<section class="home-sec"><header class="sec-head"><div><h2>Clinica</h2><p>Patologia pe sisteme, în zece camere. Fiecare are temele ei și legăturile spre ce e deja construit.</p></div></header>';
+  h += '<div class="grid-2">' + HC.ROOMS.map(function (t) { return topicCard(t); }).join("") + '</div></section>';
+
+  h += '<div class="home-split">';
+  h += '<section class="home-sec"><header class="sec-head"><div><h2>Transversal</h2><p>Teme care traversează toate camerele.</p></div></header><div class="rows">' + HC.CORRIDORS.map(listRow).join("") + '</div></section>';
+  h += '<section class="home-sec"><header class="sec-head"><div><h2>Unelte</h2><p>Cu ce intri în fiecare cameră.</p></div></header><div class="rows">' + HC.TOOLS.map(listRow).join("") + '</div></section>';
+  h += '</div>';
+  return h;
+};
+
+/* ---------- pagina unei teme (cameră, coridor, unealtă) ---------- */
+var LINK_GROUPS = [["chap", "Mecanisme"], ["tab", "Secțiuni"], ["tag", "Genetică"], ["gene", "Gene"], ["med", "Medicamente"], ["doc", "Documente"]];
+V.topic = function (t) {
+  var g = HC.GROUP_BY[t.grp];
+  var kicker = esc(g.label) + (t.num ? ' · camera ' + t.num : '');
+  var h = pageHead(kicker, t.name, esc(t.ess));
+  h += '<div class="topic-grid">';
+  h += '<section class="panel-card"><h2 class="card-h">Teme</h2><ol class="topic-list">' + t.topics.map(function (x) {
+    return '<li><span>' + esc(x) + '</span><span class="status todo">de scris</span></li>';
+  }).join("") + '</ol></section>';
+  h += '<section class="panel-card"><h2 class="card-h">Deja în hartă</h2>';
+  if (!t.links.length) h += '<p class="muted">Nimic încă: camera e în construcție. Legăturile apar aici pe măsură ce adaugi conținut.</p>';
+  LINK_GROUPS.forEach(function (lg) {
+    var ls = t.links.filter(function (l) { return l[0] === lg[0]; });
+    if (ls.length) h += '<div class="link-group"><div class="lg-h">' + lg[1] + '</div><div class="chips">' + ls.map(roomLink).join("") + '</div></div>';
+  });
+  h += '</section></div>';
+  var i = g.list.indexOf(t), prev = g.list[i - 1], next = g.list[i + 1];
+  h += '<nav class="pager" aria-label="Paginare">' +
+    (prev ? '<a class="pg" href="' + href.topic(prev) + '"><small>Înapoi</small>← ' + esc(prev.name) + '</a>' : '<span></span>') +
+    (next ? '<a class="pg next" href="' + href.topic(next) + '"><small>Mai departe</small>' + esc(next.name) + ' →</a>' : '') + '</nav>';
+  return h;
+};
+
+/* ---------- meniul lateral ---------- */
+V.sidebar = function () {
+  var link = function (key, hrefv, label, icon, count) {
+    return '<a class="sb-link" data-key="' + key + '" href="' + hrefv + '">' + (icon ? HC.icon(icon) : '') + '<span class="sb-label">' + esc(label) + '</span>' + (count != null ? '<span class="sb-n">' + count + '</span>' : '') + '</a>';
+  };
+  var sub = function (key, items) {
+    return '<div class="sb-sub" data-for="' + key + '">' + items.map(function (it) { return '<a class="sb-sublink" data-key="' + it[0] + '" href="' + it[1] + '">' + esc(it[2]) + '</a>'; }).join("") + '</div>';
+  };
+  var compsOf = function (tab) { return Object.keys(COMPS).filter(function (k) { return COMPS[k].tab === tab; }).map(function (k) { return [tab + "/" + k, href.comp(k), COMPS[k].name]; }); };
+  var chapsOf = function (grp) { return CHAPTERS.filter(function (c) { return c.grp === grp; }).map(function (c) { return [grp + "/" + c.id, href.chap(c.id), c.short]; }); };
+  var h = '<nav class="sb-nav" aria-label="Harta">';
+  h += link("cuprins", "#/", "Acasă", "home");
+  h += '<div class="sb-group"><div class="sb-h">Fundația</div>';
+  h += link("miocit", href.tab("miocit"), "Miocitul", "miocit", tabCount("miocit")) + sub("miocit", compsOf("miocit"));
+  h += link("vas", href.tab("vas"), "Vasul", "vas", tabCount("vas")) + sub("vas", compsOf("vas"));
+  h += link("fz", href.tab("fz"), "Fiziologie", "fz", tabCount("fz")) + sub("fz", chapsOf("fz"));
+  h += link("fp", href.tab("fp"), "Fiziopatologie", "fp", tabCount("fp")) + sub("fp", chapsOf("fp"));
+  h += link("boli", href.tab("boli"), "Boli → gene", "boli", tabCount("boli"));
+  h += link("toate", href.tab("toate"), "Toate moleculele", "toate", MOLS.length);
+  HC.FOUNDATION.forEach(function (t) { h += link("fundatie/" + t.id, href.topic(t), t.name, "anatomie"); });
+  h += '</div>';
+  h += '<div class="sb-group"><div class="sb-h">Farmacologie</div>' + link("med", href.tab("med"), "Medicamente", "med", DRUGS.length) +
+    sub("med", DRUGS.map(function (d) { return ["med/" + d.id, href.med(d.id), d.name]; })) + '</div>';
+  HC.TOPIC_GROUPS.slice(1).forEach(function (g) {
+    h += '<div class="sb-group"><div class="sb-h">' + esc(g.label) + '</div>' + g.list.map(function (t) {
+      return '<a class="sb-link topic" data-key="' + g.key + "/" + t.id + '" href="' + href.topic(t) + '">' + (t.num ? '<span class="sb-num">' + t.num + '</span>' : '<span class="sb-num dot"></span>') + '<span class="sb-label">' + esc(t.name) + '</span></a>';
+    }).join("") + '</div>';
+  });
+  return h + '</nav>';
 };
 
 /* ---------- Medicamente ---------- */
 V.meds = function () {
-  var h = '<div class="toc"><section class="toc-sec"><header><div class="toc-kicker">Schelet · de completat în timp</div><h2>Medicamente</h2>';
-  h += '<p>Clasele, moleculele și ținta lor. Fiecare țintă duce la fișa genei din hartă (mecanism, boli, „când se strică”). Fișele farmacologice se completează pe rând.</p></header>';
-  h += '<div class="fields">Fiecare clasă va primi: ' + HC.MED_FIELDS.map(function (f) { return '<span class="field">' + esc(f) + '</span>'; }).join("") + '</div>';
+  var h = pageHead("Farmacologie · schelet de completat", "Medicamente", "Clasele, moleculele și ținta lor. Fiecare țintă duce la fișa genei din hartă (mecanism, boli, „când se strică”). Fișele farmacologice se completează pe rând.");
+  h += '<div class="med-intro panel-card"><div class="fields">Fiecare clasă va primi: ' + HC.MED_FIELDS.map(function (f) { return '<span class="field">' + esc(f) + '</span>'; }).join("") + '</div>';
   h += '<div class="fields">Pentru doze în gardă, deocamdată: ' + roomLink(["doc", "gardamed"]) + '</div>';
-  h += medIndex() + '</section>';
+  h += '<div class="medidx">' + DRUGS.map(function (d) { return HC.medChip(d.id); }).join("") + '</div></div>';
+  h += '<div class="medlist">';
   DRUGS.forEach(function (d, i) {
     h += '<section class="medcls" id="med-' + d.id + '"><h3><span class="num">' + (i + 1) + '</span><a class="permalink" href="' + href.med(d.id) + '">' + esc(d.name) + '</a></h3>';
     if (d.note) h += '<p>' + esc(d.note) + '</p>';

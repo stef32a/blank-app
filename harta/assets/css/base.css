@@ -1,4 +1,4 @@
-/* Bază, antet, controale, schemă + panou, fișe de moleculă, index, tabel */
+/* Bază, schemă + panou, fișe de moleculă, index, tabel */
 
 * { box-sizing: border-box; }
 body {
@@ -8,56 +8,10 @@ body {
   font-size: 16px;
   line-height: 1.5;
 }
-.wrap {
-  max-width: 1240px;
-  margin: 0 auto;
-  padding-left: max(16px, env(safe-area-inset-left, 0px));
-  padding-right: max(16px, env(safe-area-inset-right, 0px));
-  padding-block: 28px 56px;
-  display: flex;
-  flex-direction: column;
-  gap: 22px;
-}
-
-header.top { display: flex; flex-direction: column; gap: 10px; }
-.eyebrow {
-  font-size: 12px; letter-spacing: .12em; text-transform: uppercase;
-  color: var(--eosin); font-weight: 700;
-}
-h1 {
-  font-family: var(--display);
-  font-weight: 600;
-  font-size: clamp(30px, 5vw, 46px);
-  line-height: 1.05;
-  margin: 0;
-  text-wrap: balance;
-}
-.lede { margin: 0; color: var(--muted); max-width: 68ch; }
 .gene, .g-inline { font-family: var(--mono); font-style: italic; font-weight: 600; }
 
-.controls {
-  display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
-}
-.tabs { display: flex; flex-wrap: wrap; gap: 4px; background: var(--accent-soft); padding: 4px; border-radius: 10px; }
-.tab {
-  font: inherit; font-weight: 600; font-size: 14px;
-  border: 0; background: transparent; color: var(--ink);
-  padding: 7px 14px; border-radius: 7px; cursor: pointer;
-}
-.tab[aria-selected="true"] { background: var(--surface); color: var(--accent); box-shadow: 0 1px 2px rgba(0,0,0,.08); }
-.tab:focus-visible, .chip:focus-visible, .comp-btn:focus-visible, .search input:focus-visible, .linkbtn:focus-visible {
+.chip:focus-visible, .comp-btn:focus-visible, .linkbtn:focus-visible {
   outline: 2px solid var(--focus); outline-offset: 2px;
-}
-.search { flex: 1 1 260px; display: flex; gap: 6px; min-width: 0; }
-.search input {
-  flex: 1; min-width: 0;
-  font: inherit; font-size: 15px;
-  padding: 9px 12px; border-radius: 9px;
-  border: 1px solid var(--line); background: var(--surface); color: var(--ink);
-}
-.search button {
-  font: inherit; font-size: 14px; border: 1px solid var(--line); background: var(--surface);
-  color: var(--muted); border-radius: 9px; padding: 0 12px; cursor: pointer;
 }
 
 .legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13px; color: var(--muted); }
@@ -70,9 +24,9 @@ h1 {
   gap: 22px;
   align-items: start;
 }
-@media (min-width: 980px) {
+@media (min-width: 1280px) {
   .stage { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); }
-  .plate { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 12px); }
+  .plate { position: sticky; top: calc(var(--topbar-h) + 16px); }
 }
 .plate {
   background: var(--surface);
@@ -116,7 +70,7 @@ svg.diagram { width: 100%; height: auto; display: block; }
   padding: 14px 4px 14px 14px;
   display: flex; flex-direction: column; gap: 6px;
   position: relative;
-  scroll-margin-top: 80px;
+  scroll-margin-top: calc(var(--topbar-h) + 16px);
 }
 .mol::before {
   content: ""; position: absolute; left: 0; top: 16px; bottom: 16px; width: 3px; border-radius: 2px;
@@ -148,7 +102,7 @@ svg.diagram { width: 100%; height: auto; display: block; }
 .dz {
   background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
   padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; min-width: 0;
-  scroll-margin-top: 80px;
+  scroll-margin-top: calc(var(--topbar-h) + 16px);
 }
 .dz h3 { font-family: var(--display); font-weight: 600; font-size: 20px; margin: 0; }
 .dz p { margin: 0; color: var(--muted); font-size: 14.5px; }
@@ -173,5 +127,3 @@ tr:last-child td { border-bottom: 0; }
 .results-head h2 { font-family: var(--display); font-weight: 600; font-size: 24px; margin: 0; }
 .empty { color: var(--muted); padding: 18px 0; }
 
-footer { font-size: 13px; color: var(--muted); max-width: 80ch; display: flex; flex-direction: column; gap: 6px; }
-footer p { margin: 0; }
