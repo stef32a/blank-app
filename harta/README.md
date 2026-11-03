@@ -92,5 +92,8 @@ python3 -m http.server -d harta 8000     # apoi http://localhost:8000
 
 ## Publicare
 
-- **GitHub Pages**: Settings → Pages → „Deploy from a branch”, alege ramura și folderul (sau mută `harta/` în `docs/`).
-- **Netlify / Cloudflare Pages**: folderul de publicat = `harta`, fără comandă de build.
+**GitHub Pages** (automat): workflow-ul `.github/workflows/pages.yml` publică folderul `harta/` la fiecare push pe `main`,
+după ce `tools/verifica.mjs` trece. O singură dată: Settings → Pages → Source: **GitHub Actions**.
+Dacă verificarea găsește erori, site-ul nu se actualizează (rămâne versiunea bună anterioară).
+
+**Netlify / Cloudflare Pages**: folderul de publicat = `harta`, fără comandă de build.
