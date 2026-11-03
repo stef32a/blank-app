@@ -1,0 +1,51 @@
+/* Adăugiri pentru varianta de site: legături care arată ca butoanele originale,
+   temă comutabilă, salt la conținut, tipărire. */
+
+[hidden] { display: none !important; }
+html { scroll-padding-top: 12px; }
+body { margin: 0; }
+
+/* navigarea e făcută din legături <a> (se pot deschide în tab nou, copia, salva ca semn de carte) */
+a.tab, a.chip, a.gchip, a.chapchip, a.rlink, a.ginl, a.linkbtn, a.comp-btn, a.chap-link, a.permalink, .mol-head a.where {
+  text-decoration: none; display: inline-block;
+}
+a.tab, a.comp-btn, a.chap-link { color: var(--ink); }
+a.chip { color: var(--muted); }
+a.ginl { display: inline; text-decoration: underline dotted; text-underline-offset: 3px; }
+a.ginl:hover { text-decoration-style: solid; }
+.tab[aria-current="page"] { background: var(--surface); color: var(--accent); box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+.comp-btn[aria-current="true"] { background: var(--accent); color: var(--surface); border-color: var(--accent); }
+a.permalink { color: inherit; }
+a.permalink:hover { text-decoration: underline; text-underline-offset: 3px; }
+.mol-head a.gene { color: var(--kc, var(--accent)); }
+.mol-head a.where { color: var(--muted); }
+.mol-head a.where:hover { color: var(--accent); }
+td a.gene { color: var(--kc, var(--accent)); }
+a:focus-visible, .theme-btn:focus-visible, .search button:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+h1 a.home { color: inherit; text-decoration: none; }
+.eyebrow-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.theme-btn {
+  font: 18px/1 system-ui, sans-serif; width: 34px; height: 34px; padding: 0;
+  border: 1px solid var(--line); background: var(--surface); color: var(--muted);
+  border-radius: 999px; cursor: pointer;
+}
+.theme-btn:hover { color: var(--accent); border-color: var(--accent); }
+
+.skip {
+  position: absolute; left: 12px; top: -60px; z-index: 10;
+  background: var(--surface); color: var(--accent); border: 1px solid var(--accent);
+  border-radius: 8px; padding: 8px 12px; text-decoration: none; font-weight: 600;
+}
+.skip:focus { top: 12px; }
+main:focus { outline: none; }
+.chap { scroll-margin-top: 12px; }
+.medcls { scroll-margin-top: 12px; }
+
+@media print {
+  .controls, .legend, .theme-btn, .skip, .chap-nav, .pager, .comp-list { display: none !important; }
+  body { background: #fff; color: #000; }
+  .plate { position: static !important; }
+  .mol, .room, .medcls, .dz { break-inside: avoid; }
+  a { color: inherit !important; }
+}

@@ -7,7 +7,7 @@ import path from "node:path";
 import vm from "node:vm";
 import { fileURLToPath } from "node:url";
 
-const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "site");
+const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "harta");
 const html = fs.readFileSync(path.join(ROOT, "index.html"), "utf8");
 const scripts = [...html.matchAll(/<script src="([^"]+)"/g)].map((m) => m[1]);
 

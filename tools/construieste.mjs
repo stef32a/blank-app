@@ -7,7 +7,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
-const ROOT = path.join(HERE, "..", "site");
+const ROOT = path.join(HERE, "..", "harta");
 const OUT = path.join(HERE, "..", "dist", "harta-cardiologiei.html");
 const read = (rel) => fs.readFileSync(path.join(ROOT, rel), "utf8");
 

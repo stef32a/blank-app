@@ -1,0 +1,31 @@
+/* cuprins */
+.legend[hidden] { display: none; }
+.toc { display: flex; flex-direction: column; gap: 28px; }
+.toc-sec { display: flex; flex-direction: column; gap: 12px; }
+.toc-sec > header { display: flex; flex-direction: column; gap: 4px; }
+.toc-sec h2 { font-family: var(--display); font-weight: 600; font-size: clamp(24px, 3vw, 30px); margin: 0; line-height: 1.15; }
+.toc-sec > header p { margin: 0; color: var(--muted); max-width: 72ch; }
+.toc-kicker { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; color: var(--eosin); }
+.rooms { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
+@media (min-width: 720px) { .rooms { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1120px) { .rooms.three { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.room {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px;
+  display: flex; flex-direction: column; gap: 10px; min-width: 0;
+}
+.room.found { border-color: var(--accent); }
+.room-top { display: flex; gap: 12px; align-items: baseline; }
+.room .num { font-family: var(--display); font-weight: 600; font-size: 30px; line-height: 1; color: var(--eosin); flex: none; min-width: 26px; }
+.room h3 { font-family: var(--display); font-weight: 600; font-size: 21px; margin: 0; line-height: 1.2; }
+.room .ess { margin: 0; color: var(--muted); font-size: 15px; }
+.room ul.topics { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 3px; font-size: 14.5px; }
+.room .built { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 10px; margin-top: auto; }
+.room .built.none { font-style: italic; }
+.rlink {
+  font: inherit; font-size: 12.5px; font-weight: 600; border: 1px solid var(--line); color: var(--ink);
+  background: var(--bg); border-radius: 999px; padding: 2px 9px; cursor: pointer; text-decoration: none; display: inline-block;
+}
+.rlink:hover { border-color: var(--accent); color: var(--accent); }
+.rlink.doc { border-color: var(--k-receptor); color: var(--k-receptor); background: transparent; }
+.rlink.doc::after { content: " ↗"; }
+.rlink:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
