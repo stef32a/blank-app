@@ -1,0 +1,20 @@
+/* medicamente */
+.medidx { display: flex; flex-wrap: wrap; gap: 6px; }
+.fields { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 13px; color: var(--muted); }
+.field { font-size: 12.5px; border: 1px dashed var(--line); color: var(--muted); border-radius: 999px; padding: 2px 9px; }
+.medcls { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 10px; scroll-margin-top: 80px; min-width: 0; }
+.medcls h3 { font-family: var(--display); font-weight: 600; font-size: 22px; margin: 0; display: flex; gap: 10px; align-items: baseline; }
+.medcls h3 .num { color: var(--eosin); font-size: 18px; }
+.medcls > p { margin: 0; color: var(--muted); font-size: 15px; }
+.medrow { display: grid; grid-template-columns: minmax(0, 1fr); gap: 4px; border-top: 1px solid var(--line); padding-top: 10px; }
+@media (min-width: 760px) { .medrow { grid-template-columns: 210px minmax(0, 1fr) 230px; gap: 14px; align-items: start; } }
+.medrow .sub { font-weight: 700; }
+.medrow .drugs { color: var(--ink); }
+.medrow .tgt { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+.pill { font-size: 11.5px; font-weight: 700; border: 1px solid var(--eosin); color: var(--eosin); border-radius: 999px; padding: 0 7px; margin-left: 6px; white-space: nowrap; }
+.empty-note { font-size: 13px; color: var(--muted); font-style: italic; }
+
+@media (prefers-reduced-motion: reduce) {
+  .flash { animation: none; background: var(--flash); }
+  .region { transition: none; }
+}

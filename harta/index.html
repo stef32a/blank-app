@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Harta cardiologiei</title>
+<meta name="description" content="Cardiologia de la moleculă la pacient: genele miocitului și ale vasului, fiziologie, fiziopatologie, boli și medicamente, legate între ele.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f4f3f8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14131d" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:ital,wght@1,500;1,600&display=swap">
+<!-- tema salvată se aplică înainte de randare, ca să nu clipească -->
+<script>try{var t=localStorage.getItem("hc-theme");if(t&&t!=="auto")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/capitole.css">
+<link rel="stylesheet" href="assets/css/cuprins.css">
+<link rel="stylesheet" href="assets/css/medicamente.css">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Sari la conținut</a>
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow-row"><div class="eyebrow">De la moleculă la pacient</div><button id="theme" class="theme-btn" type="button" aria-label="Temă">◐</button></div>
+    <h1><a href="#/" class="home">Harta cardiologiei</a></h1>
+    <p class="lede"><b>Cuprinsul</b> e harta: fundația (moleculă, fiziologie, fiziopatologie), cele zece camere clinice, coridoarele și uneltele, cu legături spre tot ce e deja construit. <b>Miocitul</b> și <b>Vasul</b> arată genele fiecărui compartiment, <b>Fiziologie</b> și <b>Fiziopatologie</b> explică mecanismele pas cu pas, iar <b>Medicamentele</b> sunt scheletul farmacologiei, de completat în timp. Simbolurile de gene sunt în <span class="g-inline">italic</span> și sunt clicabile.</p>
+  </header>
+
+  <div class="controls">
+    <nav class="tabs" aria-label="Secțiuni">
+      <a class="tab" href="#/" data-tab="cuprins">Cuprins</a>
+      <a class="tab" href="#/miocit" data-tab="miocit">Miocitul</a>
+      <a class="tab" href="#/vas" data-tab="vas">Vasul</a>
+      <a class="tab" href="#/fiziologie" data-tab="fz">Fiziologie</a>
+      <a class="tab" href="#/fiziopatologie" data-tab="fp">Fiziopatologie</a>
+      <a class="tab" href="#/boli" data-tab="boli">Boli → gene</a>
+      <a class="tab" href="#/molecule" data-tab="toate">Toate moleculele</a>
+      <a class="tab" href="#/medicamente" data-tab="med">Medicamente</a>
+    </nav>
+    <div class="search" role="search">
+      <input id="q" type="search" placeholder="Caută o genă, proteină, boală sau medicament (ex. SCN5A, Fabry, tafamidis)" aria-label="Caută" autocomplete="off" spellcheck="false">
+      <button id="qclear" type="button" hidden>Șterge</button>
+    </div>
+  </div>
+
+  <div class="legend" id="legend"></div>
+
+  <main id="main" tabindex="-1"><noscript><p>Harta are nevoie de JavaScript activat.</p></noscript></main>
+
+  <footer>
+    <p>Schemă simplificată pentru învățare. Procentele de frecvență genetică sunt aproximative și variază între cohorte; pentru decizii clinice verifică ghidurile ESC (cardiomiopatii 2023, aritmii ventriculare și moarte subită 2022, aortă 2024, HTAP 2022, dislipidemii 2019 și actualizarea 2025) și rezultatele testului genetic interpretate de un genetician.</p>
+    <p>Medicamentele marcate „în studii” nu au încă indicație aprobată în Europa la data realizării hărții.</p>
+  </footer>
+</div>
+
+<!-- 1. Date (conținutul). Ordinea contează doar pentru molecule: miocit, apoi vas. -->
+<script src="assets/js/data/taxonomie.js"></script>
+<script src="assets/js/data/molecule-miocit.js"></script>
+<script src="assets/js/data/molecule-vas.js"></script>
+<script src="assets/js/data/potential-actiune.js"></script>
+<script src="assets/js/data/capitole-fiziologie.js"></script>
+<script src="assets/js/data/capitole-fiziopatologie.js"></script>
+<script src="assets/js/data/cuprins.js"></script>
+<script src="assets/js/data/medicamente.js"></script>
+<!-- 2. Nucleu, scheme, vederi, aplicație -->
+<script src="assets/js/core.js"></script>
+<script src="assets/js/diagrame/miocit.js"></script>
+<script src="assets/js/diagrame/vas.js"></script>
+<script src="assets/js/diagrame/potential-actiune.js"></script>
+<script src="assets/js/diagrame/mecanisme.js"></script>
+<script src="assets/js/views.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

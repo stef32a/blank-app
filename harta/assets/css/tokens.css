@@ -1,0 +1,79 @@
+/* Culori, fonturi, tema întunecată.
+   Paleta: colorație histologică (hematoxilină violet + eozină roz) pe hârtie rece. */
+:root {
+  --bg: #f4f3f8;
+  --surface: #ffffff;
+  --ink: #1c1a2c;
+  --muted: #5b5872;
+  --line: #dcd9e7;
+  --accent: #3b3890;
+  --accent-soft: #e7e6f6;
+  --eosin: #c4436b;
+  --focus: #c4436b;
+  --flash: #fbe6ee;
+
+  --k-canal: #3b3890;
+  --k-calciu: #0d7473;
+  --k-sarcomer: #c4436b;
+  --k-struct: #9a6212;
+  --k-nuclear: #7a3a9e;
+  --k-metab: #3c7a2a;
+  --k-receptor: #2a66a8;
+  --k-sange: #a03a2a;
+  --k-ecm: #7d6a2b;
+
+  --cell: #f1e4ec;
+  --cell-stub: #f6edf2;
+  --membrane: #3b3890;
+  --interst: #f8f6fb;
+  --fiber: #c9b98f;
+  --amyloid: #9bb27c;
+  --nuc: #d9d6f2;
+  --nuc-in: #8f8bd0;
+  --mito: #cfe5c4;
+  --mito-line: #5b8f48;
+  --lyso: #b9d6a7;
+  --sr: #8fd0cc;
+  --sarc-a: #e7a6bb;
+  --zline: #7a2a46;
+  --desmin: #9a6212;
+  --disc: #9a6212;
+  --rec: #2a66a8;
+  --channel: #3b3890;
+  --adv: #f0e6cf;
+  --media: #f3d6df;
+  --vsmc: #d98aa3;
+  --endo: #b8b5ec;
+  --lumen: #fbecec;
+  --rbc: #d0546f;
+  --ldl: #e3b54b;
+  --plt: #9b8fb8;
+
+  --display: "Newsreader", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --body: "Source Sans 3", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #14131d; --surface: #1c1a29; --ink: #ecebf6; --muted: #a8a5c2; --line: #33304a;
+    --accent: #a9a6ff; --accent-soft: #2a2849; --eosin: #ff8fb1; --focus: #ff8fb1; --flash: #3a2333;
+    --k-canal: #a9a6ff; --k-calciu: #5fd0cc; --k-sarcomer: #ff8fb1; --k-struct: #e0aa5a; --k-nuclear: #d09bf0;
+    --k-metab: #9bd384; --k-receptor: #8bbcf2; --k-sange: #f0907e; --k-ecm: #d6c07a;
+    --cell: #2c2234; --cell-stub: #241d2c; --membrane: #a9a6ff; --interst: #191723; --fiber: #6f6345; --amyloid: #6f8a55;
+    --nuc: #34315c; --nuc-in: #8580d6; --mito: #29402a; --mito-line: #8cc77a; --lyso: #3f5c36; --sr: #2e6f6c;
+    --sarc-a: #8a3d58; --zline: #ffb3c8; --desmin: #e0aa5a; --disc: #e0aa5a; --rec: #8bbcf2; --channel: #a9a6ff;
+    --adv: #3a3324; --media: #3d2531; --vsmc: #a2526d; --endo: #4b4890; --lumen: #2f1f25; --rbc: #e06a85; --ldl: #d9a93a; --plt: #8a7fb0;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #14131d; --surface: #1c1a29; --ink: #ecebf6; --muted: #a8a5c2; --line: #33304a;
+  --accent: #a9a6ff; --accent-soft: #2a2849; --eosin: #ff8fb1; --focus: #ff8fb1; --flash: #3a2333;
+  --k-canal: #a9a6ff; --k-calciu: #5fd0cc; --k-sarcomer: #ff8fb1; --k-struct: #e0aa5a; --k-nuclear: #d09bf0;
+  --k-metab: #9bd384; --k-receptor: #8bbcf2; --k-sange: #f0907e; --k-ecm: #d6c07a;
+  --cell: #2c2234; --cell-stub: #241d2c; --membrane: #a9a6ff; --interst: #191723; --fiber: #6f6345; --amyloid: #6f8a55;
+  --nuc: #34315c; --nuc-in: #8580d6; --mito: #29402a; --mito-line: #8cc77a; --lyso: #3f5c36; --sr: #2e6f6c;
+  --sarc-a: #8a3d58; --zline: #ffb3c8; --desmin: #e0aa5a; --disc: #e0aa5a; --rec: #8bbcf2; --channel: #a9a6ff;
+  --adv: #3a3324; --media: #3d2531; --vsmc: #a2526d; --endo: #4b4890; --lumen: #2f1f25; --rbc: #e06a85; --ldl: #d9a93a; --plt: #8a7fb0;
+  color-scheme: dark;
+}
