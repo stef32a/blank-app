@@ -7,6 +7,7 @@
      #/fiziologie[/capitol]     #/fiziopatologie[/capitol]
      #/boli[/eticheta]          #/molecule            #/medicamente[/clasa]
      #/clinica/<id>  #/transversal/<id>  #/unelte/<id>  #/fundatie/<id>   pagina unei teme
+     #/fisa/<id>                o fișă (atlas, schemă) din assets/js/fise/
      #/cauta/text               căutare
    Adresele vechi (#miocit, #fz, #fp, #toate, #med...) sunt încă recunoscute. */
 var HC = window.HC = window.HC || {};
@@ -39,6 +40,10 @@ function parse(hash) {
     var m = HC.MOL_BY[arg];
     return m ? { tab: COMPS[m.c].tab, comp: m.c, target: HC.molDomId(m) } : { tab: "toate" };
   }
+  if (head === "fisa") {
+    var f = HC.FISA_BY[arg];
+    return f ? { tab: "fisa", fisa: f } : { tab: "cuprins" };
+  }
   if (HC.GROUP_BY[head]) {
     var t = HC.TOPIC_BY[head + "/" + arg];
     return t ? { tab: "topic", topic: t } : { tab: "cuprins" };
@@ -67,6 +72,11 @@ function buildPage(r) {
   if (t === "topic") {
     var tp = state.topic, g = HC.GROUP_BY[tp.grp];
     return { html: V.topic(tp), title: tp.name, kicker: g.label, crumbs: [HOME, [g.label], [tp.name]], key: tp.grp + "/" + tp.id };
+  }
+  if (t === "fisa") {
+    var f = state.fisa, par = HC.TOPIC_BY[f.parent], pg = HC.GROUP_BY[par.grp];
+    return { html: V.fisa(f), title: f.title, kicker: "Fișă · " + par.name, crumbs: [HOME, [pg.label], [par.name, href.topic(par)], [f.short || f.title]],
+      key: par.grp + "/" + par.id, sub: "fisa/" + f.id, after: function () { if (f.mount) f.mount(); } };
   }
   if (t === "miocit" || t === "vas") {
     var c = state.comp[t];
@@ -144,11 +154,13 @@ function flash(node) { node.classList.remove("flash"); void node.offsetWidth; no
 /* aplică adresa curentă: actualizează starea, randează, derulează la țintă */
 function route() {
   var r = parse(location.hash);
-  var prevKey = state.tab + (state.topic ? state.topic.id : "");
+  var pageId = function () { return state.tab + (state.tab === "topic" ? state.topic.id : state.tab === "fisa" ? state.fisa.id : ""); };
+  var prevKey = pageId();
   state.tab = r.tab;
   if (r.comp) state.comp[r.tab] = r.comp;
   if (r.chap) state.chap[r.tab] = r.chap;
   if (r.topic) state.topic = r.topic;
+  if (r.fisa) state.fisa = r.fisa;
   state.q = r.q || "";
   var page = render(r);
   closeNav();
@@ -157,7 +169,7 @@ function route() {
   if (target) {
     target.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: r.target.indexOf("gena-") === 0 ? "center" : "start" });
     flash(target);
-  } else if (!r.q && (r.chap || r.topic || prevKey !== state.tab + (state.topic ? state.topic.id : ""))) {
+  } else if (!r.q && (r.chap || r.topic || r.fisa || prevKey !== pageId())) {
     window.scrollTo(0, 0);
   }
   remember(page);

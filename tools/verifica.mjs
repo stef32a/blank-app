@@ -20,7 +20,7 @@ const warn = (where, msg) => warns.push(`${where}: ${msg}`);
 
 // doar date + nucleu (fără DOM)
 for (const s of scripts) {
-  if (!/\/data\/|\/core\.js$/.test(s)) continue;
+  if (!/\/data\/|\/fise\/|\/core\.js$/.test(s)) continue;
   const code = fs.readFileSync(path.join(ROOT, s), "utf8");
   try { vm.runInContext(code, ctx, { filename: s }); }
   catch (e) { console.error(`✗ ${s} nu se poate încărca: ${e.message}`); process.exit(1); }
@@ -105,6 +105,18 @@ for (const [name, list] of Object.entries({ FOUNDATION: HC.FOUNDATION, ROOMS: HC
 }
 (HC.SECTIONS || []).forEach((s) => { if (!(s.tab in HC.ROUTE)) err(`SECTIONS „${s.name}”`, `tab necunoscut „${s.tab}”`); });
 
+// ---------- fișe ----------
+const fisaIds = new Set();
+(HC.FISE || []).forEach((f) => {
+  const w = `fișa ${f.id || f.title}`;
+  if (!f.id || !/^[a-z0-9-]+$/.test(f.id)) err(w, "id lipsă sau cu caractere nepermise (litere mici, cifre, -)");
+  if (fisaIds.has(f.id)) err(w, "id duplicat");
+  fisaIds.add(f.id);
+  for (const k of ["title", "ess", "parent"]) if (!f[k]) err(w, `lipsește „${k}”`);
+  if (typeof f.html !== "function") err(w, "lipsește funcția html()");
+  [f.parent].concat(f.also || []).forEach((k) => { if (k && !HC.TOPIC_BY[k]) err(w, `tema „${k}” nu există (format: grup/id, ex. unelte/eco)`); });
+});
+
 // ---------- medicamente ----------
 const drugIds = new Set();
 HC.DRUGS.forEach((d) => {
@@ -118,7 +130,7 @@ HC.DRUGS.forEach((d) => {
 
 // ---------- raport ----------
 const n = (k) => k.toLocaleString("ro-RO");
-console.log(`Harta: ${n(HC.MOLS.length)} molecule · ${n(HC.CHAPTERS.length)} capitole · ${n(HC.TAGS.length)} etichete · ${n(HC.DRUGS.length)} clase de medicamente`);
+console.log(`Harta: ${n(HC.MOLS.length)} molecule · ${n(HC.CHAPTERS.length)} capitole · ${(HC.FISE || []).length === 1 ? "1 fișă" : n((HC.FISE || []).length) + " fișe"} · ${n(HC.TAGS.length)} etichete · ${n(HC.DRUGS.length)} clase de medicamente`);
 warns.forEach((w) => console.log("  ⚠ " + w));
 errors.forEach((e) => console.log("  ✗ " + e));
 if (errors.length) { console.log(`\n${errors.length} erori.`); process.exit(1); }

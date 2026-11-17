@@ -27,6 +27,7 @@ harta/
         │   └── medicamente.js
         ├── core.js             indexuri, adrese, gene → legături
         ├── diagrame/           schemele SVG (miocit, vas, PA, mecanisme)
+        ├── fise/               fișe de sine stătătoare (atlase, scheme): câte un fișier fiecare
         ├── views.js            HTML-ul fiecărei secțiuni
         └── app.js              router, căutare, evenimente, temă
 ```
@@ -45,6 +46,7 @@ Regula: **conținutul stă în `data/`, codul în rest**. Ca să adaugi cardiolo
 | `#/boli/lqt` | QT lung → gene |
 | `#/medicamente/ic` | o clasă de medicamente |
 | `#/molecule` | tabelul tuturor moleculelor |
+| `#/fisa/doppler-venos-hepatic` | o fișă (atlas, schemă) |
 | `#/cauta/fabry` | o căutare |
 
 Tastele `/` sau Ctrl/⌘+K deschid căutarea. Butonul „Înapoi” al browserului funcționează, linkurile se pot copia, salva ca semne de carte sau deschide în tab nou.
@@ -71,6 +73,10 @@ devine adresa `#/clinica/<id>`). Apare singură în meniul lateral și pe pagina
 **O boală / etichetă** — adaugă în `TAGS` (`taxonomie.js`), apoi pune cheia în `tg` la genele respective.
 **Un medicament** — în `medicamente.js`, la clasa lui; țintele sunt simboluri de gene separate prin virgulă.
 **Un document extern** — în `DOC` din `cuprins.js`, apoi `["doc", "cheie"]` în `links` la camera potrivită.
+**O fișă nouă** (o schemă sau un atlas de sine stătător, ca „Doppler pe venele hepatice”) — copiază
+`assets/js/fise/doppler-venos-hepatic.js`, schimbă `id`, `title`, `parent` (tema de care ține, ex. `"unelte/eco"`),
+`also` (alte teme unde să apară) și conținutul, apoi adaug-o în `index.html` lângă celelalte fișe.
+Apare singură în meniu (sub tema-părinte), pe paginile temelor legate și în căutare.
 **O schemă nouă** — un fișier în `diagrame/` care înregistrează `HC.DIAGRAMS.nume = { html: function () {…} }`, inclus în `index.html`; apoi `{ dia:"nume" }` într-un capitol.
 
 În text: `**bold**`; simbolurile genelor din hartă devin legături singure.
