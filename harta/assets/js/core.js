@@ -64,6 +64,7 @@ HC.href = {
   tag: function (t) { return "#/boli/" + t; },
   med: function (id) { return "#/medicamente/" + id; },
   topic: function (t) { return "#/" + t.grp + "/" + t.id; },
+  fisa: function (f) { return "#/fisa/" + f.id; },
   search: function (q) { return "#/cauta/" + encodeURIComponent(q); }
 };
 HC.molDomId = function (m) { return "gena-" + m.id; };
@@ -83,6 +84,7 @@ var ICONS = {
   menu: '<path d="M4 7h16M4 12h16M4 17h16"/>',
   close: '<path d="M6 6l12 12M18 6 6 18"/>',
   arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
+  doc: '<path d="M7 3.5h7l4 4V20a.5.5 0 0 1-.5.5h-10A.5.5 0 0 1 6.5 20V4a.5.5 0 0 1 .5-.5z"/><path d="M14 3.5V8h4M9.5 12.5h5M9.5 16h5"/>',
   clock: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
   dot: '<circle cx="12" cy="12" r="3"/>',
   sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/>',

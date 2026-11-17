@@ -8,6 +8,18 @@ var KINDS = HC.KINDS, COMPS = HC.COMPS, TAGS = HC.TAGS, TAGMAP = HC.TAGMAP, MOLS
 var CHAPTERS = HC.CHAPTERS, CH_BY = HC.CH_BY, COMP_CH = HC.COMP_CH, SEC_ORDER = HC.SEC_ORDER, DRUGS = HC.DRUGS;
 var V = HC.views = {};
 
+/* fișele (assets/js/fise/): index și atașare la teme */
+var FISE = HC.FISE = HC.FISE || [];
+HC.FISA_BY = {};
+FISE.forEach(function (f) {
+  HC.FISA_BY[f.id] = f;
+  [f.parent].concat(f.also || []).forEach(function (key) {
+    var t = HC.TOPIC_BY[key];
+    if (!t) { console.warn("[harta] fișa " + f.id + ": temă necunoscută " + key); return; }
+    (t.fise = t.fise || []).push(f);
+  });
+});
+
 /* ---------- fișa unei molecule ---------- */
 function molHTML(m, showWhere) {
   var h = '<article class="mol" id="' + HC.molDomId(m) + '" style="--kc:' + kc(m) + '">';
@@ -107,6 +119,7 @@ function buildHay() {
         return [b.h || "", b.p || "", (b.list || []).join(" "), (b.steps || []).join(" "), b.table ? b.table.rows.map(function (r) { return r.join(" "); }).join(" ") : ""].join(" ");
       })).join(" "));
     }),
+    fise: FISE.map(function (f) { return norm([f.title, f.ess, f.keywords || ""].join(" ")); }),
     drugs: DRUGS.map(function (dc) {
       return norm([dc.name, dc.note || ""].concat(dc.subs.map(function (s) { return s.join(" "); })).join(" "));
     })
@@ -119,11 +132,13 @@ V.search = function (q) {
   var res = MOLS.filter(function (m, i) { return ok(HAY.mols[i]); });
   var chs = CHAPTERS.filter(function (c, i) { return ok(HAY.chaps[i]); });
   var mcs = DRUGS.filter(function (d, i) { return ok(HAY.drugs[i]); });
+  var fis = FISE.filter(function (f, i) { return ok(HAY.fise[i]); });
   var h = pageHead("Căutare", "„" + q.trim() + "”", res.length + " molecule · " + chs.length + " capitole · " + mcs.length + " clase de medicamente");
   h += '<section class="panel">';
+  if (fis.length) h += '<div class="grid-2">' + fis.map(fisaCard).join("") + '</div>';
   if (chs.length) h += '<div class="chapchips">Capitole de fiziologie: ' + chs.map(function (c) { return HC.chapChip(c.id); }).join("") + '</div>';
   if (mcs.length) h += '<div class="chapchips">Medicamente: ' + mcs.map(function (dc) { return '<a class="chapchip" href="' + href.med(dc.id) + '">' + esc(dc.name) + '</a>'; }).join("") + '</div>';
-  if (!res.length) h += '<p class="empty">Nimic găsit. Încearcă simbolul genei (de ex. LMNA), numele bolii (Danon) sau un medicament (ivabradină).</p>';
+  if (!res.length && !fis.length) h += '<p class="empty">Nimic găsit. Încearcă simbolul genei (de ex. LMNA), numele bolii (Danon) sau un medicament (ivabradină).</p>';
   else h += '<div class="mols">' + res.map(function (m) { return molHTML(m, true); }).join("") + '</div>';
   return h + '</section>';
 };
@@ -226,7 +241,7 @@ V.tabCount = tabCount;
 
 /* ---------- pagina principală ---------- */
 function topicStatus(t) {
-  var n = t.links.length;
+  var n = t.links.length + (t.fise ? t.fise.length : 0);
   return n ? '<span class="status ok">' + plural(n, ["resursă", "resurse"]) + '</span>' : '<span class="status todo">De construit</span>';
 }
 function sectionCard(s) {
@@ -284,6 +299,7 @@ V.topic = function (t) {
   var g = HC.GROUP_BY[t.grp];
   var kicker = esc(g.label) + (t.num ? ' · camera ' + t.num : '');
   var h = pageHead(kicker, t.name, esc(t.ess));
+  if (t.fise && t.fise.length) h += '<section class="fise-sec"><h2 class="card-h">Fișe</h2><div class="grid-2">' + t.fise.map(fisaCard).join("") + '</div></section>';
   h += '<div class="topic-grid">';
   h += '<section class="panel-card"><h2 class="card-h">Teme</h2><ol class="topic-list">' + t.topics.map(function (x) {
     return '<li><span>' + esc(x) + '</span><span class="status todo">de scris</span></li>';
@@ -299,6 +315,23 @@ V.topic = function (t) {
   h += '<nav class="pager" aria-label="Paginare">' +
     (prev ? '<a class="pg" href="' + href.topic(prev) + '"><small>Înapoi</small>← ' + esc(prev.name) + '</a>' : '<span></span>') +
     (next ? '<a class="pg next" href="' + href.topic(next) + '"><small>Mai departe</small>' + esc(next.name) + ' →</a>' : '') + '</nav>';
+  return h;
+};
+
+/* ---------- fișe ---------- */
+function fisaCard(f) {
+  var parent = HC.TOPIC_BY[f.parent];
+  return '<a class="card fisa-card" href="' + href.fisa(f) + '"><span class="card-ico">' + HC.icon("doc") + '</span>' +
+    '<span class="card-body"><span class="card-title">' + esc(f.title) + '</span><span class="card-text">' + esc(f.ess) + '</span></span>' +
+    '<span class="card-foot"><span class="meta">Fișă · ' + esc(parent ? parent.name : "") + '</span>' + HC.icon("arrow", "go") + '</span></a>';
+}
+V.fisaCard = fisaCard;
+V.fisa = function (f) {
+  var parent = HC.TOPIC_BY[f.parent], g = HC.GROUP_BY[parent.grp];
+  var h = pageHead(esc(g.label) + ' · ' + esc(parent.name), f.title, f.lead);
+  h += f.html();
+  var rel = [parent].concat((f.also || []).map(function (k) { return HC.TOPIC_BY[k]; }).filter(Boolean));
+  h += '<div class="chapchips">Legată de: ' + rel.map(function (t) { return '<a class="rlink" href="' + href.topic(t) + '">' + esc(t.name) + '</a>'; }).join("") + '</div>';
   return h;
 };
 
@@ -327,7 +360,9 @@ V.sidebar = function () {
     sub("med", DRUGS.map(function (d) { return ["med/" + d.id, href.med(d.id), d.name]; })) + '</div>';
   HC.TOPIC_GROUPS.slice(1).forEach(function (g) {
     h += '<div class="sb-group"><div class="sb-h">' + esc(g.label) + '</div>' + g.list.map(function (t) {
-      return '<a class="sb-link topic" data-key="' + g.key + "/" + t.id + '" href="' + href.topic(t) + '">' + (t.num ? '<span class="sb-num">' + t.num + '</span>' : '<span class="sb-num dot"></span>') + '<span class="sb-label">' + esc(t.name) + '</span></a>';
+      var own = FISE.filter(function (f) { return f.parent === g.key + "/" + t.id; });
+      return '<a class="sb-link topic" data-key="' + g.key + "/" + t.id + '" href="' + href.topic(t) + '">' + (t.num ? '<span class="sb-num">' + t.num + '</span>' : '<span class="sb-num dot"></span>') + '<span class="sb-label">' + esc(t.name) + '</span>' + (own.length ? '<span class="sb-n">' + own.length + '</span>' : '') + '</a>' +
+        (own.length ? sub(g.key + "/" + t.id, own.map(function (f) { return ["fisa/" + f.id, href.fisa(f), f.short || f.title]; })) : '');
     }).join("") + '</div>';
   });
   return h + '</nav>';

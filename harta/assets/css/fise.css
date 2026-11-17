@@ -1,0 +1,45 @@
+/* Fișe: pagini de sine stătătoare (atlase, scheme). Culorile fiecărei fișe stau sub clasa ei. */
+
+.fisa { display: flex; flex-direction: column; gap: 22px; min-width: 0; }
+.fisa-h { font-family: var(--display); font-weight: 600; font-size: 24px; line-height: 1.2; margin: 0; }
+.fisa-note { margin: 0; font-size: 13.5px; color: var(--muted); }
+.fise-sec { display: flex; flex-direction: column; gap: 10px; }
+
+/* ---------- Doppler venos hepatic ---------- */
+.fisa-dp {
+  --dp-screen: #0d1117; --dp-grid: #1e2732; --dp-trace: #c9d4df; --dp-ecg: #4fd18b;
+  --dp-fwd: #5aa9ff; --dp-rev: #ff6b6b; --dp-warn: #b4540a;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .fisa-dp { --dp-screen: #06090d; --dp-grid: #18212b; --dp-fwd: #6fb4ff; --dp-rev: #ff7b7b; --dp-warn: #f0a35a; }
+}
+:root[data-theme="dark"] .fisa-dp { --dp-screen: #06090d; --dp-grid: #18212b; --dp-fwd: #6fb4ff; --dp-rev: #ff7b7b; --dp-warn: #f0a35a; }
+
+.dp-legend { font-size: 13.5px; }
+.dp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(330px, 100%), 1fr)); gap: 16px; }
+.dp-grid.three { grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr)); }
+.dp-card {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow-sm);
+  padding: 14px; display: flex; flex-direction: column; gap: 10px; min-width: 0;
+}
+.dp-card h3 { margin: 0; font-size: 16.5px; font-weight: 700; display: flex; align-items: baseline; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.dp-tag {
+  font-family: var(--mono); font-style: normal; font-size: 11px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase;
+  padding: 2px 8px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted);
+}
+.dp-tag.abn { color: var(--dp-warn); border-color: currentColor; }
+.dp-screen { background: var(--dp-screen); border-radius: 8px; overflow: hidden; }
+.dp-screen svg { display: block; width: 100%; height: auto; }
+.dp-sign { margin: 0; font-weight: 600; }
+.dp-why { margin: 0; color: var(--muted); font-size: 14.5px; }
+.dp-row { display: flex; flex-direction: column; gap: 10px; }
+.dp-rowlabel { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+.dp-grades { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); gap: 10px; }
+.dp-grades div {
+  display: flex; flex-direction: column; gap: 2px; padding: 10px 14px; border-radius: 12px;
+  background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--accent);
+}
+.dp-grades div:nth-child(3) { border-left-color: var(--dp-warn); }
+.dp-grades div:nth-child(4) { border-left-color: var(--eosin); }
+.dp-grades span { font-size: 14px; color: var(--muted); }
+.dp-table table { min-width: 560px; }
