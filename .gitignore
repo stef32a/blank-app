@@ -164,3 +164,7 @@ cython_debug/
 #.idea/
 # Harta cardiologiei: varianta generată într-un singur fișier
 dist/
+
+# Note de cercetare și rapoarte (nu fac parte din site)
+research_notes/
+reports/

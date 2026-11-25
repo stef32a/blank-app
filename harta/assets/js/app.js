@@ -8,6 +8,7 @@
      #/boli[/eticheta]          #/molecule            #/medicamente[/clasa]
      #/clinica/<id>  #/transversal/<id>  #/unelte/<id>  #/fundatie/<id>   pagina unei teme
      #/fisa/<id>                o fișă (atlas, schemă) din assets/js/fise/
+     #/ecg  #/ecg/<capitol>  #/ecg/diagnostice[/<id>]   Atlasul ECG: ghidul pe capitole și catalogul de diagnostice
      #/cauta/text               căutare
    Adresele vechi (#miocit, #fz, #fp, #toate, #med...) sunt încă recunoscute. */
 var HC = window.HC = window.HC || {};
@@ -18,7 +19,7 @@ var el = HC.el, V = HC.views, COMPS = HC.COMPS, CH_BY = HC.CH_BY, esc = HC.esc, 
 var state = HC.state = {
   tab: "cuprins",
   comp: { miocit: "sarcolema", vas: "endoteliu" },
-  chap: { fz: "ioni", fp: "aritmii" },
+  chap: { fz: "ioni", fp: "aritmii", ecg: null },
   topic: null,
   q: "",
   ap: "p:f0"
@@ -39,6 +40,13 @@ function parse(hash) {
   if (head === "gena") {
     var m = HC.MOL_BY[arg];
     return m ? { tab: COMPS[m.c].tab, comp: m.c, target: HC.molDomId(m) } : { tab: "toate" };
+  }
+  if (head === "ecg") {
+    if (seg[1] === "diagnostice") {
+      var dxId = seg.slice(2).join("/");
+      return HC.ECG_DX_BY && HC.ECG_DX_BY[dxId] ? { tab: "ecgdx", target: "dx-" + dxId, dxId: dxId } : { tab: "ecgdx" };
+    }
+    return CH_BY[arg] && CH_BY[arg].grp === "ecg" ? { tab: "ecg", chap: arg } : { tab: "ecg", hub: true };
   }
   if (head === "fisa") {
     var f = HC.FISA_BY[arg];
@@ -63,7 +71,7 @@ function parse(hash) {
 /* ---------- pagini ----------
    Fiecare pagină: html, titlu, fir de navigare (crumbs), cheia activă din meniu. */
 var HOME = ["Acasă", "#/"];
-var SEC_LABEL = { miocit: "Miocitul", vas: "Vasul", fz: "Fiziologie", fp: "Fiziopatologie", boli: "Boli → gene", toate: "Toate moleculele", med: "Medicamente" };
+var SEC_LABEL = { miocit: "Miocitul", vas: "Vasul", fz: "Fiziologie", fp: "Fiziopatologie", boli: "Boli → gene", toate: "Toate moleculele", med: "Medicamente", ecg: "Atlasul ECG", ecgdx: "Diagnostice ECG" };
 
 function buildPage(r) {
   var t = state.tab, q = state.q.trim();
@@ -82,6 +90,18 @@ function buildPage(r) {
     var c = state.comp[t];
     return { html: V.stage(t, c), title: COMPS[c].name, kicker: SEC_LABEL[t], crumbs: [HOME, ["Fundația"], [SEC_LABEL[t], href.tab(t)], [COMPS[c].name]], key: t, sub: t + "/" + c,
       after: function () { V.markActive(t, c); } };
+  }
+  if (t === "ecg" && !state.chap.ecg) {
+    return { html: V.ecgHub(), title: "Atlasul ECG", kicker: "ECG", crumbs: [HOME, ["Atlasul ECG"]], key: "ecg" };
+  }
+  if (t === "ecgdx") {
+    return { html: V.ecgDx(), title: "Diagnostice ECG", kicker: "ECG", crumbs: [HOME, ["Atlasul ECG", href.tab("ecg")], ["Diagnostice ECG"]], key: "ecgdx",
+      after: function () { V.mountEcgDx(); } };
+  }
+  if (t === "ecg") {
+    var er = V.chapters("ecg", state.chap.ecg);
+    return { html: er.html, title: er.chapter.short, kicker: "ECG", crumbs: [HOME, ["Atlasul ECG", href.tab("ecg")], [er.chapter.short]], key: "ecg", sub: "ecg/" + er.chapter.id,
+      after: function () { V.mountDiagrams(er.chapter); } };
   }
   if (t === "fz" || t === "fp") {
     var res = V.chapters(t, state.chap[t]);
@@ -154,11 +174,12 @@ function flash(node) { node.classList.remove("flash"); void node.offsetWidth; no
 /* aplică adresa curentă: actualizează starea, randează, derulează la țintă */
 function route() {
   var r = parse(location.hash);
-  var pageId = function () { return state.tab + (state.tab === "topic" ? state.topic.id : state.tab === "fisa" ? state.fisa.id : ""); };
+  var pageId = function () { return state.tab + (state.tab === "topic" ? state.topic.id : state.tab === "fisa" ? state.fisa.id : state.tab === "ecg" ? (state.chap.ecg || "") : ""); };
   var prevKey = pageId();
   state.tab = r.tab;
   if (r.comp) state.comp[r.tab] = r.comp;
   if (r.chap) state.chap[r.tab] = r.chap;
+  if (r.hub) state.chap.ecg = null;
   if (r.topic) state.topic = r.topic;
   if (r.fisa) state.fisa = r.fisa;
   state.q = r.q || "";
@@ -198,6 +219,7 @@ document.addEventListener("click", function (e) {
   var a = e.target.closest('a[href^="#/"]');
   if (a && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey && e.button === 0) {
     e.preventDefault();
+    if (a.hasAttribute("data-dxcat")) HC.pendingDxCat = a.getAttribute("data-dxcat");
     go(a.getAttribute("href"));
     return;
   }

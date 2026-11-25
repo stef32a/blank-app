@@ -85,5 +85,8 @@ HC.COMP_CH = {
 };
 HC.SEC_ORDER = {
   fz: ["Electricitatea", "Contracția", "Reglarea", "Structura și energia", "Vasul și sângele"],
-  fp: ["Ritmul", "Miocardul", "Vasele"]
+  fp: ["Ritmul", "Miocardul", "Vasele"],
+  ecg: ["Metoda", "Pas cu pas", "Aritmii", "Stimulare", "Nivel expert", "Referințe"]
 };
+/* eticheta fiecărui grup de capitole */
+HC.GRP_LABEL = { fz: "Fiziologie", fp: "Fiziopatologie", ecg: "ECG" };

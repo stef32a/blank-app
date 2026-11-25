@@ -1,0 +1,89 @@
+/* Atlasul ECG: imagini, galerie, catalogul de diagnostice, accentul „urgent”. */
+
+:root { --urgent: #b42318; --urgent-soft: #fdecea; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --urgent: #ff8a7a; --urgent-soft: #3a1f1d; } }
+:root[data-theme="dark"] { --urgent: #ff8a7a; --urgent-soft: #3a1f1d; }
+
+/* linkuri spre surse, în text */
+a.src { color: var(--accent); text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent); text-underline-offset: 2px; }
+a.src:hover { text-decoration-color: currentColor; }
+a.src::after { content: "↗"; font-size: .8em; margin-left: 1px; }
+
+/* imaginile din ghid: hârtie albă și în tema întunecată (schemele sunt desenate pe alb) */
+.fig-img { margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.fig-img a { display: block; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); background: #fff; box-shadow: var(--shadow-sm); }
+.fig-img img { display: block; width: 100%; height: auto; }
+.fig-img figcaption { font-size: 13.5px; color: var(--muted); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .fig-img img, :root:not([data-theme="light"]) .gal-item img { filter: invert(.92) hue-rotate(180deg) contrast(.95); } :root:not([data-theme="light"]) .fig-img a, :root:not([data-theme="light"]) .gal-item img { background: #141318; } }
+:root[data-theme="dark"] .fig-img img, :root[data-theme="dark"] .gal-item img { filter: invert(.92) hue-rotate(180deg) contrast(.95); }
+:root[data-theme="dark"] .fig-img a, :root[data-theme="dark"] .gal-item img { background: #141318; }
+
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(240px, 100%), 1fr)); gap: 12px; }
+.gal-item { display: flex; flex-direction: column; gap: 6px; text-decoration: none; color: var(--ink); font-size: 13.5px; font-weight: 600; }
+.gal-item img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: top; border-radius: 12px; border: 1px solid var(--line); background: #fff; box-shadow: var(--shadow-sm); transition: border-color .15s; }
+.gal-item:hover img { border-color: var(--accent); }
+
+/* pagina de start a atlasului */
+.ecg-actions .card-title { font-size: 18px; }
+.urgent-card .card-ico { background: var(--urgent-soft); color: var(--urgent); }
+.row-num { margin-right: 2px; }
+.rlink.urgent, .dxlink.urgent { border-color: color-mix(in srgb, var(--urgent) 55%, var(--line)); color: var(--urgent); }
+
+/* secțiunea ECG de pe pagina principală */
+.ecg-feature {
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; padding: 16px; border-radius: var(--radius);
+  background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow-sm);
+}
+@media (min-width: 900px) { .ecg-feature { grid-template-columns: 260px minmax(0, 1fr); align-items: center; } }
+.ecg-feature-main {
+  display: flex; flex-direction: column; gap: 6px; padding: 16px; border-radius: 12px; text-decoration: none; color: var(--ink);
+  background: linear-gradient(135deg, var(--accent-soft), color-mix(in srgb, var(--eosin) 10%, transparent));
+}
+.ecg-feature-main:hover .card-title { color: var(--accent); }
+.ecg-feature-links { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+
+/* catalogul de diagnostice */
+.dx-tools { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 12px; }
+.dx-filter {
+  flex: 1 1 280px; display: flex; align-items: center; gap: 8px; height: 40px; padding: 0 12px;
+  border: 1px solid var(--line); border-radius: 10px; background: var(--bg); color: var(--muted);
+}
+.dx-filter:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.dx-filter .ico { width: 18px; height: 18px; }
+.dx-filter input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; color: var(--ink); font: inherit; font-size: 15px; }
+.dx-toggle { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600; color: var(--urgent); cursor: pointer; }
+.dx-cats { flex: 1 1 100%; }
+.dx-cats button { font: inherit; font-size: 12.5px; font-weight: 600; cursor: pointer; }
+.dx-tools .count { flex: 1 1 100%; }
+@media (max-width: 720px) { .dx-cats { display: none; } }
+
+.dx-sec { display: flex; flex-direction: column; gap: 12px; scroll-margin-top: calc(var(--topbar-h) + 16px); }
+.dx-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(380px, 100%), 1fr)); gap: 12px; align-items: start; }
+.dx {
+  display: flex; flex-direction: column; gap: 8px; padding: 14px 16px; border-radius: 12px; min-width: 0;
+  background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow-sm);
+  scroll-margin-top: calc(var(--topbar-h) + 16px);
+}
+.dx.urgent { border-left: 3px solid var(--urgent); }
+.dx header { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.dx-name { font-weight: 700; font-size: 16px; color: var(--ink); }
+.badge-urgent {
+  flex: none; display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--urgent); background: var(--urgent-soft); border-radius: 999px; padding: 2px 8px;
+}
+.badge-urgent .ico { width: 13px; height: 13px; }
+.dx-ecg { margin: 0; font-size: 15px; }
+.dx-note { margin: 0; font-size: 14px; color: var(--muted); }
+.dx-foot { border-top: 1px solid var(--line); padding-top: 8px; }
+.dx-src { font-size: 12.5px; color: var(--muted); align-self: center; }
+.dx.flash { animation: flash 1.6s ease-out; }
+
+/* casetă de actualizare (corecturi verificate față de textul original) */
+.callout {
+  border: 1px solid color-mix(in srgb, var(--k-metab) 45%, var(--line)); border-left: 4px solid var(--k-metab);
+  background: color-mix(in srgb, var(--k-metab) 7%, var(--surface)); border-radius: 0 12px 12px 0; padding: 12px 16px;
+  display: flex; flex-direction: column; gap: 6px; max-width: 80ch;
+}
+.callout-h { display: flex; align-items: center; gap: 6px; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; font-weight: 700; color: var(--k-metab); }
+.callout-h .ico { width: 15px; height: 15px; }
+.callout p { margin: 0; font-size: 15px; }

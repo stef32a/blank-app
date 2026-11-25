@@ -64,11 +64,12 @@ HC.CHAPTERS.forEach((c) => {
   const w = `capitol ${c.id}`;
   if (chIds.has(c.id)) err(w, "id duplicat");
   chIds.add(c.id);
-  if (!HC.SEC_ORDER[c.grp]) err(w, `grup necunoscut „${c.grp}” (fz sau fp)`);
+  if (!HC.SEC_ORDER[c.grp]) err(w, `grup necunoscut „${c.grp}” (fz, fp sau ecg)`);
   else if (!HC.SEC_ORDER[c.grp].includes(c.sec)) err(w, `secțiunea „${c.sec}” lipsește din SEC_ORDER.${c.grp}`);
   for (const f of ["short", "title", "idea"]) if (!c[f]) err(w, `lipsește „${f}”`);
   (c.blocks || []).forEach((b, i) => {
     if (b.dia && !DIAS.includes(b.dia)) err(`${w} bloc ${i + 1}`, `schemă necunoscută „${b.dia}”`);
+    if (b.img && !fs.existsSync(path.join(ROOT, b.img.src))) err(`${w} bloc ${i + 1}`, `imaginea „${b.img.src}” nu există`);
     if (b.table) {
       const n = b.table.head.length;
       b.table.rows.forEach((r, j) => { if (r.length !== n) err(`${w} bloc ${i + 1}`, `rândul ${j + 1} are ${r.length} celule, antetul ${n}`); });
@@ -86,6 +87,7 @@ const linkCheck = (where, l) => {
   else if (type === "tab") { if (!(id in HC.ROUTE)) err(where, `tab necunoscut „${id}”`); }
   else if (type === "tag") { if (!HC.TAGMAP[id]) err(where, `etichetă necunoscută „${id}”`); }
   else if (type === "gene") sym(where, id);
+  else if (type === "ecgdx") { if (!(HC.ECG_DX || []).some((d) => d.id === id)) err(where, `diagnostic ECG necunoscut „${id}”`); }
   else if (type === "doc") { if (!HC.DOC[id]) err(where, `document necunoscut „${id}”`); }
   else if (type === "med") { if (!HC.DRUG_BY[id]) err(where, `clasă de medicamente necunoscută „${id}”`); }
   else err(where, `tip de legătură necunoscut „${type}”`);
@@ -117,6 +119,24 @@ const fisaIds = new Set();
   [f.parent].concat(f.also || []).forEach((k) => { if (k && !HC.TOPIC_BY[k]) err(w, `tema „${k}” nu există (format: grup/id, ex. unelte/eco)`); });
 });
 
+// ---------- diagnostice ECG ----------
+const dxIds = new Set(), cats = new Set((HC.ECG_CATS || []).map((c) => c.id));
+(HC.ECG_DX || []).forEach((d) => {
+  const w = `diagnostic ECG ${d.id || d.name}`;
+  if (!d.id || !/^[a-z0-9-]+$/.test(d.id)) err(w, "id lipsă sau cu caractere nepermise");
+  if (dxIds.has(d.id)) err(w, "id duplicat");
+  dxIds.add(d.id);
+  if (!cats.has(d.cat)) err(w, `categorie necunoscută „${d.cat}”`);
+  for (const k of ["name", "ecg"]) if (!d[k]) err(w, `lipsește „${k}”`);
+  (d.chap || []).forEach((id) => chap(w, id));
+  (d.genes || []).forEach((g) => sym(w, g));
+  (d.tags || []).forEach((t) => { if (!HC.TAGMAP[t]) err(w, `etichetă necunoscută „${t}”`); });
+  (d.topics || []).forEach((k) => { if (!HC.TOPIC_BY[k]) err(w, `tema „${k}” nu există`); });
+  (d.meds || []).forEach((id) => { if (!HC.DRUG_BY[id]) err(w, `clasă de medicamente necunoscută „${id}”`); });
+  const allowed = new Set(["id", "cat", "name", "alias", "ecg", "note", "urgent", "chap", "genes", "tags", "topics", "meds", "src"]);
+  Object.keys(d).forEach((k) => { if (!allowed.has(k)) warn(w, `câmp necunoscut „${k}”`); });
+});
+
 // ---------- medicamente ----------
 const drugIds = new Set();
 HC.DRUGS.forEach((d) => {
@@ -130,7 +150,7 @@ HC.DRUGS.forEach((d) => {
 
 // ---------- raport ----------
 const n = (k) => k.toLocaleString("ro-RO");
-console.log(`Harta: ${n(HC.MOLS.length)} molecule · ${n(HC.CHAPTERS.length)} capitole · ${(HC.FISE || []).length === 1 ? "1 fișă" : n((HC.FISE || []).length) + " fișe"} · ${n(HC.TAGS.length)} etichete · ${n(HC.DRUGS.length)} clase de medicamente`);
+console.log(`Harta: ${n(HC.MOLS.length)} molecule · ${n(HC.CHAPTERS.length)} capitole · ${(HC.FISE || []).length === 1 ? "1 fișă" : n((HC.FISE || []).length) + " fișe"} · ${n((HC.ECG_DX || []).length)} diagnostice ECG · ${n(HC.TAGS.length)} etichete · ${n(HC.DRUGS.length)} clase de medicamente`);
 warns.forEach((w) => console.log("  ⚠ " + w));
 errors.forEach((e) => console.log("  ✗ " + e));
 if (errors.length) { console.log(`\n${errors.length} erori.`); process.exit(1); }
