@@ -22,6 +22,8 @@ harta/
         │   ├── molecule-vas.js         genele vasului
         │   ├── capitole-fiziologie.js
         │   ├── capitole-fiziopatologie.js
+        │   ├── capitole-ecg.js         Atlasul ECG: ghidul standardizat pe capitole (+ nivel expert)
+        │   ├── ecg-diagnostice.js      catalogul diagnosticelor ECG, pe categorii
         │   ├── potential-actiune.js    fazele și curenții din schema PA
         │   ├── cuprins.js              secțiunile, camerele clinice, coridoarele, uneltele, documente externe
         │   └── medicamente.js
@@ -47,6 +49,8 @@ Regula: **conținutul stă în `data/`, codul în rest**. Ca să adaugi cardiolo
 | `#/medicamente/ic` | o clasă de medicamente |
 | `#/molecule` | tabelul tuturor moleculelor |
 | `#/fisa/doppler-venos-hepatic` | o fișă (atlas, schemă) |
+| `#/ecg` · `#/ecg/ecg-st` | Atlasul ECG · un capitol din ghidul ECG |
+| `#/ecg/diagnostice/brugada-1` | un diagnostic din catalogul ECG |
 | `#/cauta/fabry` | o căutare |
 
 Tastele `/` sau Ctrl/⌘+K deschid căutarea. Butonul „Înapoi” al browserului funcționează, linkurile se pot copia, salva ca semne de carte sau deschide în tab nou.
@@ -77,6 +81,12 @@ devine adresa `#/clinica/<id>`). Apare singură în meniul lateral și pe pagina
 `assets/js/fise/doppler-venos-hepatic.js`, schimbă `id`, `title`, `parent` (tema de care ține, ex. `"unelte/eco"`),
 `also` (alte teme unde să apară) și conținutul, apoi adaug-o în `index.html` lângă celelalte fișe.
 Apare singură în meniu (sub tema-părinte), pe paginile temelor legate și în căutare.
+**Un diagnostic ECG** — în `ecg-diagnostice.js`, în categoria lui: `id`, `name`, `ecg` (criteriile), opțional `note`,
+`urgent: true` (valoare critică), `chap` (capitolele ghidului), `genes`, `tags`, `topics`, `meds`, `src`.
+Apare singur în catalog, pe fișele genelor și ale bolilor legate și în căutare.
+**Un capitol ECG** — în `capitole-ecg.js` (grup `"ecg"`, secțiunea din `SEC_ORDER.ecg`). Blocuri în plus față de celelalte
+capitole: `img: { src, cap }` (imagini din `assets/img/ecg/`) și `callout: { title, text }` (casetă de actualizare).
+În text: `[text](https://link)` devine link spre sursă, `_text_` italic.
 **O schemă nouă** — un fișier în `diagrame/` care înregistrează `HC.DIAGRAMS.nume = { html: function () {…} }`, inclus în `index.html`; apoi `{ dia:"nume" }` într-un capitol.
 
 În text: `**bold**`; simbolurile genelor din hartă devin legături singure.

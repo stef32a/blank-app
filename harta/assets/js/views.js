@@ -33,6 +33,8 @@ function molHTML(m, showWhere) {
   }
   if (m.t) h += '<p class="tx"><b>Țintă terapeutică:</b> ' + rich(m.t, m.id) + '</p>';
   if (COMP_CH[m.c]) h += '<div class="chapchips">Mecanism: ' + COMP_CH[m.c].map(HC.chapChip).join("") + '</div>';
+  var dxs = V.dxForGene ? V.dxForGene(m) : [];
+  if (dxs.length) h += '<div class="chapchips">ECG: ' + dxs.map(function (d) { return HC.dxChip(d); }).join("") + '</div>';
   if (m.tg && m.tg.length) h += '<div class="tags">' + m.tg.map(function (t) { return HC.tagChip(t); }).join("") + '</div>';
   return h + '</article>';
 }
@@ -85,7 +87,8 @@ V.index = function () {
   TAGS.forEach(function (t) {
     var ms = MOLS.filter(function (m) { return m.tg && m.tg.indexOf(t[0]) > -1; });
     if (!ms.length) return;
-    h += '<section class="dz" id="tag-' + t[0] + '"><h3><a class="permalink" href="' + href.tag(t[0]) + '">' + esc(t[1]) + '</a></h3><p>' + esc(t[2]) + '</p><div class="genes">';
+    var tdx = V.dxForTag(t[0]);
+    h += '<section class="dz" id="tag-' + t[0] + '"><h3><a class="permalink" href="' + href.tag(t[0]) + '">' + esc(t[1]) + '</a></h3><p>' + esc(t[2]) + '</p>' + (tdx.length ? '<div class="chapchips">ECG: ' + tdx.map(function (d) { return HC.dxChip(d); }).join("") + '</div>' : '') + '<div class="genes">';
     ms.forEach(function (m) {
       h += '<a class="gchip" href="' + href.mol(m) + '" style="--kc:' + kc(m) + '" title="' + esc(m.p) + '">' + esc(m.g) + '</a>';
     });
@@ -119,6 +122,7 @@ function buildHay() {
         return [b.h || "", b.p || "", (b.list || []).join(" "), (b.steps || []).join(" "), b.table ? b.table.rows.map(function (r) { return r.join(" "); }).join(" ") : ""].join(" ");
       })).join(" "));
     }),
+    dx: ECG_DX.map(function (d) { return norm([d.name, d.alias || "", d.ecg, d.note || ""].join(" ")); }),
     fise: FISE.map(function (f) { return norm([f.title, f.ess, f.keywords || ""].join(" ")); }),
     drugs: DRUGS.map(function (dc) {
       return norm([dc.name, dc.note || ""].concat(dc.subs.map(function (s) { return s.join(" "); })).join(" "));
@@ -133,12 +137,14 @@ V.search = function (q) {
   var chs = CHAPTERS.filter(function (c, i) { return ok(HAY.chaps[i]); });
   var mcs = DRUGS.filter(function (d, i) { return ok(HAY.drugs[i]); });
   var fis = FISE.filter(function (f, i) { return ok(HAY.fise[i]); });
-  var h = pageHead("Căutare", "„" + q.trim() + "”", res.length + " molecule · " + chs.length + " capitole · " + mcs.length + " clase de medicamente");
+  var dxs = ECG_DX.filter(function (d, i) { return ok(HAY.dx[i]); });
+  var h = pageHead("Căutare", "„" + q.trim() + "”", res.length + " molecule · " + chs.length + " capitole · " + dxs.length + " diagnostice ECG · " + mcs.length + " clase de medicamente");
   h += '<section class="panel">';
   if (fis.length) h += '<div class="grid-2">' + fis.map(fisaCard).join("") + '</div>';
-  if (chs.length) h += '<div class="chapchips">Capitole de fiziologie: ' + chs.map(function (c) { return HC.chapChip(c.id); }).join("") + '</div>';
+  if (dxs.length) h += '<div class="chapchips">Diagnostice ECG: ' + dxs.slice(0, 24).map(function (d) { return HC.dxChip(d); }).join("") + (dxs.length > 24 ? '<a class="rlink" href="' + href.tab("ecgdx") + '">… încă ' + (dxs.length - 24) + '</a>' : '') + '</div>';
+  if (chs.length) h += '<div class="chapchips">Capitole: ' + chs.map(function (c) { return HC.chapChip(c.id); }).join("") + '</div>';
   if (mcs.length) h += '<div class="chapchips">Medicamente: ' + mcs.map(function (dc) { return '<a class="chapchip" href="' + href.med(dc.id) + '">' + esc(dc.name) + '</a>'; }).join("") + '</div>';
-  if (!res.length && !fis.length) h += '<p class="empty">Nimic găsit. Încearcă simbolul genei (de ex. LMNA), numele bolii (Danon) sau un medicament (ivabradină).</p>';
+  if (!res.length && !fis.length && !dxs.length) h += '<p class="empty">Nimic găsit. Încearcă simbolul genei (de ex. LMNA), numele bolii (Danon) sau un medicament (ivabradină).</p>';
   else h += '<div class="mols">' + res.map(function (m) { return molHTML(m, true); }).join("") + '</div>';
   return h + '</section>';
 };
@@ -165,6 +171,13 @@ function diagramHTML(n) {
   if (!d) { console.warn("[harta] schemă necunoscută:", n); return ""; }
   return d.html();
 }
+/* imagine: în varianta într-un singur fișier, HC.IMG conține imaginile încorporate */
+function imgSrc(src) { return (HC.IMG && HC.IMG[src]) || src; }
+function figureHTML(im) {
+  return '<figure class="fig-img"><a href="' + esc(imgSrc(im.src)) + '" target="_blank" rel="noopener" title="Deschide imaginea mărită"><img src="' + esc(imgSrc(im.src)) + '" alt="' + esc(im.cap || "") + '" loading="lazy" decoding="async"></a>' +
+    (im.cap ? '<figcaption>' + esc(im.cap) + '</figcaption>' : '') + '</figure>';
+}
+V.imgSrc = imgSrc;
 function blockHTML(b) {
   var h = '<section class="blk">';
   if (b.h) h += '<h3>' + esc(b.h) + '</h3>';
@@ -173,12 +186,15 @@ function blockHTML(b) {
   if (b.list) h += '<ul>' + b.list.map(function (x) { return '<li>' + rich(x) + '</li>'; }).join("") + '</ul>';
   if (b.steps) h += '<ol class="steps">' + b.steps.map(function (x) { return '<li>' + rich(x) + '</li>'; }).join("") + '</ol>';
   if (b.table) h += tableHTML(b.table);
+  if (b.img) h += figureHTML(b.img);
+  if (b.callout) h += '<aside class="callout"><div class="callout-h">' + HC.icon("alert") + esc(b.callout.title || "Notă") + '</div>' +
+    [].concat(b.callout.text).map(function (t) { return '<p>' + rich(t) + '</p>'; }).join("") + '</aside>';
   return h + '</section>';
 }
 V.chapters = function (grp, curId) {
   var same = CHAPTERS.filter(function (c) { return c.grp === grp; });
   var cur = (CH_BY[curId] && CH_BY[curId].grp === grp) ? CH_BY[curId] : same[0];
-  var nav = '<details class="chap-menu"><summary><span>Capitolele · ' + (grp === "fz" ? "Fiziologie" : "Fiziopatologie") + '</span><b>' + esc(cur.short) + '</b></summary><nav class="chap-nav" aria-label="Capitole">';
+  var nav = '<details class="chap-menu"><summary><span>Capitolele · ' + HC.GRP_LABEL[grp] + '</span><b>' + esc(cur.short) + '</b></summary><nav class="chap-nav" aria-label="Capitole">';
   SEC_ORDER[grp].forEach(function (sec) {
     var cs = same.filter(function (c) { return c.sec === sec; });
     if (!cs.length) return;
@@ -187,7 +203,7 @@ V.chapters = function (grp, curId) {
     }).join("") + '</div></div>';
   });
   nav += '</nav></details>';
-  var a = '<article class="chap" id="cap-' + cur.id + '">' + pageHead((grp === "fz" ? "Fiziologie" : "Fiziopatologie") + ' · ' + esc(cur.sec), cur.title);
+  var a = '<article class="chap" id="cap-' + cur.id + '">' + pageHead(HC.GRP_LABEL[grp] + ' · ' + esc(cur.sec), cur.title);
   a += '<p class="idea">' + rich(cur.idea) + '</p>';
   cur.blocks.forEach(function (b) { a += blockHTML(b); });
   if (cur.mols && cur.mols.length) a += '<section class="blk"><h3>Moleculele capitolului</h3><div class="genes">' + cur.mols.map(HC.gchipSym).join("") + '</div></section>';
@@ -221,6 +237,7 @@ function roomLink(l) {
   if (l[0] === "tag") return HC.tagChip(l[1], "rlink");
   if (l[0] === "gene") return HC.gchipSym(l[1]);
   if (l[0] === "med") return HC.medChip(l[1]);
+  if (l[0] === "ecgdx") { var dx = HC.ECG_DX_BY && HC.ECG_DX_BY[l[1]]; return dx ? HC.dxChip(dx) : ""; }
   if (l[0] === "doc") { var doc = HC.DOC[l[1]]; return doc ? '<a class="rlink doc" href="' + esc(doc[1]) + '" target="_blank" rel="noopener">' + esc(doc[0]) + '</a>' : ""; }
   return "";
 }
@@ -268,7 +285,7 @@ V.home = function (recent) {
   h += '<p class="hero-lede">Genele, mecanismele, bolile și tratamentele, legate între ele. Pornești de la orice punct și ajungi, din câteva clicuri, la tot ce ține de el.</p>';
   h += '<label class="hero-search">' + HC.icon("search") + '<input class="js-q" type="search" placeholder="Caută o genă, o boală, un medicament…" aria-label="Caută în hartă" autocomplete="off" spellcheck="false"><kbd>/</kbd></label>';
   h += '<div class="hero-try"><span>Încearcă:</span>' + tries.map(function (t) { return '<a class="try" href="' + t[1] + '">' + esc(t[0]) + '</a>'; }).join("") + '</div>';
-  h += '<dl class="stats">' + [[MOLS.length, "molecule"], [CHAPTERS.length, "capitole de mecanism"], [tabCount("boli"), "boli genetice"], [DRUGS.length, "clase de medicamente"], [HC.ROOMS.length, "camere clinice"]].map(function (s) {
+  h += '<dl class="stats">' + [[MOLS.length, "molecule"], [CHAPTERS.filter(function (c) { return c.grp !== "ecg"; }).length, "capitole de mecanism"], [HC.ECG_DX.length, "diagnostice ECG"], [tabCount("boli"), "boli genetice"], [DRUGS.length, "clase de medicamente"], [HC.ROOMS.length, "camere clinice"]].map(function (s) {
     return '<div><dt>' + s[1] + '</dt><dd>' + s[0] + '</dd></div>';
   }).join("") + '</dl>';
   h += '</section>';
@@ -283,6 +300,12 @@ V.home = function (recent) {
   if (HC.FOUNDATION.length) h += '<div class="rows">' + HC.FOUNDATION.map(listRow).join("") + '</div>';
   h += '</section>';
 
+  var ecgSteps = CHAPTERS.filter(function (c) { return c.grp === "ecg" && c.sec === "Pas cu pas"; });
+  h += '<section class="home-sec"><header class="sec-head"><div><h2>Atlasul ECG</h2><p>Citirea standardizată pas cu pas și catalogul diagnosticelor ECG, legate de mecanisme, gene și clinică.</p></div></header>';
+  h += '<div class="ecg-feature"><a class="ecg-feature-main" href="' + href.tab("ecg") + '"><span class="card-ico">' + HC.icon("ecg") + '</span><span class="card-title">Deschide atlasul</span><span class="card-text">' + CHAPTERS.filter(function (c) { return c.grp === "ecg"; }).length + ' capitole · ' + HC.ECG_DX.length + ' diagnostice · scheme</span></a>' +
+    '<div class="ecg-feature-links"><div class="chips">' + ecgSteps.map(function (c) { return '<a class="rlink" href="' + href.chap(c.id) + '">' + esc(c.short) + '</a>'; }).join("") + '</div>' +
+    '<div class="chips"><a class="rlink" href="' + href.tab("ecgdx") + '">Diagnostice ECG</a><a class="rlink" href="' + href.chap("ecg-qrs-larg") + '">QRS larg</a><a class="rlink" href="' + href.chap("ecg-st") + '">Ocluzie coronariană</a><a class="rlink urgent" href="' + href.chap("ecg-critic") + '">Valori critice</a></div></div></div></section>';
+
   h += '<section class="home-sec"><header class="sec-head"><div><h2>Clinica</h2><p>Patologia pe sisteme, în zece camere. Fiecare are temele ei și legăturile spre ce e deja construit.</p></div></header>';
   h += '<div class="grid-2">' + HC.ROOMS.map(function (t) { return topicCard(t); }).join("") + '</div></section>';
 
@@ -294,7 +317,7 @@ V.home = function (recent) {
 };
 
 /* ---------- pagina unei teme (cameră, coridor, unealtă) ---------- */
-var LINK_GROUPS = [["chap", "Mecanisme"], ["tab", "Secțiuni"], ["tag", "Genetică"], ["gene", "Gene"], ["med", "Medicamente"], ["doc", "Documente"]];
+var LINK_GROUPS = [["chap", "Mecanisme și ECG"], ["ecgdx", "Diagnostice ECG"], ["tab", "Secțiuni"], ["tag", "Genetică"], ["gene", "Gene"], ["med", "Medicamente"], ["doc", "Documente"]];
 V.topic = function (t) {
   var g = HC.GROUP_BY[t.grp];
   var kicker = esc(g.label) + (t.num ? ' · camera ' + t.num : '');
@@ -335,6 +358,118 @@ V.fisa = function (f) {
   return h;
 };
 
+/* ---------- Atlasul ECG ---------- */
+var ECG_DX = HC.ECG_DX = HC.ECG_DX || [];
+var ECG_CATS = HC.ECG_CATS = HC.ECG_CATS || [];
+HC.ECG_DX_BY = {};
+var DX_BY_GENE = {}, DX_BY_TAG = {};
+ECG_DX.forEach(function (d) {
+  HC.ECG_DX_BY[d.id] = d;
+  (d.genes || []).forEach(function (g) { var m = HC.molBySym(g); if (m) (DX_BY_GENE[m.id] = DX_BY_GENE[m.id] || []).push(d); });
+  (d.tags || []).forEach(function (t) { (DX_BY_TAG[t] = DX_BY_TAG[t] || []).push(d); });
+});
+function dxChip(d) { return '<a class="rlink dxlink' + (d.urgent ? ' urgent' : '') + '" href="' + href.ecgdx(d) + '">' + esc(d.name) + '</a>'; }
+HC.dxChip = dxChip;
+V.dxForGene = function (m) { return DX_BY_GENE[m.id] || []; };
+V.dxForTag = function (t) { return DX_BY_TAG[t] || []; };
+
+function ecgChapters(sec) { return CHAPTERS.filter(function (c) { return c.grp === "ecg" && (!sec || c.sec === sec); }); }
+function firstSentence(t) {
+  var plain = String(t || "").replace(/\[([^\]]+)\]\([^)]+\)/g, "$1").replace(/\*\*|_/g, "");
+  var m = plain.match(/^(.{40,180}?[.:;])(\s|$)/);
+  return m ? m[1] : plain.slice(0, 180);
+}
+function chapRow(c, num) {
+  return '<a class="row-link" href="' + href.chap(c.id) + '">' + (num ? '<span class="sb-num row-num">' + num + '</span>' : '') +
+    '<span class="row-main"><span class="row-title">' + esc(c.title.replace(/^Pasul \d+ · /, "")) + '</span><span class="row-text">' + esc(firstSentence(c.idea)) + '</span></span>' + HC.icon("arrow", "go") + '</a>';
+}
+V.ecgHub = function () {
+  var nUrg = ECG_DX.filter(function (d) { return d.urgent; }).length;
+  var h = pageHead("Unelte · electrocardiografie", "Atlasul ECG", "Citirea standardizată în 12 pași, de la calitatea tehnică la ritmul stimulat, plus catalogul diagnosticelor ECG pe care trebuie să le recunoască un cardiolog, fiecare cu criteriile lui și legat de mecanism, gene și camera clinică.");
+  h += '<div class="grid-3 ecg-actions">' +
+    '<a class="card sec-card" href="' + href.chap("ecg-metoda") + '"><span class="card-ico">' + HC.icon("ecg") + '</span><span class="card-body"><span class="card-title">Începe citirea</span><span class="card-text">Ordinea fixă, șablonul de raport și exemple de concluzii standardizate.</span></span><span class="card-foot"><span class="meta">' + ecgChapters().length + ' capitole</span>' + HC.icon("arrow", "go") + '</span></a>' +
+    '<a class="card sec-card" href="' + href.tab("ecgdx") + '"><span class="card-ico">' + HC.icon("toate") + '</span><span class="card-body"><span class="card-title">Diagnostice ECG</span><span class="card-text">Catalogul complet pe categorii, cu criterii, capcane și legături. Se poate filtra.</span></span><span class="card-foot"><span class="meta">' + ECG_DX.length + ' diagnostice</span>' + HC.icon("arrow", "go") + '</span></a>' +
+    '<a class="card sec-card urgent-card" href="' + href.chap("ecg-critic") + '"><span class="card-ico">' + HC.icon("alert") + '</span><span class="card-body"><span class="card-title">Valori critice</span><span class="card-text">Ce se comunică imediat: ocluzie, aritmii maligne, bradiaritmii severe, QT, hiperkaliemie.</span></span><span class="card-foot"><span class="meta">' + nUrg + ' diagnostice urgente</span>' + HC.icon("arrow", "go") + '</span></a>' +
+    '</div>';
+  var steps = ecgChapters("Pas cu pas");
+  h += '<section class="home-sec"><header class="sec-head"><div><h2>Citirea pas cu pas</h2><p>Mereu în aceeași ordine; fiecare pas are ce măsori, pragul normal, criteriile patologice și capcanele.</p></div></header><div class="rows">' +
+    steps.map(function (c) { var m = c.short.match(/^(\d+) · /); return chapRow(c, m ? m[1] : ""); }).join("") + '</div></section>';
+  h += '<div class="home-split">';
+  ["Aritmii", "Stimulare"].forEach(function (sec) {
+    var cs = ecgChapters(sec);
+    if (cs.length) h += '<section class="home-sec"><header class="sec-head"><div><h2>' + esc(sec) + '</h2></div></header><div class="rows">' + cs.map(function (c) { return chapRow(c); }).join("") + '</div></section>';
+  });
+  h += '</div>';
+  var expert = ecgChapters("Nivel expert");
+  if (expert.length) h += '<section class="home-sec"><header class="sec-head"><div><h2>Nivel expert</h2><p>Algoritmi de localizare și criterii de aritmolog, verificate pe sursa primară.</p></div></header><div class="rows">' + expert.map(function (c) { return chapRow(c); }).join("") + '</div></section>';
+  var figs = [];
+  ecgChapters().forEach(function (c) { c.blocks.forEach(function (b) { if (b.img) figs.push({ c: c, im: b.img }); }); });
+  if (figs.length) h += '<section class="home-sec"><header class="sec-head"><div><h2>' + HC.icon("image") + 'Schemele</h2><p>Fiecare schemă duce la capitolul în care e explicată.</p></div></header><div class="gallery">' +
+    figs.map(function (f) { return '<a class="gal-item" href="' + href.chap(f.c.id) + '"><img src="' + esc(imgSrc(f.im.src)) + '" alt="' + esc(f.im.cap) + '" loading="lazy" decoding="async"><span>' + esc(f.im.cap) + '</span></a>'; }).join("") + '</div></section>';
+  if (ECG_CATS.length) h += '<section class="home-sec"><header class="sec-head"><div><h2>Diagnostice pe categorii</h2></div></header><div class="chips">' +
+    ECG_CATS.map(function (c) { var n = ECG_DX.filter(function (d) { return d.cat === c.id; }).length; return '<a class="rlink" href="' + href.tab("ecgdx") + '" data-dxcat="' + c.id + '">' + esc(c.name) + ' · ' + n + '</a>'; }).join("") + '</div></section>';
+  var src = CH_BY["ecg-surse"];
+  if (src) h += '<div class="chapchips">Surse: ' + HC.chapChip("ecg-surse") + '</div>';
+  return h;
+};
+
+/* catalogul de diagnostice */
+function dxCard(d) {
+  var hay = norm([d.name, d.ecg, d.note || "", (d.genes || []).join(" "), (d.alias || "")].join(" "));
+  var h = '<article class="dx' + (d.urgent ? ' urgent' : '') + '" id="dx-' + d.id + '" data-cat="' + d.cat + '" data-hay="' + esc(hay) + '"' + (d.urgent ? ' data-urgent="1"' : '') + '>';
+  h += '<header><a class="permalink dx-name" href="' + href.ecgdx(d) + '">' + esc(d.name) + '</a>' + (d.urgent ? '<span class="badge-urgent">' + HC.icon("alert") + 'urgent</span>' : '') + '</header>';
+  h += '<p class="dx-ecg">' + rich(d.ecg) + '</p>';
+  if (d.note) h += '<p class="dx-note">' + rich(d.note) + '</p>';
+  var foot = [];
+  (d.chap || []).forEach(function (id) { var c = CH_BY[id]; if (c) foot.push('<a class="chapchip" href="' + href.chap(id) + '">' + esc(c.grp === "ecg" ? "Ghid: " + c.short : c.short) + '</a>'); });
+  (d.genes || []).forEach(function (g) { foot.push(HC.gchipSym(g)); });
+  (d.tags || []).forEach(function (t) { if (TAGMAP[t]) foot.push(HC.tagChip(t, "rlink")); });
+  (d.topics || []).forEach(function (k) { var t = HC.TOPIC_BY[k]; if (t) foot.push('<a class="rlink" href="' + href.topic(t) + '">' + esc(t.name) + '</a>'); });
+  (d.meds || []).forEach(function (id) { foot.push(HC.medChip(id)); });
+  if (d.src) foot.push('<span class="dx-src">' + rich(d.src) + '</span>');
+  if (foot.length) h += '<div class="chips dx-foot">' + foot.join("") + '</div>';
+  return h + '</article>';
+}
+V.ecgDx = function () {
+  var h = pageHead("Atlasul ECG", "Diagnostice ECG", ECG_DX.length + " diagnostice pe " + ECG_CATS.length + " categorii, cu criteriile esențiale și legături spre ghid, gene și clinică. Cele marcate „urgent” se comunică imediat.");
+  h += '<div class="dx-tools panel-card"><label class="dx-filter">' + HC.icon("search") + '<input id="dx-q" type="search" placeholder="Filtrează: ex. Brugada, BAV, ocluzie, hiperkaliemie…" autocomplete="off" spellcheck="false"></label>' +
+    '<label class="dx-toggle"><input type="checkbox" id="dx-urg"> doar urgențe</label>' +
+    '<div class="chips dx-cats">' + ECG_CATS.map(function (c) { return '<button type="button" class="rlink" data-dxcat="' + c.id + '">' + esc(c.name) + '</button>'; }).join("") + '</div>' +
+    '<div class="count" id="dx-count"></div></div>';
+  ECG_CATS.forEach(function (c) {
+    var ds = ECG_DX.filter(function (d) { return d.cat === c.id; });
+    if (!ds.length) return;
+    h += '<section class="dx-sec" id="dxcat-' + c.id + '"><h2 class="fisa-h">' + esc(c.name) + '</h2>' + (c.note ? '<p class="muted">' + esc(c.note) + '</p>' : '') + '<div class="dx-grid">' + ds.map(dxCard).join("") + '</div></section>';
+  });
+  h += '<p class="empty" id="dx-empty" hidden>Niciun diagnostic nu se potrivește filtrului.</p>';
+  return h;
+};
+V.mountEcgDx = function () {
+  var q = document.getElementById("dx-q"), urg = document.getElementById("dx-urg"), cnt = document.getElementById("dx-count");
+  if (!q) return;
+  function apply() {
+    var words = norm(q.value.trim()).split(/\s+/).filter(Boolean), only = urg.checked, shown = 0;
+    document.querySelectorAll(".dx").forEach(function (el) {
+      var hay = el.getAttribute("data-hay"), ok = (!only || el.hasAttribute("data-urgent")) && words.every(function (w) { return hay.indexOf(w) > -1; });
+      el.hidden = !ok; if (ok) shown++;
+    });
+    document.querySelectorAll(".dx-sec").forEach(function (s) { s.hidden = !s.querySelector(".dx:not([hidden])"); });
+    document.getElementById("dx-empty").hidden = shown > 0;
+    cnt.textContent = shown === ECG_DX.length ? ECG_DX.length + " diagnostice" : shown + " din " + ECG_DX.length + " diagnostice";
+  }
+  q.addEventListener("input", apply);
+  urg.addEventListener("change", apply);
+  document.querySelectorAll(".dx-cats [data-dxcat]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var sec = document.getElementById("dxcat-" + b.getAttribute("data-dxcat"));
+      if (sec) { if (sec.hidden) { q.value = ""; urg.checked = false; apply(); } sec.scrollIntoView({ block: "start" }); }
+    });
+  });
+  apply();
+  var pending = HC.pendingDxCat; HC.pendingDxCat = null;
+  if (pending) { var s = document.getElementById("dxcat-" + pending); if (s) s.scrollIntoView({ block: "start" }); }
+};
+
 /* ---------- meniul lateral ---------- */
 V.sidebar = function () {
   var link = function (key, hrefv, label, icon, count) {
@@ -356,6 +491,8 @@ V.sidebar = function () {
   h += link("toate", href.tab("toate"), "Toate moleculele", "toate", MOLS.length);
   HC.FOUNDATION.forEach(function (t) { h += link("fundatie/" + t.id, href.topic(t), t.name, "anatomie"); });
   h += '</div>';
+  h += '<div class="sb-group"><div class="sb-h">ECG</div>' + link("ecg", href.tab("ecg"), "Atlasul ECG", "ecg") + sub("ecg", chapsOf("ecg")) +
+    link("ecgdx", href.tab("ecgdx"), "Diagnostice ECG", "toate", ECG_DX.length) + '</div>';
   h += '<div class="sb-group"><div class="sb-h">Farmacologie</div>' + link("med", href.tab("med"), "Medicamente", "med", DRUGS.length) +
     sub("med", DRUGS.map(function (d) { return ["med/" + d.id, href.med(d.id), d.name]; })) + '</div>';
   HC.TOPIC_GROUPS.slice(1).forEach(function (g) {

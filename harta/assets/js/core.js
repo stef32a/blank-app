@@ -55,7 +55,7 @@ HC.kc = function (m) { return "var(" + HC.KINDS[m.k].color + ")"; };
 
 /* ---------- adrese ---------- */
 /* vedere internă → segment de adresă */
-HC.ROUTE = { cuprins: "", miocit: "miocit", vas: "vas", fz: "fiziologie", fp: "fiziopatologie", boli: "boli", toate: "molecule", med: "medicamente" };
+HC.ROUTE = { cuprins: "", miocit: "miocit", vas: "vas", fz: "fiziologie", fp: "fiziopatologie", boli: "boli", toate: "molecule", med: "medicamente", ecg: "ecg", ecgdx: "ecg/diagnostice" };
 HC.href = {
   tab: function (tab) { return "#/" + HC.ROUTE[tab]; },
   comp: function (comp) { return "#/" + HC.COMPS[comp].tab + "/" + comp; },
@@ -65,6 +65,7 @@ HC.href = {
   med: function (id) { return "#/medicamente/" + id; },
   topic: function (t) { return "#/" + t.grp + "/" + t.id; },
   fisa: function (f) { return "#/fisa/" + f.id; },
+  ecgdx: function (d) { return "#/ecg/diagnostice/" + d.id; },
   search: function (q) { return "#/cauta/" + encodeURIComponent(q); }
 };
 HC.molDomId = function (m) { return "gena-" + m.id; };
@@ -85,6 +86,9 @@ var ICONS = {
   close: '<path d="M6 6l12 12M18 6 6 18"/>',
   arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
   doc: '<path d="M7 3.5h7l4 4V20a.5.5 0 0 1-.5.5h-10A.5.5 0 0 1 6.5 20V4a.5.5 0 0 1 .5-.5z"/><path d="M14 3.5V8h4M9.5 12.5h5M9.5 16h5"/>',
+  ecg: '<rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="M5 13h3l1.5-4 2.5 7 2-5 1 2h4"/>',
+  alert: '<path d="M12 4 2.8 19.5h18.4z"/><path d="M12 10v4.5M12 17.2v.3"/>',
+  image: '<rect x="3" y="4.5" width="18" height="15" rx="2.5"/><path d="m3.5 16 5-5 4 4 2.5-2.5 5.5 5.5"/><circle cx="15.5" cy="9" r="1.6"/>',
   clock: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
   dot: '<circle cx="12" cy="12" r="3"/>',
   sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/>',
@@ -122,8 +126,15 @@ function linkify(s, selfId) {
   });
 }
 /* text din date → HTML: escape, gene clicabile, **bold** */
+/* text din date → HTML: escape, [text](https://...) → link extern, gene clicabile, **bold**, _italic_ */
 HC.rich = function (s, selfId) {
-  return linkify(esc(s), selfId).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>");
+  var links = [];
+  var t = esc(s).replace(/\[([^\]]+)\]\((https?:\/\/(?:[^()\s]|\([^()\s]*\))+)\)/g, function (all, txt, url) {
+    links.push('<a class="src" href="' + url + '" target="_blank" rel="noopener">' + txt + '</a>');
+    return "\u0000" + (links.length - 1) + "\u0000";
+  });
+  t = linkify(t, selfId).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/(^|[\s(„])_([^_]+?)_(?=[\s.,;:)”]|$)/g, "$1<i>$2</i>");
+  return t.replace(/\u0000(\d+)\u0000/g, function (all, i) { return links[+i]; });
 };
 HC.molBySym = function (sym) {
   if (!TOKMAP) buildTokens();
