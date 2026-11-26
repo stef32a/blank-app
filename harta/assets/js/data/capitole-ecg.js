@@ -403,11 +403,11 @@ HC.CHAPTERS.push(
           "rows": [
             [
               "**Preexcitație tip WPW**",
-              "PR <120 ms + undă delta (empastare inițială QRS) + QRS >120 ms + modificări secundare ST-T ([AHA 2009, partea III](https://hrsonline.org/documents/interpretation-electrocardiogram-part-iii-intraventricular-conduction-disturbancespdf/download))"
+              "PR <120 ms (ESC: ≤120 ms) + undă delta (empastare inițială QRS) + QRS >120 ms + modificări secundare ST-T ([AHA 2009, partea III](https://hrsonline.org/documents/interpretation-electrocardiogram-part-iii-intraventricular-conduction-disturbancespdf/download))"
             ],
             [
               "**Fibre fasciculo-ventriculare**",
-              "Delta prezentă, dar PR normal; fără tahicardii"
+              "PR scurt (~100 ms), QRS ~120 ms, tranziție în V2, fără deltă negativă inferior; adenozina dă bloc AV fără accentuarea preexcitației; fără tahicardii"
             ],
             [
               "**PR scurt fără delta**",
@@ -708,7 +708,7 @@ HC.CHAPTERS.push(
             [
               "**Peguero-Lo Presti**",
               "S cea mai adâncă (oricare derivație) + S V4 **≥28 mm (B) / ≥23 mm (F)**; dacă S cea mai adâncă e în V4, dublezi S V4",
-              "Sensibilitate ~57–62% la specificitate ~90% ([Peguero, JACC 2017, rezumat](https://reliasmedia.com/articles/140765-ecg-criteria-for-left-ventricular-hypertrophy-revisited))"
+              "Sensibilitate 62% în studiul original, 43–52% în meta-analize, specificitate ~90%; fără avantaj pe RMN ([Peguero, JACC 2017, rezumat](https://reliasmedia.com/articles/140765-ecg-criteria-for-left-ventricular-hypertrophy-revisited))"
             ],
             [
               "**R aVL**",
@@ -907,7 +907,7 @@ HC.CHAPTERS.push(
       },
       {
         "h": "Bloc fascicular septal stâng (LSFB)",
-        "p": "Entitate controversată (AHA 2009 nu recomandă termenul), dar susținută de o revizie recentă ([Pérez-Riera et al., Heart Rhythm 2023](https://www.pubmed.gov/37586583/)). Semnătura: **forțe anterioare proeminente** — R ≥15 mm în V2–V3, creștere „în crescendo” V1→V3 și descreștere V4→V6, **dispariția q septale** în DI, V5–V6, timp de activare în V1–V2 crescut, QRS <120 ms. Criteriul cel mai util e **caracterul tranzitoriu/intermitent**, tipic în ischemie acută prin stenoză LAD proximal de prima septală ([caz ilustrativ, Neth Heart J 2022](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9475009/)). Diagnostic numai după excluderea celorlalte cauze de R dominant în V1."
+        "p": "Entitate controversată (AHA 2009 nu recomandă termenul), dar descrisă în reviziile Pérez-Riera (criterii nestandardizate). Semnătura: **forțe anterioare proeminente** — R proeminent în V2–V3 (≥15 mm e o observație de caz, nu un prag validat), creștere „în crescendo” V1→V3 și descreștere V4→V6, **dispariția q septale** în DI, V5–V6, timp de activare în V1–V2 crescut, QRS <120 ms. Criteriul cel mai util e **caracterul tranzitoriu/intermitent**, tipic în ischemie acută prin stenoză LAD proximal de prima septală ([caz ilustrativ, Neth Heart J 2022](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9475009/)). Diagnostic numai după excluderea celorlalte cauze de R dominant în V1."
       },
       {
         "h": "Variante normale de recunoscut",
@@ -1021,7 +1021,7 @@ HC.CHAPTERS.push(
         "p": "Forma contează cât pragul: convexitatea, T disproporționat și pierderea undei S sugerează ocluzie chiar sub pragurile de milimetri."
       },
       {
-        "p": "Ghidul ESC 2023 tratează aceste pattern-uri ca echivalente de ocluzie în curs, cu indicație de triaj imediat pentru reperfuzie ([ESC ACVC Toolkit, cap. 2](https://www.escardio.org/static-file/Escardio/Subspecialty/ACCA/Education/ACVC%20Toolkit/CHAP2.pdf))."
+        "p": "Ghidul ESC 2023 numește explicit STEMI posterior, infarctul VD/ocluzia circumflexei și de Winter; T hiperacute, Aslanger, swirl și „steagul” vin din literatura OMI. Toate se tratează ca ocluzie în curs, cu indicație de triaj imediat pentru reperfuzie ([ESC ACVC Toolkit, cap. 2](https://www.escardio.org/static-file/Escardio/Subspecialty/ACCA/Education/ACVC%20Toolkit/CHAP2.pdf))."
       },
       {
         "h": "Indicii suplimentare pentru ocluzie (paradigma OMI)",
@@ -1238,7 +1238,7 @@ HC.CHAPTERS.push(
             ],
             [
               "**Takotsubo**",
-              "Supra antero-laterală fără V1, cu supra aVR; fără reciprocitate inferioară"
+              "Supra antero-laterală fără V1, cu **subdenivelare în aVR** (Kosuge); fără reciprocitate inferioară — criteriu nevalidat extern"
             ],
             [
               "**Hiperkaliemie, Brugada fenocopie, post-cardioversie, miocardită, hipotermie (Osborn), disecție aortică, embolie pulmonară**",
@@ -1495,7 +1495,7 @@ HC.CHAPTERS.push(
         "p": "Medicamente (antiaritmice IA/III, macrolide, fluorochinolone, antipsihotice, metadonă, ondansetron, antidepresive), **hipokaliemie, hipomagneziemie, hipocalcemie**, bradicardie, BAV complet, ischemie, takotsubo, evenimente cerebrale, hipotermie, hipotiroidie. **QT scurt:** hipercalcemie, digoxin, hiperkaliemie, acidoză, hipertermie, SQTS."
       },
       {
-        "h": "Scorul Schwartz (LQTS)",
+        "h": "Scorul Schwartz clasic (2011)",
         "p": "În absența medicamentelor sau a tulburărilor care alungesc QT; QTc prin Bazett."
       },
       {
@@ -1557,7 +1557,7 @@ HC.CHAPTERS.push(
         }
       },
       {
-        "p": "⁎Sincopa și torsada se exclud reciproc. ⁎⁎Aceeași rudă nu se numără de două ori. **Interpretare:** ≤1 probabilitate mică; 1,5–3 intermediară; **≥3,5 mare** ([tabel, Medicina 2024](https://pmc.ncbi.nlm.nih.gov/articles/PMC10819657/table/medicina-60-00094-t001)). ESC 2022 folosește pentru diagnostic pragul **>3**."
+        "p": "⁎Sincopa și torsada se exclud reciproc. ⁎⁎Aceeași rudă nu se numără de două ori. **Interpretare:** ≤1 probabilitate mică; 1,5–3 intermediară; **≥3,5 mare** ([tabel, Medicina 2024](https://pmc.ncbi.nlm.nih.gov/articles/PMC10819657/table/medicina-60-00094-t001)). Pragul **>3** aparține scorului modificat ESC 2022 (caseta de mai jos), nu acestui tabel."
       },
       {
         "callout": {
@@ -1664,11 +1664,11 @@ HC.CHAPTERS.push(
             ],
             [
               "**ARVC (Padova 2020)**",
-              "**Major:** T negative V1–V3 (sau dincolo) după pubertate, fără BRD complet. **Minor:** T negative V1–V2; T negative V1–V4 cu BRD complet; **undă epsilon** în V1–V3 (retrogradată la minor); **durată de activare terminală ≥55 ms** (nadir S → sfârșit QRS) în V1–V3 fără BRD; ESV >500/24 h sau TV cu aspect de BRS ([Padua criteria, Heart 2021](https://pmc.ncbi.nlm.nih.gov/articles/PMC8995901/table/T1))"
+              "**Major:** T negative V1–V3 (sau dincolo) după pubertate, fără BRD complet. **Minor:** T negative V1–V2; T negative V1–V4 cu BRD complet; **undă epsilon** în V1–V3 (retrogradată la minor); **durată de activare terminală ≥55 ms** (nadir S → sfârșit QRS) în V1–V3 fără BRD; **>500 ESV/24 h sau TVNS/TV cu aspect de BRS = criteriu VD major** (minor doar cu ax inferior); niciun criteriu de depolarizare nu e major ([Padua criteria, Heart 2021](https://pmc.ncbi.nlm.nih.gov/articles/PMC8995901/table/T1))"
             ],
             [
               "**ALVC**",
-              "Voltaj mic în membre (<5 mm), T negative V4–V6, TV cu aspect de BRD"
+              "Voltaj <0,5 mV vârf-la-vârf în **toate** derivațiile membrelor (fără obezitate, emfizem, revărsat), T negative V4–V6, TV cu aspect de BRD — toate criterii VS **minore**"
             ],
             [
               "**CMH**",
@@ -2004,7 +2004,7 @@ HC.CHAPTERS.push(
         "list": [
           "**Normal (nu cere investigații):** voltaj crescut izolat pentru HVS/HVD, BRD incomplet, repolarizare precoce, supra J + T negative V1–V4 la sportivii de origine africană, T negative V1–V3 sub 16 ani, bradicardie/aritmie sinusală, ritm atrial ectopic sau joncțional, BAV I, Mobitz I.",
           "**Borderline (anormal doar dacă ≥2):** deviație axială stângă sau dreaptă, anomalie atrială stângă sau dreaptă, BRD complet.",
-          "**Anormal (investigații):** T negative în afara excepțiilor (inferior DII+aVF, lateral cu DI/aVL/V5/V6), subdenivelare ST, unde Q patologice, BRS complet, QRS ≥140 ms, undă epsilon, preexcitație, QT lung, Brugada tip 1, bradicardie ≤30/min sau pauze ≥3 s, BAV avansat, aritmii ventriculare."
+          "**Anormal (investigații):** T negative în afara excepțiilor (inferior DII+aVF, lateral cu DI/aVL/V5/V6), subdenivelare ST, unde Q patologice, BRS complet, QRS ≥140 ms, undă epsilon, preexcitație, QT lung, Brugada tip 1, bradicardie <30/min sau pauze ≥3 s, BAV avansat, aritmii ventriculare."
         ]
       },
       {
@@ -2135,7 +2135,7 @@ HC.CHAPTERS.push(
             ],
             [
               "**Flutter tipic CW**",
-              "Imagine inversă: F pozitive inferior, negative în V1"
+              "F inferioare pozitive, largi (adesea crestate); F negative, largi, adesea bimodale în V1. Majoritatea flutterelor „CW” sunt de fapt reintrări pe bucla inferioară sau în opt, tot dependente de ICT"
             ],
             [
               "**AVNRT tipic**",
@@ -2202,7 +2202,7 @@ HC.CHAPTERS.push(
       {
         "h": "Localizarea tahicardiei atriale focale (algoritm Kistler)",
         "list": [
-          "**V1:** P pozitivă → atriul stâng (sensibilitate 93%, specificitate 88%); P negativă sau bifazică ± → atriul drept.",
+          "**V1:** P + sau −/+ → atriul stâng (sensibilitate 100%); P negativă sau +/− → atriul drept (specificitate 100%); acuratețe prospectivă 93% (n=30).",
           "**aVL:** pozitivă sau bifazică → atriul drept; negativă → atriul stâng (vene pulmonare).",
           "**Derivațiile inferioare:** pozitive → origine superioară (crista superioară, vene pulmonare superioare, urechiușe); negative → origine inferioară (ostium sinus coronar, inel tricuspidian inferior).",
           "**Crista terminalis:** negativă în aVR, pozitivă în DI și DII.",
@@ -2232,7 +2232,7 @@ HC.CHAPTERS.push(
     "blocks": [
       {
         "h": "QRS larg (≥120 ms)",
-        "p": "**Criterii independente de algoritm (specificitate ~100% pentru TV):** disociație AV, bătăi de captură și fuziune, concordanță precordială negativă, ax nord-vest, QRS >160 ms cu aspect de BRS sau >140 ms cu BRD."
+        "p": "**Criterii independente de algoritm (specificitate mare, sensibilitate mică):** disociație AV, bătăi de captură și fuziune, concordanță precordială negativă, ax nord-vest, QRS >160 ms cu aspect de BRS sau >140 ms cu BRD."
       },
       {
         "table": {
@@ -2254,8 +2254,8 @@ HC.CHAPTERS.push(
               "Timp de vârf R în DII **≥50 ms**"
             ],
             [
-              "**VT score (Jastrzębski 2015)**",
-              "R inițial V1 (1p), r inițial >40 ms V1/V2 (1p), crestătură S V1 (1p), R inițial aVR (1p), conducere aberantă atipică (1p), disociație AV (2p); **≥3p = TV**"
+              "**VT score (Jastrzębski, _Europace_ 2016)**",
+              "Disociație AV (**2p**); R inițial în V1, r inițial >40 ms în V1/V2, S crestat în V1, R inițial în aVR, timp de vârf R în DII ≥50 ms, absența RS în V1–V6 (câte 1p); **≥3p = TV** (specificitate 99,6%), ≥4p: 100%"
             ]
           ]
         }
@@ -2713,7 +2713,7 @@ HC.CHAPTERS.push(
           "[Unghi QRS-T și Tpeak–Tend (Tikkanen)](https://pmc.ncbi.nlm.nih.gov/articles/PMC6931827)",
           "[Algoritmul Basel, JACC EP 2022](https://pubmed.ncbi.nlm.nih.gov/35863808)",
           "[Interval V6–V1 pentru captura de ram stâng, Europace 2022](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8742628/) · [criterii LBBAP, AER 2023](https://aerjournal.com/articleindex/aer.2023.15)",
-          "[Bloc fascicular septal stâng, Heart Rhythm 2023](https://www.pubmed.gov/37586583/)",
+          "Bloc fascicular septal stâng — reviziile Pérez-Riera (citarea „Heart Rhythm 2023” neconfirmată)",
           "[Valori critice în programul Glasgow, CinC 2012](https://pprd.cinc.org/archives/2012/pdf/0601.pdf)"
         ]
       },
@@ -2723,5 +2723,1177 @@ HC.CHAPTERS.push(
     ],
     "mols": [],
     "see": []
+  },
+
+  {
+    "id": "ecg-x-preex",
+    "grp": "ecg",
+    "sec": "Nivel expert",
+    "short": "Preexcitație: localizare și risc",
+    "title": "Preexcitația: localizarea căii, căile atipice și stratificarea riscului",
+    "idea": "Algoritmii clasici de localizare ating 90–99% în cohortele proprii, dar 20–47% pentru situsul exact la validare independentă. **EASY-WPW** (93%) e azi instrumentul de pat validat; regula Arruda „delta netă negativă în DII” răspunde la întrebarea epicardică.",
+    "blocks": [
+      {
+        "h": "Pattern-ul WPW și riscul",
+        "list": [
+          "ESC 2019: **PR ≤120 ms, undă delta, QRS >120 ms**. Risc de stop/FV: **2,4 la 1000 pacienți-ani**; aritmii pe cale la ~1 din 5; FiA paroxistică la ~50%; căi multiple ≤12%; preexcitația dispare definitiv la ≤35%.",
+          "Risc înalt la studiul EF: **SPERRI ≤250 ms**, perioadă refractară anterogradă a căii ≤250 ms, căi multiple, AVRT inductibilă (bazal și sub izoproterenol).",
+          "Pierderea bruscă a deltei la efort sau preexcitația intermitentă sunt markeri de risc mic **imperfecți**: >1/5 din căile intermitente au totuși perioadă refractară <250 ms; 37% din tinerii cu evenimente amenințătoare de viață nu aveau criterii de risc la SEF.",
+          "Ablația: succes >95%, complicații majore <0,5%; evenimente aritmice la 5 ani 7% vs 77% fără ablație (studiu randomizat). [ESC 2019 TSV](https://academic.oup.com/eurheartj/article/41/5/655/5556821)"
+        ]
+      },
+      {
+        "h": "EASY-WPW (El Hamriti, _Europace_ 2023)",
+        "p": "Pe primele 20–40 ms ale primei deflexiuni a QRS: **polaritatea V1** → tranziția față de V3 → derivația cu delta cea mai pozitivă. Acuratețe **93%** (88% la copii), sensibilitate 92%, specificitate 99%; superior Pambrun (84%) și Arruda (75%) în aceeași cohortă. [PMC9935024](https://pmc.ncbi.nlm.nih.gov/articles/PMC9935024)"
+      },
+      {
+        "table": {
+          "head": [
+            "Ramura",
+            "Criteriu",
+            "Delta cea mai pozitivă în",
+            "Localizare"
+          ],
+          "rows": [
+            [
+              "Stângă (V1 pozitiv)",
+              "—",
+              "aVL",
+              "Mitral posteroseptal"
+            ],
+            [
+              "Stângă (V1 pozitiv)",
+              "—",
+              "DII sau aVR",
+              "Mitral posterolateral"
+            ],
+            [
+              "Stângă (V1 pozitiv)",
+              "—",
+              "DIII",
+              "Mitral anterolateral"
+            ],
+            [
+              "Dreaptă (V1 negativ/izoelectric)",
+              "Tranziție ≤V3",
+              "DII sau DIII",
+              "Tricuspidian anteroseptal"
+            ],
+            [
+              "Dreaptă (V1 negativ/izoelectric)",
+              "Tranziție ≤V3",
+              "aVR sau aVL",
+              "Tricuspidian posteroseptal"
+            ],
+            [
+              "Dreaptă (V1 negativ/izoelectric)",
+              "Tranziție >V3",
+              "aVL",
+              "Tricuspidian posterolateral"
+            ],
+            [
+              "Dreaptă (V1 negativ/izoelectric)",
+              "Tranziție >V3",
+              "DII",
+              "Tricuspidian anterolateral"
+            ],
+            [
+              "Dreaptă (V1 negativ/izoelectric)",
+              "Tranziție >V3",
+              "DIII",
+              "Tricuspidian anteroseptal"
+            ],
+            [
+              "Dreaptă (V1 negativ/izoelectric)",
+              "Tranziție >V3",
+              "aVR",
+              "Tricuspidian posteroseptal"
+            ]
+          ]
+        }
+      },
+      {
+        "p": "Limite: exclude căile multiple și cardiopatia structurală; nu are categorie mediosept sau epicardică. Ierarhie practică: **EASY-WPW** de primă linie, **regula Arruda** („a truly negative delta wave in lead II predicts ablation within the coronary venous system”) pentru întrebarea epicardică, **Pambrun / ESC 2019 Fig. 17** doar pe un ECG maxim preexcitat."
+      },
+      {
+        "h": "Cât de bine localizează algoritmii clasici (Teixeira 2016, n=111)"
+      },
+      {
+        "table": {
+          "head": [
+            "Algoritm",
+            "Regiuni",
+            "Situs exact",
+            "Exact sau adiacent"
+          ],
+          "rows": [
+            [
+              "Arruda",
+              "13",
+              "37,8%",
+              "75,6%"
+            ],
+            [
+              "Boersma",
+              "7",
+              "47,2%",
+              "73,6%"
+            ],
+            [
+              "Chiang",
+              "13",
+              "36,0%",
+              "74,7%"
+            ],
+            [
+              "d'Avila",
+              "8",
+              "19,8%",
+              "39,6%"
+            ],
+            [
+              "Fitzpatrick",
+              "8",
+              "39,6%",
+              "58,5%"
+            ],
+            [
+              "Iturralde",
+              "5",
+              "44,1%",
+              "64,8%"
+            ],
+            [
+              "Xie (St George's)",
+              "9",
+              "27,0%",
+              "56,7%"
+            ]
+          ]
+        }
+      },
+      {
+        "p": "La copii (Wren 2012): 30–49% pentru șapte algoritmi, doar 5–35% pentru căile septale. Arruda a fost cel mai bun pentru căile septale (58,8% exact). [Teixeira 2016](https://pmc.ncbi.nlm.nih.gov/articles/PMC5102479)"
+      },
+      {
+        "h": "Căile atriofasciculare (Mahaim)",
+        "list": [
+          "Sinusal: preexcitație minimă la 72%, ECG citit adesea ca normal; **rS în DIII** la ~60%. Niciun control nu a avut rS în DIII fără q în DI; combinația rS DIII + q septal absent: specificitate estimată ~90%, sensibilitate ~45% (estimări de model).",
+          "Tahicardia antidromică — **criteriile Bardy**: ax 0° până la −75°, **QRS ≤150 ms**, R în DI, rS în V1, **tranziție după V4**, ciclu 220–450 ms. Sensibilitate 87,5%. [Sternick & Gerken 2006](https://pmc.ncbi.nlm.nih.gov/articles/PMC6932410)"
+        ]
+      },
+      {
+        "h": "Căile fasciculo-ventriculare",
+        "p": "**PR scurt 0,10 ± 0,01 s**, QRS 0,12 ± 0,02 s, axe normale, fără deltă negativă inferior, tranziție în V2. Testul decisiv: **adenozina dă bloc AV fără accentuarea preexcitației**. Benigne; importante pentru a evita ablația inutilă (asociere cu PRKAG2 și Danon)."
+      },
+      {
+        "h": "FiA preexcitată",
+        "p": "Neregulată, QRS variabil prin fuziune, frecvență mare; **RR minim preexcitat ≤250 ms** = substitutul de pat pentru SPERRI. De evitat: adenozină, verapamil, diltiazem, betablocant, digoxin; amiodarona IV nu se recomandă. Se pot folosi ibutilida, procainamida, propafenona, flecainida; instabil → cardioversie."
+      },
+      {
+        "callout": {
+          "title": "De verificat pe sursa primară",
+          "text": [
+            "Pașii de ramificare Arruda (DI → DII → V1 → aVF) și pragul numeric al legii Coumel (VA ≥35 ms) nu au fost confirmați pe textul original.",
+            "Clasele ESC pentru preexcitația asimptomatică (tabele-imagine ESC 2019)."
+          ]
+        }
+      }
+    ],
+    "mols": [
+      "PRKAG2",
+      "LAMP2"
+    ],
+    "see": [
+      "ecg-pr",
+      "ecg-x-tsv"
+    ]
+  },
+
+  {
+    "id": "ecg-x-tsv",
+    "grp": "ecg",
+    "sec": "Nivel expert",
+    "short": "TSV: discriminarea de aritmolog",
+    "title": "Tahicardiile cu QRS îngust: AVNRT, AVRT, TA și diferențialul RP lung",
+    "idea": "Ordinea ESC 2019: regulat sau neregulat → P vizibile și raportul A:V → RP scurt sau lung → răspunsul la adenozină. Pragul de **90 ms** e pentru ECG-ul de suprafață; 70 ms e intervalul VA de la studiul electrofiziologic.",
+    "blocks": [
+      {
+        "h": "Formele de AVNRT (ESC 2019, tabelul 12)"
+      },
+      {
+        "table": {
+          "head": [
+            "Formă",
+            "HA",
+            "VA",
+            "AH/HA",
+            "ECG"
+          ],
+          "rows": [
+            [
+              "Tipică (lentă–rapidă)",
+              "≤70 ms",
+              "≤60 ms",
+              ">1",
+              "P mascată în QRS sau P′ terminală (pseudo-r′ V1, pseudo-S inferior)"
+            ],
+            [
+              "Atipică (global, ~6%)",
+              ">70 ms",
+              ">60 ms",
+              "variabil",
+              "—"
+            ],
+            [
+              "Rapidă–lentă",
+              "—",
+              "—",
+              "<1",
+              "RP > PR; P negativă/plată în DII, DIII, aVF, V6, pozitivă în V1"
+            ],
+            [
+              "Lentă–lentă",
+              "—",
+              "—",
+              ">1",
+              "AH >200 ms"
+            ]
+          ]
+        }
+      },
+      {
+        "list": [
+          "**Pseudo-r′ V1 / pseudo-S inferior:** specificitate 91–100%, sensibilitate 58% (Kalbfleisch, _JACC_ 1993). Alte indicii: diferență RP >20 ms între V1 și DIII, crestătură în aVL, **pseudo-r′ în aVR** (mai performant decât V1).",
+          "**AVRT ortodromică:** RP constant, de obicei ≤ jumătate din ciclu; bloc de ram funcțional ipsilateral căii (mai ales <40 ani); subdenivelare ST; 150 până la >220/min. **Blocul AV sau disocierea în timpul tahicardiei exclude AVRT.**",
+          "**Regularitate și debut:** variabilitate >15% → mecanism focal; VA fix cu RR variabil exclude TA; salt de PR după ESA la debut → AVNRT tipică; „warm-up/cool-down” → TA focală.",
+          "**Adenozina:** oprirea cu o P după ultimul QRS e foarte improbabilă în TA; oprirea cu un QRS sugerează TA; nu oprește macroreintrările atriale (le demască); TV fasciculară e insensibilă la adenozină, sensibilă la verapamil. [ESC 2019 TSV](https://academic.oup.com/eurheartj/article/41/5/655/5556821)"
+        ]
+      },
+      {
+        "h": "Tahicardia cu RP lung",
+        "p": "Tahicardie sinusală și reintrare sinusală (P sinusală, 100–150/min), TA focală, AVNRT rapidă–lentă, **PJRT** (P profund negative inferior, incesantă). PJRT și AVNRT atipică pot avea P identice pe suprafață: de obicei e nevoie de SEF."
+      },
+      {
+        "h": "Tahicardia atrială focală (Kistler 2006)",
+        "list": [
+          "**P negativă sau +/− în V1 → atriul drept** (specificitate 100%); **P + sau −/+ în V1 → atriul stâng** (sensibilitate 100%); acuratețe prospectivă **93%** (n=30). Actualizarea 2021 adaugă originile paraseptale (ostium sinus coronar, perinodal, sept), tot cu 93%.",
+          "ESC 2019: P negativă în DI și aVL → atriul stâng; V1 negativ → atriul drept lateral; V1 bifazic sau pozitiv → sept drept sau AS; P inferioare negative → origine caudală. [Kistler, JACC 2006](https://pubmed.ncbi.nlm.nih.gov/16949495/)"
+        ]
+      },
+      {
+        "h": "Definiții (ESC 2019)",
+        "list": [
+          "**Tahicardie sinusală inadecvată:** >100/min în repaus, medie Holter >90/min, diagnostic de excludere.",
+          "**POTS:** creștere ≥30/min (≥40/min la 12–19 ani) în ortostatism >30 s, fără hipotensiune ortostatică.",
+          "**TAM:** ≥3 morfologii P, frecvență atrială >100/min, **linie izoelectrică între P**, PP/PR/RR variabile (Schwartz 1994: BPOC, hipoxie, IC, teofilină)."
+        ]
+      },
+      {
+        "callout": {
+          "title": "De verificat pe sursa primară",
+          "text": [
+            "Sub-situsurile Kistler (crista, vene pulmonare, ostium sinus coronar) — textul integral JACC 2006.",
+            "Regula Bix, JET și ritmurile joncționale nu au fost reverificate în această revizie."
+          ]
+        }
+      }
+    ],
+    "mols": [],
+    "see": [
+      "ecg-tsv",
+      "ecg-x-flutter"
+    ]
+  },
+
+  {
+    "id": "ecg-x-flutter",
+    "grp": "ecg",
+    "sec": "Nivel expert",
+    "short": "Flutter tipic și atipic",
+    "title": "Flutterul și FiA: „tipic” e un mecanism, nu un aspect ECG",
+    "idea": "Flutterul tipic e macroreintrarea dependentă de istmul cavotricuspidian, oricum ar arăta pe ECG. După ablația de FiA sau chirurgie, morfologia undelor F devine nesigură, iar „flutterul atipic” e un diagnostic post hoc, stabilit prin mapping.",
+    "blocks": [
+      {
+        "h": "Definițiile actuale ale FiA (ESC 2024)",
+        "list": [
+          "FiA = „absence of discernible and regular P waves”, RR fără tipar, **în absența blocului AV**. Clinică: **ECG de 12 derivații (10 s) sau ≥30 s** pe orice dispozitiv; pragul de 30 s e consens „with limited evidence”.",
+          "**AHRE:** episoade >5 min la ≥170/min pe sonda atrială. Tipare: paroxistică ≤7 zile; persistentă de lungă durată ≥12 luni; permanentă = decizie de a nu restabili ritmul sinusal. [ESC 2024](https://academic.oup.com/eurheartj/article/45/36/3314/7738779)",
+          "Nomenclatura EHRA 2025 a tahicardiilor atriale: **focală, reintrare localizată (<1–3 cm), macroreintrare**."
+        ]
+      },
+      {
+        "h": "Flutterul tipic",
+        "list": [
+          "**CCW:** F negative în dinți de fierăstrău inferior, pozitive în V1, **250–330/min**. **CW:** F inferioare pozitive și largi, F negative, largi, adesea bimodale în V1. CCW ≈90% din flutterul tipic.",
+          "2:1 ≈150/min (130–170); 3:1 ≈100; 4:1 ≈75. La bloc variabil, RR sunt **multipli întregi ai F–F** (nu în FiA). Bloc 5:1–8:1 → digoxin, electroliți sau boală de conducere.",
+          "Clasa IC sau amiodarona încetinesc F sub 200/min → **conducere 1:1** cu QRS larg (caz publicat la 192/min). ESC: clasa IC numai cu blocant nodal.",
+          "**După ablația de FiA:** flutterul dependent de ICT are F inferioare pozitive în **60%** (Chugh 2006); doar 27% au aspectul clasic. Unda pozitivă în V1 care devine negativă spre V6 identifică circuitul peritricuspidian (specificitate 98%, sensibilitate 59%).",
+          "**Bucla inferioară** (ciclu ~217 vs 272 ms) și **reintrarea în opt** imită flutterul CW și se vindecă tot prin ablația ICT (Zhang 2004: 11 din 12 „CW”). **Bucla superioară**, nedependentă de ICT, dă un ECG identic cu CW."
+        ]
+      },
+      {
+        "h": "Indiciile pentru flutterul atipic (specificitate mare, sensibilitate mică)"
+      },
+      {
+        "table": {
+          "head": [
+            "Semn ECG",
+            "Sugerează",
+            "Performanță"
+          ],
+          "rows": [
+            [
+              "F negativă în oricare precordială",
+              "Circuit în atriul drept",
+              "Sensibilitate 83%, specificitate 100% (Fuher 2023)"
+            ],
+            [
+              "F negativă sau −/+ în oricare dintre V2–V6",
+              "Flutter perimitral",
+              "Specificitate 97%, sensibilitate 30% (Pascale 2018)"
+            ],
+            [
+              "Componentă inițială negativă crestată înaintea F inferioare pozitive",
+              "Perimitral orar",
+              "Specificitate 98%, sensibilitate 25%"
+            ],
+            [
+              "F pozitive inferior și precordial, componentă negativă în DI/aVL",
+              "Perimitral antiorar",
+              "Gerstenfeld 2007"
+            ],
+            [
+              "F proeminente în V1, plate în celelalte derivații",
+              "Circuit septal stâng",
+              "11/11 (Bochoeyer 2003)"
+            ],
+            [
+              "Voltaj inferior mic (1,6 vs 2,68 mV)",
+              "Circuit stâng",
+              "Bochoeyer 2003"
+            ],
+            [
+              "Linie izoelectrică >80 ms",
+              "Mecanism focal",
+              "VPP doar 60%"
+            ]
+          ]
+        }
+      },
+      {
+        "p": "ECG-ul **nu separă fiabil** reintrarea de plafon de cea perimitrală. Adenozina și manevrele vagale nu opresc macroreintrarea, dar demască undele F (evită adenozina dacă există preexcitație)."
+      },
+      {
+        "h": "Cardiopatii congenitale",
+        "p": "În DSA domină flutterul dependent de ICT; după Mustard/Senning recidiva după ablație ~30%; după Fontan cu tunel lateral, reintrarea intraatrială la 10,8% (mediană 17,2 ani)."
+      },
+      {
+        "h": "Indicii atriale pentru FiA",
+        "list": [
+          "**Bloc interatrial avansat:** P ≥120 ms, bifazică (±) în DII, DIII, aVF; cu aritmii atriale = sindrom Bayés (AVC, demență, mortalitate).",
+          "**PTFV1 >0,04 mm·s:** predictor modest (OR 1,39; populație generală 1,15; Europa 1,05, nesemnificativ).",
+          "**Standstill atrial:** P absente, electrograme absente, fără captură atrială la output maxim; tromboembolism 30–54%; confundat cu FiA."
+        ]
+      },
+      {
+        "callout": {
+          "title": "De verificat pe sursa primară",
+          "text": [
+            "Stadiile ACC/AHA 2023 ale FiA; pragul AHRE din ESC 2020 (≥175/min).",
+            "Derivația Lewis, pragul undelor f fine vs grosiere, fenomenul Ashman, pacemakerul migrator — fără sursă primară găsită."
+          ]
+        }
+      }
+    ],
+    "mols": [
+      "SCN5A",
+      "NPPA, NPPB",
+      "EMD"
+    ],
+    "see": [
+      "ecg-tsv",
+      "ecg-x-tsv"
+    ]
+  },
+
+  {
+    "id": "ecg-x-qrs-larg",
+    "grp": "ecg",
+    "sec": "Nivel expert",
+    "short": "QRS larg: algoritmi și validare",
+    "title": "QRS larg: algoritmii, cu cifrele din derivare și din validarea independentă",
+    "idea": "Aproximativ 80% din tahicardiile cu QRS larg sunt TV. Algoritmii raportează 90–99% în cohortele proprii și 60–80% în mâinile altora: contează criteriile cu specificitate mare care rezistă la validare (scorul VT ≥3–4, Steurer, Basel).",
+    "blocks": [
+      {
+        "list": [
+          "Distribuție: **~80% TV, 15% TSV cu aberanță, 5% TSV pe cale accesorie**; conducere VA în până la 50% din TV, deci 1:1 nu exclude TV.",
+          "**QRS >140 ms (BRD) / >160 ms (BRS):** nu se aplică în preexcitație sau sub clasa IC/IA. **Ax extrem** (−90° până la ±180°) → TV; TSV aberantă rămâne între −60° și +120°.",
+          "**Concordanța negativă:** specificitate >90%, prezentă doar la ~20%. **Concordanța pozitivă** poate fi AVRT antidromică pe o cale stângă posterioară/laterală. **Capturile/fuziunile:** doar 4 din 33 de TV (Wellens 1978)."
+        ]
+      },
+      {
+        "table": {
+          "head": [
+            "Algoritm",
+            "Pași",
+            "Derivare",
+            "Validare independentă"
+          ],
+          "rows": [
+            [
+              "**Brugada 1991**",
+              "Absența RS în precordiale → RS >100 ms (debut R → nadir S) → disociație AV → morfologie TV în V1–V2 și V6",
+              "Sensibilitate 98,7%, specificitate 96,5%",
+              "Specificitate 59% (Jastrzębski 2012); cumulat 90% / **64%**"
+            ],
+            [
+              "**Vereckei 2007**",
+              "Disociație AV → R inițial în aVR → morfologie care nu e BR/bloc fascicular → vi/vt ≤1",
+              "VPN TV 83,5%",
+              "Cumulat 95% / 75%"
+            ],
+            [
+              "**Vereckei aVR 2008**",
+              "R inițial → r/q inițial >40 ms → crestătură pe panta descendentă a unui QRS negativ → vi/vt ≤1",
+              "Mai bun decât Brugada",
+              "Acuratețe 72%; cumulat 90% / **61%**"
+            ],
+            [
+              "**Pava 2010**",
+              "Timp de vârf R în DII ≥50 ms",
+              "LR+ 34,8",
+              "Sensibilitate 60% (2012); cumulat 78% / 88%"
+            ],
+            [
+              "**Griffith 1994**",
+              "TV dacă nu e BRS sau BRD tipic",
+              "Sensibilitate 90–91%",
+              "Specificitate **39,8%**"
+            ],
+            [
+              "**Steurer 1994**",
+              "QRS predominant negativ V4–V6 → QR în V2–V6 → relație AV ≠ 1:1",
+              "Sensibilitate 75%, specificitate **100%**",
+              "Neretestat"
+            ],
+            [
+              "**Basel 2022**",
+              "≥2 din 3: risc clinic înalt; primul vârf în DII >40 ms; în aVR >40 ms",
+              "92% / 89%",
+              "93% / 90%; la non-electrofiziologi 80% (Brugada 81%, aVR 72%); 36 s vs 105 s"
+            ]
+          ]
+        }
+      },
+      {
+        "h": "Scorul VT (Jastrzębski, _Europace_ 2016; 786 QRS larg)"
+      },
+      {
+        "table": {
+          "head": [
+            "Criteriu",
+            "Puncte"
+          ],
+          "rows": [
+            [
+              "Disociație AV",
+              "**2**"
+            ],
+            [
+              "R inițial în V1",
+              "1"
+            ],
+            [
+              "r inițial >40 ms în V1 sau V2",
+              "1"
+            ],
+            [
+              "S crestat în V1",
+              "1"
+            ],
+            [
+              "R inițial în aVR",
+              "1"
+            ],
+            [
+              "Timp de vârf R în DII ≥50 ms",
+              "1"
+            ],
+            [
+              "Absența RS în V1–V6",
+              "1"
+            ]
+          ]
+        }
+      },
+      {
+        "p": "**≥1:** acuratețe 83%; **≥3:** prezent la 66% din TV, specificitate **99,6%**; **≥4:** specificitate **100%**. Meta-analiza Sun 2023 (14 studii, 3966 pacienți): sensibilitate 89%, specificitate **71%**, cu heterogenitate mare. [PMID 25995387](https://pubmed.ncbi.nlm.nih.gov/25995387/)"
+      },
+      {
+        "h": "Morfologia (pasul 4 Brugada) și Kindwall",
+        "list": [
+          "**TV cu aspect de BRD:** V1 R monofazic, qR, R larg >40 ms sau „urechi de iepure” cu **urechea stângă mai înaltă**; V6 R/S <1.",
+          "**TV cu aspect de BRS:** V1 R larg, panta S crestată, nadir S întârziat; V6 Q sau QS.",
+          "**Kindwall 1988** (aspect BRS; oricare → TV, sensibilitate 100%, specificitate 89%): R în V1/V2 >30 ms; orice Q în V6; >60 ms până la nadirul S în V1/V2; S crestat în V1/V2 (= semnul Josephson).",
+          "**BRD + HBAS:** TSV e favorizată de QRS >140 ms, r′ în V1, QRS negativ în aVR și R/S >1 în V6 — regula „mai larg = TV” se inversează.",
+          "**Clinic (Garratt 1994):** zgomot I variabil — specificitate 100% pentru TV; unde „cannon” — sensibilitate 96%."
+        ]
+      },
+      {
+        "callout": {
+          "title": "De verificat pe sursa primară",
+          "text": [
+            "Definiția exactă a „riscului clinic înalt” din algoritmul Basel; acuratețea numerică din Vereckei 2008.",
+            "Mimicele: hiperkaliemia și intoxicația cu blocante de Na pot da fals TV prin criteriile aVR."
+          ]
+        }
+      }
+    ],
+    "mols": [],
+    "see": [
+      "ecg-qrs-larg",
+      "ecg-x-localizare"
+    ]
+  },
+
+  {
+    "id": "ecg-x-localizare",
+    "grp": "ecg",
+    "sec": "Nivel expert",
+    "short": "Localizarea ESV/TV",
+    "title": "Localizarea ESV și TV: tract de ejecție, inele, summit, Purkinje, epicard",
+    "idea": "Axul inferior înseamnă bază (tract de ejecție), BRS înseamnă VD sau sept, BRD înseamnă VS. Tranziția în V3 e zona gri a tractului de ejecție: acolo decid indicele V2S/V3R și raportul de tranziție V2.",
+    "blocks": [
+      {
+        "h": "Tractul de ejecție (BRS + ax inferior)",
+        "list": [
+          "Tranziție **≥V4 → RVOT**; **≤V2 → LVOT**; **V3 = zonă gri**.",
+          "**Yoshida 2014** (207 pacienți): **S(V2)/R(V3) ≤1,5 → LVOT** (sensibilitate 89%, specificitate 94%, ASC 0,964).",
+          "**Betensky 2011:** raport de tranziție V2 **≥0,60 → LVOT** (acuratețe 91%); o tranziție a ESV **mai tardivă decât cea sinusală exclude LVOT** (100%).",
+          "**Ouyang 2002:** indicii de durată și amplitudine a R în V1/V2 sunt mai mari în cuspida aortică (~58%, 57%) decât în RVOT (~32%, 15%).",
+          "Idiopatice, sensibile la adenozină și betablocant; exclude ARVC și sarcoidoza prin RMN."
+        ]
+      },
+      {
+        "h": "Alte situsuri",
+        "list": [
+          "**Inel tricuspidian** (8%, 74% septal): peretele liber are QRS mai larg, crestat, tranziție după V3; Q în V1 → septal.",
+          "**Inel mitral** (5%): aspect BRD cu **S în V6 în toate cazurile**.",
+          "**Summit-ul VS:** împărțit de vena cardiacă mare; predictori: aspect BRD, tranziția, R DIII/DII, Q aVL/aVR, S în V6 (Yamada 2010).",
+          "**Banda moderatoare:** BRS, tranziție >V4, ax superior stâng, QRS ~153 ms; **7 din 10 pacienți s-au prezentat cu FV idiopatică**.",
+          "**Purkinje:** declanșatorii FV idiopatice la 12 din 16 pacienți (Haïssaguerre 2002); QRS relativ îngust, cuplaj scurt.",
+          "**TV fasciculară** (a doua ca frecvență după RVOT), sensibilă la verapamil; ESV fasciculară anterioară proximală: QRS ESV − QRS sinusal <15 ms."
+        ]
+      },
+      {
+        "h": "Origine epicardică vs endocardică"
+      },
+      {
+        "table": {
+          "head": [
+            "Criteriu",
+            "Prag",
+            "Performanță",
+            "Sursă"
+          ],
+          "rows": [
+            [
+              "Pseudo-delta",
+              "≥34 ms",
+              "Sensibilitate 83%, specificitate 95%",
+              "Berruezo 2004 (TV VS cu aspect BRD)"
+            ],
+            [
+              "Deflexiune intrinsecoidă V2",
+              "≥85 ms",
+              "87% / 90%",
+              "Berruezo 2004"
+            ],
+            [
+              "RS cel mai scurt",
+              "≥121 ms",
+              "76% / 85%",
+              "Berruezo 2004"
+            ],
+            [
+              "Indicele de deflexiune maximă (MDI)",
+              "≥0,55",
+              "100% / 98,7%",
+              "Daniels 2006"
+            ],
+            [
+              "Q în DI (CMP non-ischemică, bazal-superior/lateral)",
+              "prezent",
+              "88% / 88%",
+              "Vallès 2010"
+            ]
+          ]
+        }
+      },
+      {
+        "p": "În cardiomiopatia non-ischemică doar **Q în DI** rămâne fiabil; algoritmul Vallès în patru pași (q inferior, pseudo-delta ≥75 ms, MDI ≥0,59, Q în DI) a avut acuratețe 90%."
+      },
+      {
+        "h": "Cicatrice, reintrare în ramuri, cardiomiopatia indusă de ESV",
+        "list": [
+          "**TV post-infarct (Miller 1988):** localizarea infarctului, tipul de BR, cadranul axului și progresia R au localizat ieșirea la doar **48%**.",
+          "**Reintrarea în ramuri (Blanck 1993):** boală His–Purkinje la toți, aspect BRS la 46 din 48; ablația ramului drept e curativă.",
+          "**CMP indusă de ESV:** încărcătură **>24%** separă FEVS scăzută (Baman 2010; minim reversibil 10%); QRS-ESV **>150 ms** și originea epicardică sunt predictori independenți (Yokokawa 2012).",
+          "**Definiții ESC 2022** (preluate secundar): TVNS ≥3 bătăi, <30 s; TV susținută ≥30 s sau care cere intervenție; furtună electrică ≥3 episoade în 24 h la ≥5 min distanță."
+        ]
+      },
+      {
+        "callout": {
+          "title": "De verificat pe sursa primară",
+          "text": [
+            "Subtipurile fasciculare Nogami, criteriile mușchi papilar vs fascicular, para-Hisian, RCC/LCC și pragurile summit — tabelele consensului HRS/EHRA 2019 (Cronin).",
+            "Pragurile ESC 2022 pentru încărcătura ESV (10% / 20%) — doar sursă secundară."
+          ]
+        }
+      }
+    ],
+    "mols": [],
+    "see": [
+      "ecg-qrs-larg",
+      "ecg-x-qrs-larg"
+    ]
+  },
+
+  {
+    "id": "ecg-x-omi",
+    "grp": "ecg",
+    "sec": "Nivel expert",
+    "short": "Ocluzie coronariană: OMI",
+    "title": "Ocluzia coronariană: formulele Smith, Wellens, de Winter și paradigma OMI",
+    "idea": "Citirea „ocluzie / non-ocluzie” are sensibilitate dublă față de criteriile STEMI la specificitate similară. Forma contează cât milimetrii, iar unele praguri clasice (V7–V9, V4R, Sgarbossa, anevrism) încă așteaptă verificarea pe sursa primară.",
+    "blocks": [
+      {
+        "h": "Formulele Smith: ocluzie LAD subtilă vs repolarizare precoce",
+        "list": [
+          "**4 variabile** (_J Electrocardiol_ 2017;50:561): **0,052 × QTc-B − 0,151 × QRS V2 − 0,268 × R V4 + 1,062 × ST60 V3** — prag **>18,2**: sensibilitate 88,8%, specificitate 94,7%, LR+ 16,9.",
+          "**3 variabile:** 1,196 × ST60 V3 + 0,059 × QTc-B − 0,326 × R V4 — prag **≥23,4**: specificitate 90,6%, sensibilitate 86%.",
+          "QTc-B = Bazett calculat de aparat (ms); QRS V2 = amplitudinea totală; R V4 și ST60 V3 în mm. Derivare: 143 ocluzii LAD subtile vs 171 variante normale, toate cu ≥1 mm STE în V2–V3.",
+          "**Nu se aplică** dacă există: ST drept sau convex în V2–V6, subdenivelare inferioară (sumă) ≥1 mm, orice subdenivelare anterioară, unde Q, distorsiune terminală a QRS, STE >5 mm — acolo ECG-ul e deja diagnostic. [PMID 28460689](https://pubmed.ncbi.nlm.nih.gov/28460689/)"
+        ]
+      },
+      {
+        "h": "Wellens: reperfuzie; de Winter: ocluzie activă",
+        "list": [
+          "**de Zwaan 1982:** 26 din 145 (18%) cu angină instabilă aveau pattern-ul; toți cu stenoză critică LAD proximal; **12 din 16 (75%)** neoperați au făcut infarct anterior. Lista de criterii folosită azi vine din **Rhinehart 2002**. Tip A ~25%, tip B ~75%; în durere T se poate pseudonormaliza.",
+          "**de Winter** (_NEJM_ 2008): subdenivelare ascendentă la J 1–3 mm în V1–V6, T înalte simetrice, fără supra precordială; supra 0,5–1 mm în aVR frecventă, **nu obligatorie**; 2% din ocluziile LAD (30/1532). Poate evolua spre STEMI; apare și în ocluzia de trunchi."
+        ]
+      },
+      {
+        "h": "Paradigma OMI",
+        "list": [
+          "**Meyers 2021** (n=808): criterii STEMI vs citire OMI — sensibilitate **41% vs 86%**, specificitate 94% vs 91%; OMI fără criterii STEMI au infarct și mortalitate similare, dar ajung mai târziu la coronarografie.",
+          "**DIFOCCULT:** mortalitate intraspitalicească 5,0% la NSTEMI reclasificate OMI vs 8,3% STEMI vs 1,8% restul. **DIFOCCULT-3** (2026, 4398 pacienți fără STE diagnostic): strategie invazivă precoce 45,4% vs 13,6%; ocluzie identificată în ≤2 h 35,1% vs 16,7%.",
+          "**AI „Queen of Hearts”:** sensibilitate ~83%, specificitate ~93% vs STEMI 34%/98% (date legate de producător).",
+          "**ESC 2023** numește explicit STEMI posterior, ocluzia circumflexei/infarctul VD și de Winter. Nu există o definiție cantitativă validată pentru T hiperacute — semn calitativ.",
+          "**Aslanger:** evidență slabă (serie de 9 din 30; vinovată adesea circumflexa)."
+        ]
+      },
+      {
+        "h": "Mimici",
+        "list": [
+          "**Takotsubo (Kosuge 2010):** subdenivelare aVR + lipsa supra în V1 → sensibilitate 91%, specificitate 96% la ≤6 h; **validarea externă 2015 a fost negativă**. Niciun criteriu ECG nu exclude ocluzia LAD.",
+          "**Pericardita (ESC 2025):** sindromul inflamator miopericardic (IMPS); ECG descris calitativ, fără praguri.",
+          "**Embolia pulmonară:** scorul Daniel (0–21, ≥10 = HTP severă) — structura e confirmată, ponderile itemilor nu."
+        ]
+      },
+      {
+        "callout": {
+          "title": "De verificat pe sursa primară",
+          "text": [
+            "UDMI 2018: pragurile V7–V9 și V3R–V4R; criteriile infarctului VD (Zimetbaum 2003).",
+            "Algoritmii de arteră vinovată: Zimetbaum & Josephson 2003, Fiol 2004, Engelen 1999 (aVR).",
+            "Smith-Sgarbossa (ST/S ≤ −0,25) și BARCELONA: cifrele de performanță.",
+            "Anevrismul VS: Smith 2005 (Σ T/QRS V1–V4 >0,22 → acut), Klein 2015 (≥0,36 în oricare derivație → acut).",
+            "ESC 2023 aVR + subdenivelare în 6 sau 8 derivații; COVADIS pentru vasospasm; ponderile scorului Daniel."
+          ]
+        }
+      }
+    ],
+    "mols": [],
+    "see": [
+      "ecg-st",
+      "ecg-st-dd",
+      "vas-mec"
+    ]
+  },
+
+  {
+    "id": "ecg-x-canal",
+    "grp": "ecg",
+    "sec": "Nivel expert",
+    "short": "Canalopatii: ESC 2022 și scoruri",
+    "title": "Canalopatiile: criteriile ESC 2022 și scorurile, cu versiunea lor",
+    "idea": "Versiunea scorului schimbă diagnosticul: Schwartz 2011 vs tabelul modificat ESC 2022, Shanghai 2016 vs 2026. Fiecare tabel trebuie citit cu anul și documentul-sursă.",
+    "blocks": [
+      {
+        "h": "Brugada: ESC 2022 decide, scorul Shanghai informează",
+        "list": [
+          "**I C:** tip 1 **spontan**, fără altă cardiopatie. **I C:** tip 1 indus (blocant de Na sau febră) la supraviețuitorii unui stop prin FV/TV polimorfă.",
+          "**IIa C:** tip 1 indus + sincopă aritmică, respirație agonică nocturnă, istoric familial de Brugada sau moarte subită familială <45 ani cu autopsie negativă. Tipul 1 indus apare la **2–4% din sănătoși**.",
+          "Test farmacologic: ajmalină 1 mg/kg în 10 min (max 100 mg, ESC), flecainidă 2 mg/kg IV (max 150 mg) sau 200–300 mg oral, procainamidă 10 mg/kg; nu e indicat dacă există deja tip 1 bazal. [ESC 2022](https://academic.oup.com/eurheartj/article/43/40/3997/6675633)"
+        ]
+      },
+      {
+        "table": {
+          "head": [
+            "Scorul Shanghai Brugada",
+            "2016",
+            "2026 (APHRS, modificat)"
+          ],
+          "rows": [
+            [
+              "ECG (obligatoriu ≥1; doar cel mai mare)",
+              "Tip 1 spontan 3,5; febril 3; tip 2/3 convertit la provocare 2",
+              "Tip 1 spontan 3,5; febril 3; tip 1 indus de blocant Na 2"
+            ],
+            [
+              "Istoric clinic (cel mai mare)",
+              "Stop inexplicabil sau FV/TVP 3; respirație agonică 2; sincopă suspect aritmică 2; sincopă neclară 1; FiA/flutter <30 ani 0,5",
+              "La fel, fără itemul FiA"
+            ],
+            [
+              "Istoric familial",
+              "Brugada cert 2; moarte subită suspectă 1; moarte subită <45 ani cu autopsie negativă 0,5",
+              "La fel"
+            ],
+            [
+              "Genetic",
+              "Mutație probabil patogenă 0,5",
+              "Variantă P/LP în SCN5A 0,5"
+            ],
+            [
+              "Interpretare",
+              "**≥3,5 probabil/cert; 2–3 posibil; <2 nediagnostic**",
+              "La fel (tipărit „>3,5”)"
+            ]
+          ]
+        }
+      },
+      {
+        "list": [
+          "**Tip 2:** ST ≥0,5 mm, convex, T pozitiv în V2; **unghi β ≥58°** (sensibilitate 79%, specificitate 83%); baza triunghiului ≥4 mm la 5 mm sub r′ (cifrele de performanță sunt raportate contradictoriu).",
+          "**Markeri de risc (2026):** fQRS (HR 20,2), disfuncție sinusală (9,1), sincopă (6,8), FV inductibilă (5,3), QRS >120 ms (4,7), tip 1 spontan (2,7); semnul aVR, S larg în DI, Tpeak–Tend lung, repolarizare precoce inferolaterală.",
+          "**Fenocopie:** pattern Brugada-like + cauză identificabilă + dispariție după rezolvare + fără istoric familial + fără simptome + test cu blocant de Na negativ."
+        ]
+      },
+      {
+        "h": "LQTS: scorul modificat ESC 2022 (tabelul 10) vs Schwartz clasic"
+      },
+      {
+        "table": {
+          "head": [
+            "Criteriu",
+            "ESC 2022",
+            "Schwartz 2011 clasic"
+          ],
+          "rows": [
+            [
+              "QTc ≥480 ms",
+              "**3,5**",
+              "3"
+            ],
+            [
+              "QTc 460–479 ms",
+              "2",
+              "2"
+            ],
+            [
+              "QTc 450–459 ms (bărbați)",
+              "1",
+              "1"
+            ],
+            [
+              "QTc ≥480 ms în minutul 4 al recuperării",
+              "1",
+              "1"
+            ],
+            [
+              "Torsadă a vârfurilor",
+              "2",
+              "2"
+            ],
+            [
+              "Alternanță T",
+              "1",
+              "1"
+            ],
+            [
+              "T crestat în 3 derivații",
+              "1",
+              "1"
+            ],
+            [
+              "Frecvență mică pentru vârstă",
+              "0,5",
+              "0,5"
+            ],
+            [
+              "Sincopă la stres / fără stres",
+              "2 / 1",
+              "2 / 1"
+            ],
+            [
+              "Surditate congenitală",
+              "**absentă**",
+              "0,5"
+            ],
+            [
+              "Rudă cu LQTS cert",
+              "1",
+              "1"
+            ],
+            [
+              "Moarte subită <30 ani la rudă de gradul I",
+              "0,5",
+              "0,5"
+            ],
+            [
+              "Mutație patogenă",
+              "**3,5**",
+              "absentă"
+            ],
+            [
+              "Diagnostic",
+              "**>3**",
+              "≥3,5 probabilitate mare"
+            ]
+          ]
+        }
+      },
+      {
+        "list": [
+          "**LQTS (ESC 2022):** QTc ≥480 ms pe ECG repetate sau scor >3 (I); mutație patogenă indiferent de QT (I); QTc 460–479 ms + sincopă aritmică (IIa).",
+          "**SQTS (ESC 2022):** QTc ≤360 ms + mutație, istoric familial sau supraviețuire după TV/FV (I); QTc ≤320 ms (IIa); 320–360 ms + sincopă aritmică (IIa); 320–360 ms + moarte subită familială <40 ani (IIb).",
+          "**Gollob 2011, itemii ECG:** QTc <370 ms 1p, <350 ms 2p, <330 ms 3p; J–Tpeak <120 ms 1p (scor contestat; itemii clinici doar din surse secundare)."
+        ]
+      },
+      {
+        "h": "Repolarizare precoce, CPVT, Andersen-Tawil",
+        "list": [
+          "**Pattern J (Macfarlane 2015):** J ≥0,1 mV în ≥2 derivații contigue, **excluzând V1–V3**, QRS <120 ms. Risc: J ≥2 mm, variație dinamică, ST orizontal/descendent. ERS = pattern + resuscitare după FV/TVP inexplicabilă.",
+          "**Scorul Shanghai ERS:** stop/FV/TVP 3; sincopă aritmică 2; sincopă neclară 1; J ≥0,2 mV cu ST orizontal/descendent 2; variație dinamică a J 1,5; J ≥0,1 mV 1; ESV cu cuplaj scurt 2; rudă cu ERS 2; ≥2 rude cu pattern 2; o rudă 1; moarte subită <45 ani 0,5; genetic 0,5 (eliminat în 2026). **≥5 probabil/cert; 3–4,5 posibil; <3 nediagnostic.**",
+          "**CPVT (I):** cord normal, ECG de repaus normal, TV bidirecțională sau polimorfă la efort/emoție, sau mutație. **Andersen-Tawil (IIa):** ≥2 din U proeminent, ESV/TV bidirecționale, dismorfism, paralizie periodică, mutație KCNJ2."
+        ]
+      },
+      {
+        "callout": {
+          "title": "De verificat pe sursa primară",
+          "text": [
+            "Morfologiile T Moss/Zhang pe genotip; pragurile AHA pentru QT (≥450/≥460 ms, ≤390 ms) și formulele de corecție.",
+            "Indicele Corrado (STJ/ST80) și semnul aVR (R ≥3 mm sau R/q ≥0,75)."
+          ]
+        }
+      }
+    ],
+    "mols": [
+      "SCN5A",
+      "KCNQ1",
+      "KCNH2",
+      "KCNJ2",
+      "RYR2",
+      "CASQ2",
+      "CACNA1C"
+    ],
+    "see": [
+      "ecg-speciale",
+      "ecg-qt",
+      "aritmii"
+    ]
+  },
+
+  {
+    "id": "ecg-x-cmp",
+    "grp": "ecg",
+    "sec": "Nivel expert",
+    "short": "Cardiomiopatii, HVS, electroliți, sportiv",
+    "title": "Cardiomiopatii, hipertrofie, electroliți și ECG-ul sportivului: criteriile verificate",
+    "idea": "ECG-ul cardiomiopatiilor e mai util ca „steag roșu” etiologic decât ca diagnostic: PR scurt cu HVS, voltaj mic cu perete gros, BAV la tânăr, epsilon. Criteriile de HVS sunt specifice și puțin sensibile.",
+    "blocks": [
+      {
+        "h": "ARVC: Padova 2020",
+        "list": [
+          "**Repolarizare VD, major:** T negative V1–V3 (sau dincolo) la dezvoltare pubertară completă, fără BRD complet. **Minor:** T negative V1–V2; T negative V1–V4 cu BRD complet.",
+          "**Repolarizare VS, minor:** T negative V4–V6 fără BRS complet.",
+          "**Depolarizare — toate minore:** undă epsilon (retrogradată), TAD ≥55 ms în V1–V3 fără BRD, **voltaj <0,5 mV în toate derivațiile membrelor** (criteriu VS). SAECG eliminat.",
+          "**Aritmii:** >500 ESV/24 h sau TVNS/TV cu aspect de BRS = **VD major** (minor doar cu ax inferior); aritmii cu aspect BRD (nefasciculare) = VS minor. [Graziano 2022](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8746198/)"
+        ]
+      },
+      {
+        "h": "Steaguri roșii ECG (ESC 2023, tabelul 7)"
+      },
+      {
+        "table": {
+          "head": [
+            "Fenotip",
+            "Semn ECG",
+            "Gândește la"
+          ],
+          "rows": [
+            [
+              "CMH",
+              "PR scurt / preexcitație",
+              "Glicogenoze, Danon, PRKAG2, Fabry, boală mitocondrială"
+            ],
+            [
+              "CMH",
+              "BAV",
+              "Amiloidoză, Fabry tardiv, Danon, sarcoidoză, PRKAG2"
+            ],
+            [
+              "CMH",
+              "HVS extremă",
+              "Danon, Pompe, PRKAG2"
+            ],
+            [
+              "CMH",
+              "Voltaj mic",
+              "Amiloidoză, Friedreich"
+            ],
+            [
+              "CMH",
+              "Ax nord-vest",
+              "Noonan"
+            ],
+            [
+              "CMH",
+              "Pseudo-infarct",
+              "Amiloidoză"
+            ],
+            [
+              "CMD",
+              "BAV",
+              "Laminopatie, Emery-Dreifuss 1, miocardită (Chagas, Lyme, difterie), sarcoidoză, desminopatie, distrofie miotonică"
+            ],
+            [
+              "CMD",
+              "P mică / standstill atrial",
+              "Emery-Dreifuss"
+            ],
+            [
+              "CMD",
+              "Pattern de infarct posterolateral",
+              "Distrofinopatii, centura membrelor, sarcoidoză"
+            ],
+            [
+              "CMD",
+              "QRS extrem de mic",
+              "PLN"
+            ],
+            [
+              "NDLVC",
+              "BAV; voltaj mic + BRD atipic",
+              "Laminopatie, desminopatie; variante desmozomale"
+            ]
+          ]
+        }
+      },
+      {
+        "p": "Voltajul mic contează doar în absența obezității, revărsatului, BPOC. **Fabry:** PQ scurt la tineri, BAV la adulți, bradicardie, incompetență cronotropă, HVS. **Laminopatii:** PR lung, FiA, ESV, voltaj precordial mic. [ESC 2023](https://academic.oup.com/eurheartj/article/44/37/3503/7246608)"
+      },
+      {
+        "h": "Hipertrofie",
+        "list": [
+          "**Sokolow-Lyon** SV1 + RV5/V6 ≥35 mm; **Cornell** RaVL + SV3 >28 mm (B) / >20 mm (F).",
+          "**Peguero-Lo Presti** S cea mai adâncă + SV4 ≥28 mm (B) / ≥23 mm (F): sensibilitate 62% vs Cornell 35% în studiul original, **43–52% în meta-analize**, specificitate ~90%; fără avantaj pe RMN; ESH 2023 folosește criteriile tradiționale."
+        ]
+      },
+      {
+        "h": "Electroliți și toxice",
+        "list": [
+          "**Hiperkaliemie (Montague 2008, K ≥6):** sensibilitatea ECG 34–43% (55–62% la K >6,5); T ascuțite **18%**; corelația T–K nesemnificativă. QRS larg, bradicardia <50/min și ritmul joncțional au prezis evenimentele, T ascuțite nu.",
+          "**Triciclice (Liebelt 1995):** R terminal aVR ≥3 mm (sensibilitate 81%, VPP 43%); R/S aVR ≥0,7 (75%, 46%); QRS >100 ms (82%, 35%).",
+          "Torsada: magneziu IV „even in the absence of hypomagnesaemia” (ESC 2022)."
+        ]
+      },
+      {
+        "h": "ECG-ul sportivului",
+        "list": [
+          "**Anormal (2017):** Q/R ≥0,25 sau ≥40 ms în ≥2 derivații (fără DIII, aVR); subdenivelare ST ≥0,5 mm; BRS; QRS ≥140 ms; epsilon; preexcitație; QTc ≥470 (B) / ≥480 ms (F); Brugada tip 1; bradicardie <30/min sau pauze ≥3 s; PR ≥400 ms; Mobitz II; BAV III; T negative ≥1 mm în ≥2 derivații contigue (fără DIII, aVR, V1).",
+          "**Borderline:** ax stâng −30° până la −90°, anomalie atrială, BRD complet; **≥2 = anormal**.",
+          "**IC25** (summit Seattle 2025, raport ACC oct. 2026, **provizoriu**): T negative V1–V3 la femei ≥16 ani „pot necesita evaluare”; orice T negativ lateral semnalat; „athlete anterior early repolarization pattern” (0,76%); ESV cu cuplaj ≤350 ms sau ax neinferior = roșii. [ACC 2026](https://www.acc.org/latest-in-cardiology/articles/2026/10/29/11/45/2026-international-criteria-for-ecg-interpretation-in-athletes)"
+        ]
+      },
+      {
+        "callout": {
+          "title": "De verificat pe sursa primară",
+          "text": [
+            "Romhilt-Estes, produsul Cornell, criteriile HVD și HVS în BRS (AHA 2009 partea V).",
+            "CMH apicală (T negative ≥10 mm) și o definiție de consens pentru discordanța voltaj–masă în amiloidoză.",
+            "Chagas: asocierea clasică BRD + HBAS nu a fost reconfirmată în sursele acestei revizii (ESC 2023 o listează doar cu BAV)."
+          ]
+        }
+      }
+    ],
+    "mols": [
+      "PKP2",
+      "DSP",
+      "LMNA",
+      "GLA",
+      "LAMP2",
+      "PRKAG2",
+      "TTR",
+      "EMD"
+    ],
+    "see": [
+      "ecg-speciale",
+      "ecg-context",
+      "cm-mec"
+    ]
+  },
+
+  {
+    "id": "ecg-x-pacing",
+    "grp": "ecg",
+    "sec": "Nivel expert",
+    "short": "Conducere, sincopă, CSP",
+    "title": "Conducere, sincopă și stimularea sistemului de conducere: criteriile numerice",
+    "idea": "Stimularea sistemului de conducere are acum criterii ECG precise: timpul de vârf R în V6 clasifică adâncimea stimulării, iar intervalul V6–V1 confirmă captura de ram stâng.",
+    "blocks": [
+      {
+        "h": "Indicații ECG (ESC 2021, ACC/AHA/HRS 2018)",
+        "list": [
+          "**Incompetență cronotropă:** <80% din rezerva de frecvență [(220 − vârstă) − FC de repaus].",
+          "**Mobitz II, 2:1, BAV avansat, BAV III fără cauză reversibilă:** pacemaker și fără simptome; 2:1 incidental — caz cu caz; Mobitz I infranodal — pacing; **BAV paroxistic = BAV permanent**.",
+          "**Bloc de ram alternant:** „as soon as … detected, even in the absence of symptoms” — singura excepție de la „BR asimptomatic nu se stimulează”.",
+          "**HV ≥70 ms** la SEF = pozitiv; progresia BAV la 4 ani: 4% (HV <70), 12% (70–100), 24% (>100 ms).",
+          "**ILR:** asistolie semnificativă = >3 s simptomatic sau >6 s asimptomatic; tilt cu asistolie >3 s la >40 ani → clasa I.",
+          "**CRT:** majoritatea cu QRS ≥130 ms; BRS beneficiază indiferent de durată, non-BRS mai ales la ≥150 ms. Stimularea VD >20%: risc de IC indusă de pacing.",
+          "**ACC/AHA/HRS 2018:** bradicardie = <50/min; în disfuncția sinusală nu există o frecvență sau pauză care să impună stimularea. [ESC 2021](https://academic.oup.com/eurheartj/article/42/35/3427/6358547)"
+        ]
+      },
+      {
+        "h": "Sincopa: ECG de risc (ESC 2018)",
+        "list": [
+          "**Risc înalt major:** Mobitz II, BAV II/III; bradicardie sinusală persistentă <40/min; bloc SA repetitiv sau pauze >3 s în veghe, în afara antrenamentului.",
+          "**ECG sugestiv de sincopă aritmică (tabelul 5):** bloc bifascicular; QRS ≥0,12 s; Mobitz I sau BAV I cu PR foarte lung; bradicardie sinusală sau FiA lentă 40–50/min; TVNS; preexcitație; QT lung sau scurt; repolarizare precoce; Brugada tip 1; T negative drepte sau epsilon (ARVC); HVS sugestivă de CMH. La sincopă inexplicabilă cu bloc bifascicular: SEF. [ESC 2018](https://academic.oup.com/eurheartj/article/39/21/1883/4939241)"
+        ]
+      },
+      {
+        "h": "Stimularea sistemului de conducere (EHRA 2023)"
+      },
+      {
+        "table": {
+          "head": [
+            "Situație",
+            "Criteriu"
+          ],
+          "rows": [
+            [
+              "His selectiv",
+              "Interval izoelectric stimul–QRS în toate cele 12 derivații (≈HV)"
+            ],
+            [
+              "His neselectiv",
+              "Pseudo-delta; acceptat fără crestături în DI, V1, V4–V6 și V6 RWPT **<100 ms**; respins dacă aspect BRS cu stimul–V6 RWPT **>110 ms**"
+            ],
+            [
+              "Captură hisiană",
+              "Diferența de latență V6 RWPT (potențial His vs stimul) **<12 ms** (acuratețe 96,7%)"
+            ],
+            [
+              "Captura ramului stâng",
+              "V6 RWPT **<75 ms** (QRS nativ îngust/BRD; <74 ms: specificitate 100%) sau **<80 ms** (BRS, IVCD, scăpare largă); V6–V1 **>44 ms** (specificitate 100%), optim **>33 ms** (72% / 90%)"
+            ],
+            [
+              "Pierderea capturii LBB",
+              "Creștere V6 RWPT **≥15 ms** (83% / 100%); >10 ms e în variabilitatea dintre observatori"
+            ],
+            [
+              "Potențial–V6 vs stimul–V6",
+              "Diferență <10 ms: 88% / 95%"
+            ],
+            [
+              "Adâncimea (V6 RWPT)",
+              "Septal VD >120 ms; septal profund 95–120; septal VS 80–95; ram stâng <80 ms"
+            ],
+            [
+              "Ram stâng vs fascicular",
+              "Potențial LBB–QRS ≈25–34 ms cu ax normal vs <25 ms, adesea cu ax anormal"
+            ],
+            [
+              "Tranziția neselectiv → selectiv",
+              "V1 qR → rSR′ cu R′ rotunjit, S adâncit în DI/V6, **V6 RWPT neschimbat**"
+            ]
+          ]
+        }
+      },
+      {
+        "p": "V6–V1 (Jastrzębski 2022): 62 ms la captura selectivă, 41 ms neselectivă, 27 ms septal VS. **qR/rSR′ în V1 e necesar, dar nu suficient** — și stimularea septală VS are R terminal în V1. [Burri, Europace 2023](https://academic.oup.com/europace/article/25/4/1208/7071606)"
+      },
+      {
+        "h": "CRT, temporizări, magnet",
+        "list": [
+          "**Ammann (54 de pacienți cu BRS):** R/S >1 în V1 → captură VS; altfel se citește DI. Sensibilitate 94%, specificitate 93%; validat doar cu sondă VD apicală și BRS. Algoritmul în doi pași (îngustarea QRS în membre + negativitate în DI): 94% / 96%.",
+          "**PVARP** = conducerea VA + 50–75 ms (previne tahicardia mediată de pacemaker). Stimularea de siguranță ventriculară: AV scurt 70–110 ms.",
+          "**Magnet:** Medtronic 85/min (65/min la ERI); Boston Scientific 100/min; Biotronik 90/min (80/min la ERI). La DAI, magnetul suspendă terapiile.",
+          "**Bloc fascicular septal stâng:** forțe anterioare proeminente, QRS <120 ms, caracter tranzitoriu; criteriile **nu sunt standardizate**."
+        ]
+      },
+      {
+        "callout": {
+          "title": "De verificat pe sursa primară",
+          "text": [
+            "Codul NBG, Wenckebach-ul de pacemaker și punctul 2:1 (TARP), sincronia VA repetitivă, captura anodală — Barold & Herweg.",
+            "Criteriile AHA 2009 pentru BRS/BRD/hemiblocuri și criteriile Strauss — nereverificate în această revizie.",
+            "Ghidul HRS 2023 de stimulare fiziologică; clasa recomandării pentru blocul de ram alternant."
+          ]
+        }
+      }
+    ],
+    "mols": [],
+    "see": [
+      "ecg-pacing",
+      "ecg-pr",
+      "nodal"
+    ]
+  },
+
+  {
+    "id": "ecg-x-curriculum",
+    "grp": "ecg",
+    "sec": "Nivel expert",
+    "short": "Lista de control (ABIM, EHRA)",
+    "title": "Ce trebuie să știi: lista de control din ABIM, COCATS, ESC și EHRA",
+    "idea": "Atlasul acoperă tot ce cer foaia de coduri ABIM, COCATS 4, curriculumul ESC 2020 și EHRA 2024, plus competențele de electrofiziolog din blueprint-ul ABIM CCEP 2026.",
+    "blocks": [
+      {
+        "h": "Foaia ECG ABIM CVD (mai 2026)",
+        "p": "9 secțiuni, ~90 de opțiuni (87 de căsuțe + grila de infarct pe 5 teritorii × acut/vechi): trăsături generale și unda P; ritmuri; conducere AV; voltaj, ax, hipertrofie; conducere intraventriculară; infarct; ST-T-U; tulburări clinice; pacemaker. O selecție contradictorie (sinusal + FiA) anulează punctul; un infarct codat pe „Q”-urile care sunt de fapt unde delta pierde punctul WPW. [ABIM](https://www.abim.org/media/uq5auwyn/cvd-sample-cases.pdf)"
+      },
+      {
+        "h": "Electrofiziologie (ABIM CCEP 2026)",
+        "list": [
+          "Flutter atipic drept și stâng; AVNRT tipică și atipică; AVRT antidromică; căi fasciculo-ventriculare și căi multiple.",
+          "Localizarea ESV/TV; interpretarea QRS larg; TV polimorfă dependentă de bradicardie, indusă medicamentos sau ischemică.",
+          "QT scurt, sindromul de repolarizare precoce; leadless, S-ICD, CRT, ILR; recunoașterea artefactelor."
+        ]
+      },
+      {
+        "h": "COCATS 4, ESC 2020, EHRA 2024",
+        "list": [
+          "**COCATS 4 (Task Force 3):** 3000–3500 de ECG în 36 de luni, 100–200 de Holtere; anexa 4 cere și TA cu bloc, AVNRT „common and uncommon”, disociație izoritmică, BAV de grad înalt, flutter ventricular, DSA secundum și primum, stenoză mitrală, mixedem, efect vs toxicitate digitalică; anexa 3: conducere ascunsă, supranormalitate, parasistolie modulată.",
+          "**ESC 2020:** FiA preexcitată; QRS larg; TV benignă (tract de ejecție, fasciculară) vs periculoasă; canalopatii și testul cu ajmalină; ritmuri de pacemaker; ECG în stopul cardiac și după chirurgia cardiacă; inima de atlet; limitele dispozitivelor de consum.",
+          "**EHRA 2024:** stimularea sistemului de conducere, leadless, S-ICD/EV-ICD; SAECG; teste farmacologice; Andersen-Tawil, FV idiopatică, sarcoidoză, Chagas. [EHRA 2024](https://pmc.ncbi.nlm.nih.gov/articles/PMC11528301)"
+        ]
+      },
+      {
+        "h": "Rezultatele critice",
+        "p": "Nu există o listă de consens a unei societăți. Exemplu documentat (Universitatea din Toledo, 2025): **critic ≤5 min** — STE nouă ≥1 mm în 2 derivații contigue, subdenivelare nouă ≥2 mm, FC <30, TV susținută sau TdP; **Holter ≤1 h** — QRS îngust >150/min >30 s, pauze >3 s, BAV II/III, defect de pacemaker, QRS larg ≥200/min ≥4 bătăi sau ≥160/min ≥20 bătăi; **serios ≤2 h** — FiA/flutter nou, TSV susținută, BAV II de grad înalt. Includerea FiA preexcitate, a hiperkaliemiei, a Brugada tip 1 și a QTc marcat lung e recomandare de expert."
+      },
+      {
+        "p": "Pattern-urile OMI și AI-ECG nu apar încă în niciun curriculum: intră în atlas ca stare a cunoașterii, nu ca cerință."
+      }
+    ],
+    "mols": [],
+    "see": [
+      "ecg-critic",
+      "ecg-metoda"
+    ]
   }
 );
